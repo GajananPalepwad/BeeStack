@@ -1,0 +1,94 @@
+/* Stack container */
+.stack {
+  position: relative;
+  width: 500px;
+  height: 321px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  animation: rotate3D 6s ease-in-out infinite alternate;
+}
+
+/* Common style for each layer */
+.layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  clip-path: url(#roundedDiamond);
+  transition: all 0.8s ease;
+}
+
+/* Depth positioning */
+.layer1 {
+  transform: translateY(0px) translateZ(0px);
+  animation: moveTop 3s ease-in-out infinite alternate;
+}
+.layer2 {
+  transform: translateY(50px) translateZ(-40px);
+}
+.layer3 {
+  transform: translateY(100px) translateZ(-80px);
+  animation: moveBottom 3s ease-in-out infinite alternate;
+}
+
+/* Floating animations */
+@keyframes moveTop {
+  0% {
+    transform: translateY(0px) translateZ(0px);
+  }
+  100% {
+    transform: translateY(-20px) translateZ(20px);
+  }
+}
+
+@keyframes moveBottom {
+  0% {
+    transform: translateY(100px) translateZ(-80px);
+  }
+  100% {
+    transform: translateY(120px) translateZ(-100px);
+  }
+}
+
+/* Overall subtle tilt */
+@keyframes rotate3D {
+  0% {
+    transform: rotateX(10deg) rotateY(-10deg);
+  }
+  100% {
+    transform: rotateX(-10deg) rotateY(10deg);
+  }
+}
+
+/* ---------- Responsive scaling ---------- */
+
+/* Medium screens (tablet) */
+@media (max-width: 1024px) {
+  .stack {
+    width: 311px;
+    height: 200px;
+  }
+}
+
+/* Small screens (mobile landscape) */
+@media (max-width: 768px) {
+  .stack {
+    width: 3233px;
+    height: 150px;
+  }
+}
+
+/* Hide on very small screens (mobile portrait) */
+@media (max-width: 640px) {
+  .stack {
+    display: none;
+  }
+    .stack-container {
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

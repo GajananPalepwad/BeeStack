@@ -1,0 +1,528 @@
+:root {
+  --nav-max-width: 100%;
+  --nav-gutter: clamp(0.75rem, 3.5vw, 2.5rem);
+  --nav-height: 72px;
+  --logo-size-lg: 48px;
+  --logo-size-md: 40px;
+  --logo-size-sm: 36px;
+  --font-lg: 1.125rem;
+  --font-md: 1rem;
+  --font-sm: 0.95rem;
+}
+
+/* Base layout: centered container with responsive gutters */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 var(--nav-gutter);
+  margin-left: 200px;
+  margin-right: 200px;
+  width: min(var(--nav-max-width), 100%);
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: var(--nav-height);
+  background: #F1F4F9;
+  position: fixed;
+  top: 0; /* Added this - CRITICAL for sticky to work */
+  z-index: 1000; /* Added this - keeps navbar above other content */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Optional: adds subtle shadow */
+}
+
+/* brand (logo + name) — keep them left-aligned */
+.logo {
+  width: var(--logo-size-lg);
+  height: var(--logo-size-lg);
+  flex: 0 0 auto;
+  object-fit: contain; /* works if logo is an <img> */
+  display: block;
+}
+
+/* The site na margin-bottom: 2.5rem; /* Add space at bottom so underline doesn't touch carousel */me immediately to the right of logo */
+.navname {
+  margin-left: 0.5rem;
+  font-weight: 700;
+  font-size: var(--font-lg);
+  color: #0b1220;
+  line-height: 1;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* Desktop nav group pushed to the right */
+.nav-items.desktop-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  justify-content: center;
+}
+
+/* desktop link default */
+.nav-items.desktop-nav a,
+.nav-items a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-md);
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove hover effects for touch devices */
+.nav-items.desktop-nav a:hover {
+  background: none;
+}
+
+/* Dropdown styles for desktop */
+.nav-item.has-dropdown {
+  position: relative;
+}
+
+.nav-item.has-dropdown.active .nav-item-button {
+  color: #FCAB1E;
+}
+
+.nav-item-button {
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-md);
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: inherit;
+  height: 100%;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  outline: none;
+}
+
+.nav-item-button:focus,
+.nav-item-button:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+
+.dropdown-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  color: #666;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  min-width: 180px;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: #0b1220;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--font-md);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  outline: none;
+  border: none;
+}
+
+.dropdown-item:focus,
+.dropdown-item:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.dropdown-item:hover {
+  background: none;
+}
+
+.dropdown-item.active {
+  color: #FCAB1E;
+  background: rgba(252, 171, 30, 0.1);
+  font-weight: 600;
+}
+
+.underline{
+    border: 3px solid #FCAB1E;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+/* hide underline by default */
+.nav-item .underline {
+  width: 100%;
+  height: 3px;
+  background: #000;              /* adjust color */
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform 180ms ease, opacity 180ms ease;
+  pointer-events: none;
+  position: absolute;
+  bottom: 0.5rem; /* Position just below text, not at navbar bottom */
+  left: 0;
+}
+
+/* show underline only when .show added or when nav-item has active class */
+.nav-item .underline.show,
+.nav-item.active .underline {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* optional: slightly offset the underline inside the nav-item */
+.nav-item a { 
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 0.5rem; /* Add space below text for underline */
+}
+
+/* responsive adjustments */
+
+/* medium screens: slightly smaller logo and font */
+@media (max-width: 1200px) {
+  .logo { width: calc(var(--logo-size-lg) - 6px); height: calc(var(--logo-size-lg) - 6px); }
+  .navname { font-size: var(--font-md); }
+}
+
+/* tablet: reduce spacing, allow hamburger to appear */
+@media (max-width: 992px) {
+  .navbar { width: min(var(--nav-max-width), 100%); padding: 0 clamp(0.5rem, 3vw, 1.25rem); }
+  .logo { width: var(--logo-size-md); height: var(--logo-size-md); }
+  .navname { font-size: var(--font-md); }
+  .nav-items.desktop-nav { gap: 0.9rem; }
+}
+
+/* Mobile Menu Container */
+.mobile-menu {
+  display: none; /* Hidden by default, shown on mobile */
+  margin-left: auto;
+  position: relative;
+  z-index: 1001;
+}
+
+/* Mobile Navigation Items */
+.mobile-nav-items {
+  position: fixed;
+  top: var(--nav-height);
+  right: 0;
+  left: 0;
+  background: #F1F4F9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem 0;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+  max-height: calc(100vh - var(--nav-height));
+  overflow-y: auto;
+}
+
+.mobile-nav-items.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0.75rem var(--nav-gutter);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  width: 100%;
+  position: relative;
+  text-align: right;
+}
+
+.mobile-nav-item.has-dropdown {
+  position: relative;
+}
+
+.mobile-nav-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav-item a {
+  color: #0b1220;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-md);
+  padding: 0.5rem 0;
+  display: inline-block; /* Changed from block to inline-block so underline fits text */
+  position: relative; /* For positioning the underline */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  text-align: right;
+  outline: none;
+  border: none;
+}
+
+.mobile-nav-item a:focus,
+.mobile-nav-item a:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobile-nav-item a:hover {
+  color: inherit;
+}
+
+.mobile-nav-item.active a {
+  color: #FCAB1E;
+}
+
+/* Mobile dropdown styles */
+.mobile-nav-button {
+  background: none;
+  border: none;
+  color: #0b1220;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-md);
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  text-align: right;
+  cursor: pointer;
+  font-family: inherit;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  outline: none;
+}
+
+.mobile-nav-button:focus,
+.mobile-nav-button:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobile-nav-button:hover {
+  color: inherit;
+}
+
+.mobile-dropdown-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  color: #666;
+  padding-right: 0.5rem;
+}
+
+.mobile-dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.mobile-dropdown-menu {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  margin-right: 0;
+  padding: 0.5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  max-height: none;
+  overflow: visible;
+  border-left: none;
+  text-align: right;
+}
+
+.mobile-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  max-height: none;
+}
+
+.mobile-dropdown-item {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: #0b1220;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--font-md);
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  text-align: right;
+  outline: none;
+  border: none;
+}
+
+.mobile-dropdown-item:focus,
+.mobile-dropdown-item:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.mobile-dropdown-item:hover {
+  background: none;
+  color: inherit;
+}
+
+.mobile-dropdown-item.active {
+  color: #FCAB1E;
+  font-weight: 600;
+  background: rgba(252, 171, 30, 0.1);
+}
+
+.mobile-dropdown-item.active::before {
+  display: none; /* Remove left border for mobile to match desktop */
+}
+
+.mobile-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0; /* 100% of the link's text width */
+  height: 3px;
+  background: #FCAB1E;
+  border-radius: 2px;
+}
+
+/* small screens: compact sizes, brand still left, nav via hamburger */
+@media (max-width: 768px) {
+  .navbar { 
+    height: calc(var(--nav-height) - 8px); 
+    padding: 0 0.75rem; 
+    position: relative;
+  }
+  .logo { width: var(--logo-size-sm); height: var(--logo-size-sm); }
+  
+  /* Hide desktop navigation */
+  .nav-items.desktop-nav {
+    display: none;
+  }
+  
+  /* Show mobile menu */
+  .mobile-menu {
+    display: block;
+  }
+  
+  /* Adjust mobile nav items */
+  .mobile-nav-items {
+    top: calc(var(--nav-height) - 8px);
+  }
+  
+  .mobile-nav-item {
+    padding: 0.75rem clamp(0.75rem, 4vw, 1.5rem);
+  }
+}
+
+/* very small screens: full width nav container */
+@media (max-width: 480px) {
+  .navbar { 
+    width: 100%; 
+    padding: 0 0.5rem; 
+  }
+  
+  .mobile-nav-items {
+    top: calc(var(--nav-height) - 8px);
+    left: 0;
+    right: 0;
+  }
+  
+  .mobile-nav-item {
+    padding: 0.75rem clamp(0.5rem, 3vw, 1rem);
+  }
+  
+  .mobile-nav-item a {
+    font-size: var(--font-sm);
+  }
+}
+
+/* Remove focus outlines for navbar buttons */
+.mobile-menu button:focus,
+.mobile-menu button:active,
+.nav-items a:focus,
+.nav-items a:active,
+.mobile-nav-items a:focus,
+.mobile-nav-items a:active,
+.nav-item-button:focus,
+.nav-item-button:active,
+.mobile-nav-button:focus,
+.mobile-nav-button:active,
+.dropdown-item:focus,
+.dropdown-item:active,
+.mobile-dropdown-item:focus,
+.mobile-dropdown-item:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure hamburger button doesn't have default styles */
+.mobile-menu button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

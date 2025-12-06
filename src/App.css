@@ -1,0 +1,13 @@
+.name {
+  font-family: 'K2D', sans-serif;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F1F4F9;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
