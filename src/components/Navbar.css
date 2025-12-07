@@ -1,6 +1,6 @@
 :root {
   --nav-max-width: 100%;
-  --nav-gutter: clamp(0.75rem, 3.5vw, 2.5rem);
+  --nav-gutter: clamp(0.75rem, 3.5vw, 3.5rem);
   --nav-height: 72px;
   --logo-size-lg: 48px;
   --logo-size-md: 40px;

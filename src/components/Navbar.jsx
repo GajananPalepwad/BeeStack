@@ -72,7 +72,7 @@ const Navbar = () => {
         </Link>
       </div>
       <Link to="/">
-      <div className="navname">BeeStack</div>
+      <div className="navname text-3xl">BeeStack</div>
       </Link>
 
       {/* Desktop Navigation */}

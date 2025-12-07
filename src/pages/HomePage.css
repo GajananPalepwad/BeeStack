@@ -65,8 +65,8 @@ body,
 
 h5 {
   color: #fff;
-  display: inline-block;
-  padding: 0.6rem 1rem;
+  display: inline-block;;
+  padding: 1rem;
   border-radius: 3.125rem;
   font-size: clamp(0.9rem, 2.6vw, 1.1rem);
 
@@ -156,7 +156,7 @@ h2 {
 .left {
   width: 100%;
   max-width: 1080px;
-  padding: clamp(1rem, 5vw, 3.5rem) 0 clamp(1rem, 4vw, 2.5rem) 0;
+  padding: clamp(1rem, 8vw, 7.5rem) 0 clamp(1rem, 5vw, 5.5rem) 0;
   padding-left: var(--content-pad);
   display: flex;
   flex-direction: column;
@@ -184,7 +184,7 @@ h2 {
 }
 
 :root {
-  --content-pad: 11vw;
+  --content-pad: 4vw;
 }
 
 .whatwedo {
@@ -284,7 +284,7 @@ h2 {
 }
 
 .form{
-  width: 90%;
+  width: 98.5%;
   margin: auto;
 }
 

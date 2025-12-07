@@ -117,12 +117,12 @@ function ReviewSlider() {
   ];
 
   return (
-    <div className="slider-container py-10 m-0">
+    <div className="slider-container pb-10 m-0">
       <Slider {...settings}>
         {reviews.map((review, i) => (
           <div
             key={i}
-            className="h-fit w-full flex justify-center items-center px-2 transition-transform duration-500"
+            className="h-fit w-full flex justify-center items-center px-2 py-8 transition-transform duration-500"
           >
             <section className="reviewbg rounded-3xl shadow-lg p-6">
               <div className="max-w-screen-md mx-auto text-center">
