@@ -61,7 +61,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="whatwedo justify-center">
+        <div className="whatwedo justify-left pl-14">
           <div className="headingHP">WHAT WE DO</div>
         </div>
 
@@ -77,7 +77,7 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className="testimonial-heading whatwedo justify-center">
+        <div className="testimonial-heading whatwedo justify-left pl-14">
           <div className="headingHP ">TESTIMONIALS</div>
         </div>
         <ReviewSLider />

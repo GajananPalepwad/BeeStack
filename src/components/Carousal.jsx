@@ -60,7 +60,7 @@ export default function AnimatedGradient() {
         height: "",
         margin: 0,
         display: "block",
-        overflow: "hidden",
+        overflow: "hidden",        
       }}
     />
   );
