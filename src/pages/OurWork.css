@@ -37,7 +37,7 @@
 .container::before {
     content: '';
     position: absolute;
-    left: 40%;
+    left: 28%;
     top: 0;
     bottom: 0;
     width: 2px;
@@ -58,7 +58,7 @@
         rgba(247, 184, 68, 0.7) 40%, 
         rgba(236, 236, 236, 0) 60%
     );
-    padding: 60px 40px;
+    padding: 30px 20px 0px 40px;
     position: sticky;
     height: fit-content;
     min-height: 80vh;
