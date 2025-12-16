@@ -1,7 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "./ReviewSlider.css";
 
@@ -12,50 +11,64 @@ function ReviewSlider() {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 1000,
+    speed: 800,
     autoplaySpeed: 3000,
     cssEase: "ease-in-out",
     centerMode: true,
     centerPadding: "60px",
+
     responsive: [
       {
-        breakpoint: 1280, // large tablets / small laptops
-        settings: { slidesToShow: 2, centerPadding: "50px" },
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          centerPadding: "30px",
+        },
       },
       {
-        breakpoint: 1024, // tablets
-        settings: { slidesToShow: 2, centerPadding: "40px" },
-      },
-      {
-        breakpoint: 768, // large phones
-        settings: { slidesToShow: 1, centerMode: true, centerPadding: "20px" },
-      },
-      {
-        breakpoint: 480, // small phones
-        settings: { slidesToShow: 1, centerMode: false, centerPadding: "0px" },
+        breakpoint: 768, // 📱 Mobile
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false, // ❌ disable center mode
+          centerPadding: "0px",
+          arrows: false, // optional (better UX)
+        },
       },
     ],
   };
 
-  useEffect(() => {
-    function updateSliderColumns() {
-      const track = document.querySelector(".slider-track");
-      if (!track) return;
+  // useEffect(() => {
+  //   function updateSliderColumns() {
+  //     const track = document.querySelector(".slider-track"); // ❌ wrong
+  //     if (!track) return;
 
-      if (window.innerWidth <= 768) {
-        track.style.gridAutoColumns = "100%";
-      } else if (window.innerWidth <= 992) {
-        track.style.gridAutoColumns = "50%";
-      } else {
-        track.style.gridAutoColumns = "calc(100% / 3)";
-      }
-    }
+  //     if (window.innerWidth <= 768) {
+  //       track.style.gridAutoColumns = "100%";
+  //     } else if (window.innerWidth <= 992) {
+  //       track.style.gridAutoColumns = "50%";
+  //     } else {
+  //       track.style.gridAutoColumns = "calc(100% / 3)";
+  //     }
+  //   }
 
-    updateSliderColumns(); // run on load
-    window.addEventListener("resize", updateSliderColumns);
+  //   updateSliderColumns();
+  //   window.addEventListener("resize", updateSliderColumns);
 
-    return () => window.removeEventListener("resize", updateSliderColumns);
-  }, []);
+  //   return () => window.removeEventListener("resize", updateSliderColumns);
+  // }, []);
+
+  const [sliderKey, setSliderKey] = useState(0);
+
+useEffect(() => {
+  const handleResize = () => {
+    setSliderKey((k) => k + 1); // force re-mount
+  };
+
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
 
   const reviews = [
     {
@@ -118,14 +131,14 @@ function ReviewSlider() {
 
   return (
     <div className="slider-container pb-10 m-0">
-      <Slider {...settings}>
+      <Slider key={sliderKey} {...settings}>
         {reviews.map((review, i) => (
           <div
             key={i}
-            className="h-fit w-full flex justify-center items-center px-2 py-8 transition-transform duration-500"
+            className="h-fit w-full flex justify-center items-center py-8 md:px-2 transition-transform duration-500"
           >
-            <section className="reviewbg rounded-3xl shadow-lg p-6">
-              <div className="max-w-screen-md mx-auto text-center">
+            <section className="reviewbg rounded-3xl shadow-lg p-6 md:p-8">
+              <div className="w-full md:max-w-screen-md mx-auto text-center">
                 <figure>
                   <svg
                     className="h-10 mx-auto mb-3 text-black"
@@ -201,19 +214,30 @@ function ReviewSlider() {
       {/* Center zoom and fade effect */}
       <style>
         {`
-          .slick-slide {
-            opacity: 0.8;
-            transform: scale(0.9);
-            transition: all 0.5s ease;
-          }
-          .slick-center {
-            opacity: 1;
-            transform: scale(1.1);
-          }
-          .slick-slide > div {
-            padding: 0 10px;
-          }
-        `}
+  .slick-slide {
+    opacity: 0.7;
+    transform: scale(0.9);
+    transition: all 0.4s ease;
+  }
+
+  .slick-center {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* 📱 Mobile fix */
+  @media (max-width: 768px) {
+    .slick-slide,
+    .slick-center {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .slick-slide > div {
+    padding: 0 8px;
+  }
+`}
       </style>
     </div>
   );

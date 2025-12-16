@@ -1,37 +1,36 @@
-.reviewbg{
-    background-color: #bbd4c5;
+.reviewbg {
+  background-color: #bbd4c5;
 }
 
+/* Desktop + Tablet center effect */
 .slick-slide {
   opacity: 0.7;
   transform: scale(0.9);
   transition: all 0.5s ease;
 }
+
 .slick-center {
   opacity: 1;
-  transform: scale(1.05); /* reduced from 1.1 */
+  transform: scale(1.05);
 }
 
-/* Mobile fix */
-@media (max-width: 640px) {
+/* 📱 Mobile: no scaling, no fade */
+@media (max-width: 768px) {
   .slick-slide,
   .slick-center {
-    transform: scale(1); /* No zoom on mobile */
+    transform: scale(1);
     opacity: 1;
   }
 }
 
-
-/* TABLET: 2 slides */
-@media (max-width: 992px) {
-  .slider-track {
-    grid-auto-columns: 50% !important;
-  }
+.slick-list {
+  overflow: hidden;
 }
 
-/* MOBILE: 1 slide */
-@media (max-width: 768px) {
-  .slider-track {
-    grid-auto-columns: 100% !important;
-  }
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: auto;
 }
