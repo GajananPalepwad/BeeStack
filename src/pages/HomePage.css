@@ -190,7 +190,7 @@ h2 {
 .whatwedo {
   display: flex;
   align-items: center;
-
+  justify-content: center;
   width: 100%;
   box-sizing: border-box;
   overflow-y: hidden;
@@ -298,9 +298,6 @@ h2 {
 }
 
 @media (max-width: 1024px) {
-  .form{
-    flex-direction: column;
-  }
   .headingFF{
     padding-top: 16px;
   }
@@ -338,6 +335,9 @@ h2 {
   }
   .quote {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+  .form{
+    flex-direction: column;
   }
 }
 

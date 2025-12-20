@@ -234,3 +234,9 @@
     box-sizing: border-box;
   }
 }
+
+@media (max-width:320px) {
+  .contact-section, .contact-form{
+    height: 400px !important;
+  }
+}

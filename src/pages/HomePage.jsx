@@ -74,7 +74,7 @@ const HomePage = () => {
               </button>
             </div>
           </div>
-          <div className="right flex items-center">
+          <div className="right flex items-center w-1/2">
             <Stack />
           </div>
         </div>

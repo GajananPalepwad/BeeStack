@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "./ReviewSlider.css";
 
@@ -22,7 +22,7 @@ function ReviewSlider() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          centerPadding: "30px",
+          centerMode: false, // ✅ Disable center mode for 2 slides
         },
       },
       {
@@ -30,47 +30,14 @@ function ReviewSlider() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false, // ❌ disable center mode
-          centerPadding: "0px",
-          arrows: false, // optional (better UX)
+          centerMode: false,
+          arrows: false,
         },
       },
     ],
   };
 
-  // useEffect(() => {
-  //   function updateSliderColumns() {
-  //     const track = document.querySelector(".slider-track"); // ❌ wrong
-  //     if (!track) return;
-
-  //     if (window.innerWidth <= 768) {
-  //       track.style.gridAutoColumns = "100%";
-  //     } else if (window.innerWidth <= 992) {
-  //       track.style.gridAutoColumns = "50%";
-  //     } else {
-  //       track.style.gridAutoColumns = "calc(100% / 3)";
-  //     }
-  //   }
-
-  //   updateSliderColumns();
-  //   window.addEventListener("resize", updateSliderColumns);
-
-  //   return () => window.removeEventListener("resize", updateSliderColumns);
-  // }, []);
-
-  const [sliderKey, setSliderKey] = useState(0);
-
-useEffect(() => {
-  const handleResize = () => {
-    setSliderKey((k) => k + 1); // force re-mount
-  };
-
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-
-
-  const reviews = [
+   const reviews = [
     {
       name: "Akshit Tupkar",
       text: "“The professionalism and technical depth at BeeStack are unmatched. We felt like they were part of our own team.”",
@@ -130,16 +97,13 @@ useEffect(() => {
   ];
 
   return (
-    <div className="slider-container pb-10 m-0">
-      <Slider key={sliderKey} {...settings}>
+    <div className="w-full h-full slider-container pb-10 m-0">
+      <Slider {...settings}>
         {reviews.map((review, i) => (
-          <div
-            key={i}
-            className="h-fit w-full flex justify-center items-center py-8 md:px-2 transition-transform duration-500"
-          >
+          <div key={i} className="h-full">
             <section className="reviewbg rounded-3xl shadow-lg p-6 md:p-8">
-              <div className="w-full md:max-w-screen-md mx-auto text-center">
-                <figure>
+              <div className="w-full mx-auto text-center flex flex-col h-full">
+                <figure className="flex flex-col h-full">
                   <svg
                     className="h-10 mx-auto mb-3 text-black"
                     viewBox="0 0 24 27"
@@ -155,7 +119,7 @@ useEffect(() => {
                     ></path>
                   </svg>
 
-                  <blockquote>
+                  <blockquote className="flex-grow">
                     <p className="text-lg md:text-xl font-medium text-gray-900">
                       {review.text}
                     </p>
@@ -195,11 +159,11 @@ useEffect(() => {
                       src={review.img}
                       alt={review.name}
                     />
-                    <div className="flex items-center divide-x-2 divide-gray-500">
-                      <div className="pr-3 font-medium text-gray-900">
+                    <div className="flex flex-col items-center text-sm md:flex-row md:divide-x-2 md:divide-gray-500">
+                      <div className="px-3 font-medium text-gray-900">
                         {review.name}
                       </div>
-                      <div className="pl-3 text-sm font-light text-gray-500">
+                      <div className="px-3 font-light text-gray-500">
                         {review.role}
                       </div>
                     </div>
@@ -210,35 +174,6 @@ useEffect(() => {
           </div>
         ))}
       </Slider>
-
-      {/* Center zoom and fade effect */}
-      <style>
-        {`
-  .slick-slide {
-    opacity: 0.7;
-    transform: scale(0.9);
-    transition: all 0.4s ease;
-  }
-
-  .slick-center {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-
-  /* 📱 Mobile fix */
-  @media (max-width: 768px) {
-    .slick-slide,
-    .slick-center {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  .slick-slide > div {
-    padding: 0 8px;
-  }
-`}
-      </style>
     </div>
   );
 }

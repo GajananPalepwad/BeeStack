@@ -33,12 +33,13 @@ export default function Form() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="contact-form"
+        className="contact-form w-full"
         noValidate
       >
-        <label>
+        <label className="flex items-start ml-2 w-full">
           Email
-          <input
+        </label>
+        <input
             type="email"
             placeholder="you@example.com"
             {...register("email", {
@@ -49,29 +50,28 @@ export default function Form() {
               },
             })}
           />
-        </label>
         {errors.email && <div className="error">{errors.email.message}</div>}
 
-        <label>
+        <label className="flex items-start ml-2 w-full">
           Subject
-          <input
+        </label>
+         <input
             type="text"
             placeholder="Subject"
             {...register("subject", { required: "Subject is required" })}
           />
-        </label>
         {errors.subject && (
           <div className="error">{errors.subject.message}</div>
         )}
 
-        <label>
+        <label className="flex items-start ml-2 w-full">
           Message
-          <textarea
+        </label>
+        <textarea
             placeholder="Write your message..."
             rows={6}
             {...register("message", { required: "Message is required" })}
           />
-        </label>
         {errors.message && (
           <div className="error">{errors.message.message}</div>
         )}

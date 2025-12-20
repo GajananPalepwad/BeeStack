@@ -76,7 +76,7 @@
 /* Small screens (mobile landscape) */
 @media (max-width: 768px) {
   .stack {
-    width: 3233px;
+    width: 350px;
     height: 150px;
   }
 }
