@@ -33,7 +33,7 @@ export default function Form() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="contact-form w-full"
+        className="contact-form scale-95"
         noValidate
       >
         <label className="flex items-start ml-2 w-full">

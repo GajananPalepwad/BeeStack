@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import AnimatedGradient from "../components/Carousal";
 import Stack from "../components/Stack";
 import Form from "../components/Form";
-import ReviewSLider from "../components/ReviewSlider";
+import ReviewSlider from "../components/ReviewSlider";
 import React, { useRef } from "react";
 
 const HomePage = () => {
@@ -97,14 +97,14 @@ const HomePage = () => {
         <div className="testimonial-heading whatwedo justify-left pl-4 md:pl-14">
           <div className="headingHP">TESTIMONIALS</div>
         </div>
-        <ReviewSLider />
+        <ReviewSlider />
         {/* <TestimonialSlider /> */}
-        <div className="form flex flex-row" ref={formRef}>
-          <div className="whatwedo flex flex-col items-center justify-start gap-4">
-            <h2 className="headingFF pl-28 pt-24 whitespace-nowrap">
-              Say Hello!
+        <div className="form flex flex-col md:flex-row justify-center items-center" ref={formRef}>
+          <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4">
+            <h2 className="headingFF text-end md:text-left pt-10 whitespace-nowrap">
+              Say Hello! 
             </h2>
-            <p className="text-center">
+            <p className="text-center md:text-left">
               We'd love to hear about your project. Drop us a message.
             </p>
           </div>
