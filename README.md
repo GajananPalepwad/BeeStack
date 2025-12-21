@@ -1,2 +1,2 @@
 # BeeStack
-Parent website for BeeStack Software Lab 
+Parent website for BeeStack Software Lab
