@@ -3,42 +3,42 @@
     "name": "Student & Learning Management Systems",
     "description": "Manage student records, performance, classes, and content.",
     "photo": "/images/hat.svg",
-    "hoverColor": "rgba(108, 122, 137, 1)",
-    "whichColorIsIt": "pink glow"
+    "hoverColor": "rgba(50, 205, 50, 0.6)",
+    "whichColorIsIt": "lime glow"
   },
   {
     "name": "Online Examination Platforms",
     "description": "Create secure and scalable online test systems with automated evaluation, proctoring, and real-time performance analytics.",
     "photo": "/images/notebook.png",
-    "hoverColor": "rgba(255, 215, 97, 0.48)",
+    "hoverColor": "rgba(255, 250, 150, 0.6)",
     "whichColorIsIt": "yellow glow"
   },
   {
     "name": "Security Management Systems",
     "description": "Develop smart access control, surveillance monitoring, and digital security solutions to safeguard institutions and workplaces.",
     "photo": "/images/lock.png",
-    "hoverColor": "rgba(91, 130, 197, 0.88)",
+    "hoverColor": "rgba(0, 191, 255, 0.6)",
     "whichColorIsIt": "dark blue glow"
   },
   {
     "name": "Campus Automation Systems",
     "description": "Automate administrative workflows such as attendance, scheduling, fee management, and campus communication.",
     "photo": "/images/campus.png",
-    "hoverColor": "rgba(72, 201, 176, 0.5)",
+    "hoverColor": "rgba(20, 240, 220, 0.6)",
     "whichColorIsIt": "teal glow"
   },
   {
     "name": "Library & Resource Management Systems",
     "description": "Digitize library operations with smart cataloging, book tracking, e-resources, and user activity monitoring.",
     "photo": "/images/library.png",
-    "hoverColor": "rgba(166, 145, 92, 1)",
+    "hoverColor": "rgba(220, 180, 255, 0.7)",
     "whichColorIsIt": "purple glow"
   },
   {
     "name": "ERP Solutions for Institutes",
     "description": "Provide end-to-end enterprise resource planning tools for finance, HR, inventory, academics, and campus analytics.",
     "photo": "/images/erp.png",
-    "hoverColor": "rgba(155, 89, 182, 0.5)",
+    "hoverColor": "rgba(255, 87, 51, 0.6)",
     "whichColorIsIt": "red glow"
   }
 ]

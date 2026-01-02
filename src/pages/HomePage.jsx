@@ -99,16 +99,26 @@ const HomePage = () => {
         </div>
         <ReviewSlider />
         {/* <TestimonialSlider /> */}
-        <div className="form flex flex-col md:flex-row justify-center items-center" ref={formRef}>
-          <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4">
-            <h2 className="headingFF text-end md:text-left pt-10 whitespace-nowrap">
-              Say Hello! 
-            </h2>
-            <p className="text-center md:text-left">
-              We'd love to hear about your project. Drop us a message.
-            </p>
+        <div className="form flex justify-center items-center w-full px-4" ref={formRef}>
+          <div className="flex flex-col md:flex-row justify-center items-stretch w-full max-w-7xl 2xl:max-w-[1530px] gap-8 2xl:gap-16">
+            
+            {/* Left Side: "Say Hello!" */}
+            <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4 md:w-1/3 2xl:w-1/2 pt-10">
+              <h2 className="headingFF text-center md:text-left whitespace-nowrap">
+                Say Hello!
+              </h2>
+              <p className="text-center md:text-left">
+                We'd love to hear about your project. Drop us a message.
+              </p>
+              <img src="./logo.png" alt="mail icon" className="hidden lg:block w-12 h-12 xl:w-14 xl:h-14" />
+            </div>
+
+            {/* Right Side: Form */}
+            <div className="flex justify-center md:w-2/3 2xl:w-1/2">
+              <Form />
+            </div>
+
           </div>
-          <Form />
         </div>
 
         <Footer />
