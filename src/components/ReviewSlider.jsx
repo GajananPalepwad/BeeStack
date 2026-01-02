@@ -1,11 +1,26 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "./ReviewSlider.css";
 
 function ReviewSlider() {
-  const settings = {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIsMobile(); // Check on initial render
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIsMobile);
+    };
+  }, []);
+
+  const desktopSettings = {
     dots: true,
     infinite: true,
     slidesToShow: 3,
@@ -16,32 +31,31 @@ function ReviewSlider() {
     cssEase: "ease-in-out",
     centerMode: true,
     centerPadding: "60px",
-
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          centerMode: false, // ✅ Disable center mode for 2 slides
-        },
-      },
-      {
-        breakpoint: 768, // 📱 Mobile
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
           centerMode: false,
-          arrows: false,
         },
       },
     ],
   };
 
-  useEffect(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, []);
+  const mobileSettings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 800,
+    autoplaySpeed: 3000,
+    cssEase: "ease-in-out",
+    centerMode: false,
+    arrows: false,
+  };
 
-   const reviews = [
+  const reviews = [
     {
       name: "Akshit Tupkar",
       text: "“The professionalism and technical depth at BeeStack are unmatched. We felt like they were part of our own team.”",
@@ -102,7 +116,7 @@ function ReviewSlider() {
 
   return (
     <div className="w-full h-full slider-container pb-10 m-0">
-      <Slider {...settings}>
+      <Slider {...(isMobile ? mobileSettings : desktopSettings)}>
         {reviews.map((review, i) => (
           <div key={i} className="h-full">
             <section className="reviewbg rounded-3xl shadow-lg p-6 md:p-8">
