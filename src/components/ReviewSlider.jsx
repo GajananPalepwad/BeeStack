@@ -177,7 +177,7 @@ function ReviewSlider() {
                       src={review.img}
                       alt={review.name}
                     />
-                    <div className="flex flex-col items-center text-sm md:flex-row md:divide-x-2 md:divide-gray-500">
+                    <div className="flex flex-row items-center text-sm md:flex-row md:divide-x-2 md:divide-gray-500">
                       <div className="px-3 font-medium text-gray-900">
                         {review.name}
                       </div>

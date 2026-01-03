@@ -64,12 +64,16 @@ const HomePage = () => {
                 <b>Get A Free Consultation</b>
               </button>
 
-              <button type="button" className="btn services" onClick={() =>
+              <button
+                type="button"
+                className="btn services"
+                onClick={() =>
                   servicesRef.current?.scrollIntoView({
                     behavior: "smooth",
                     block: "start",
                   })
-                }>
+                }
+              >
                 <b>Our Services</b>
               </button>
             </div>
@@ -78,7 +82,10 @@ const HomePage = () => {
             <Stack />
           </div>
         </div>
-        <div className="testimonial-heading whatwedo justify-left pl-4 md:pl-14" ref ={servicesRef}>
+        <div
+          className="testimonial-heading whatwedo justify-left pl-4 md:pl-14"
+          ref={servicesRef}
+        >
           <div className="headingHP">WHAT WE DO</div>
         </div>
 
@@ -99,25 +106,30 @@ const HomePage = () => {
         </div>
         <ReviewSlider />
         {/* <TestimonialSlider /> */}
-        <div className="form flex justify-center items-center w-full px-4" ref={formRef}>
+        <div
+          className="form flex justify-center items-center w-full px-4"
+          ref={formRef}
+        >
           <div className="flex flex-col md:flex-row justify-center items-stretch w-full max-w-7xl 2xl:max-w-[1530px] gap-8 2xl:gap-16">
-            
-            {/* Left Side: "Say Hello!" */}
-            <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4 md:w-1/3 2xl:w-1/2 pt-10">
+            {/* Left */}
+            <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4 flex-1">
+            <img
+                src="./logo.png"
+                alt="mail icon"
+                className="hidden lg:block w-16 xl:w-28 h-auto"
+                />
               <h2 className="headingFF text-center md:text-left whitespace-nowrap">
                 Say Hello!
               </h2>
-              <p className="text-center md:text-left">
+              <p className="text-center md:text-center">
                 We'd love to hear about your project. Drop us a message.
               </p>
-              <img src="./logo.png" alt="mail icon" className="hidden lg:block w-12 h-12 xl:w-14 xl:h-14" />
             </div>
 
-            {/* Right Side: Form */}
-            <div className="flex justify-center md:w-2/3 2xl:w-1/2">
+            {/* Right */}
+            <div className="flex justify-center flex-1">
               <Form />
             </div>
-
           </div>
         </div>
 

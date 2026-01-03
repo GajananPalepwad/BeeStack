@@ -79,6 +79,29 @@
   font-size: clamp(0.95rem, 1.8vw, 1.25rem);
 }
 
+@media (min-width: 1024px) and (max-width: 1500px) {
+  .card-details h3 {
+    font-size: 1.25rem;     /* stable desktop size */
+    line-height: 1.25;
+  }
+
+  .card-details p {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .card {
+    aspect-ratio: 4 / 4;
+  }
+}
+
+
+@media (min-width: 1190px) and (max-width: 1482px) {
+  .card {
+    aspect-ratio: 4 / 3;
+  }
+}
+
 /* Responsive adjustments: keep same aspect-ratio but adapt grid/spacing */
 @media (max-width: 1024px) {
   .card-grid {
@@ -124,8 +147,8 @@
   .card-photo {
     grid-column: 2; /* a12 - top right */
     grid-row: 1;
-    width: 100%;
-    max-width: 100%;
+    width: 50%;
+    max-width: 50%;
     max-height: clamp(4rem, 18vw, 7rem); /* Increased size significantly */
     height: auto;
     padding: 0;
