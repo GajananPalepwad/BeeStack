@@ -19,7 +19,6 @@
 
 .container {
     display: flex;
-    min-height: 100vh;
     gap: 60px;
     position: relative;
     padding-left: var(--content-pad);
@@ -67,7 +66,6 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom: none;
-    text-align: ;
 }
 
 .sidebar h2 {
@@ -108,7 +106,6 @@
 
 .main-content {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     flex: 1;
     padding: 60px 80px 60px 60px;

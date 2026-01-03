@@ -20,7 +20,7 @@ const Location = () => {
             </li>
           </ul>
         </aside>
-        <main className="HT">
+        <main className="main-content HT">
           <p className="tagline">
             <b>Feel free to contact us.</b>
           </p>
