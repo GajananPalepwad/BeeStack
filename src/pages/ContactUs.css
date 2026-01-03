@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.headingContactus {
+.headingWork {
     padding-left: var(--content-pad);
     margin: 0;
     font-size: clamp(2rem, 6vw, 4rem);
@@ -13,25 +13,147 @@
     font-family: 'K2D', sans-serif;
     line-height: 1;
     max-width: 1080px;
-    width: 100%;
-    /* protect from being moved/hidden by other negative transforms */
-    position: relative;
-    z-index: 10;
-
-    /* leave gap for fixed navbar (fallback 72px if --nav-height not set) */
-    padding-top: calc(var(--nav-height, 72px) + 0.6rem);
-
-    /* override accidental translations */
-    transform: none !important;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
 }
 
-/* fix possible typo: if your page wrapper is .contact-us or .contactpage,
-   ensure this selector matches your markup. If your wrapper class is .contact-us,
-   replace .contactuss below with the correct class name. */
-.contactuss .section-title {
-    /* avoid pulling section titles upward too much */
-    transform: none;
-    margin-top: 0.5rem;
+.container {
+    display: flex;
+    gap: 60px;
+    position: relative;
+    padding-left: var(--content-pad);
+    max-width: 1540px;
+}
+
+.devices-container{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
+
+/* Vertical line between sidebar and main content */
+.container::before {
+    content: '';
+    position: absolute;
+    left: 28%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, 
+        #BBBBBC 0%,
+        #bbbbbcd3 60%,
+        #bbbbbc75 90%,
+        #bbbbbc09 100%
+    );
+    z-index: 1;
+}
+
+.sidebar {
+    width: 19vw;
+    background: linear-gradient(to bottom, 
+        #f5a623 0%, 
+        #f7b844 20%, 
+        rgba(247, 184, 68, 0.7) 40%, 
+        rgba(236, 236, 236, 0) 60%
+    );
+    padding: 30px 20px 0px 40px;
+    position: sticky;
+    height: fit-content;
+    min-height: 80vh;
+    align-self: flex-start;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: none;
+}
+
+.sidebar h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #000;
+}
+
+.sidebar ul {
+    list-style:circle;
+    list-style-type: disc;
+    display: inline-block; /* allows centering the whole ul */
+    text-align: left;      /* keeps bullets/text aligned inside */
+    list-style-position: outside; /* keeps clean bullet alignment */
+}
+
+.sidebar li {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #000;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.highlighted{
+    font-weight:bolder;
+}
+
+.unhighlighted {
+    font-weight: bolder;
+    opacity: 0.5;
+}
+
+.sidebar li:hover {
+    opacity: 1;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 60px 80px 60px 60px;
+    background-color: transparent;
+    /* changed: ensure children are left-aligned horizontally */
+    align-items: flex-start;
+}
+
+.email-link {
+    color: #2563eb; /* blue */
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .email-link:hover {
+    color: #1d4ed8; /* darker blue on hover */
+  }
+  
+
+.tagline {
+    font-size: 24px;
+    color: #374151;
+    margin-bottom: 15px;
+}
+
+.HT h1 {
+    font-size: 3rem;
+    color: #0d7377;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.section {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 22px;
+    color: #000;
+    margin-bottom: 25px;
+    font-weight: 600;
+    display: flex;
+    /* changed: use valid flex alignment and ensure left alignment */
+   /* vertical centering of icon + text */
+
+    gap: 10px;
+    width: 100%;
+    text-align: left;
 }
 
 .icon {
@@ -41,95 +163,183 @@
     object-fit: contain;
 }
 
-/* lower the inline icon slightly so it sits visually aligned with the text */
-.section-title img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    margin-right: 0.35rem; /* small gap; overall block is centered */
-    transform: translateY(3px);
-    display: inline-block;
+.section p {
+    font-size: 22px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 15px;
 }
 
-.mails{
-    font-size: 18px;
-    line-height: 2.5rem;
-    margin: 0 auto 0.5rem;   /* center block and keep bottom spacing */
-    max-width: 1080px;
-    text-align:left;      /* center the mail text */
-    transform: translateY(-6px);
-    transition: transform 140ms ease;
+.colorhover{
+    color: #0d7377;
 }
 
-/* bring map closer to the Location block and stack map + address in one column */
-.map {
-    display: flex;
-    flex-direction: column;
-    align-items: center;     /* center map + address horizontally */
-    justify-content: flex-start;
-    gap: 0.75rem;
-    margin: 0.25rem auto 0;
-    transform: translateY(-10px);
-    transition: transform 160ms ease;
-    width: 100%;
-    max-width: 480px;
-}
-
-/* keep iframe full-width of the column but capped */
-.gmap {
-    display: block;
-    width: 100%;
-    max-width: 360px;
-    aspect-ratio: 16 / 9;
-    height: auto;
-    border: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-/* address stacked under the map, centered */
-.address {
-    width: 100%;
-    max-width: 360px;
-    margin: 0;
-    text-align: left;      /* center address */
-    padding: 0.4rem 0;
-    align-self: center;
-    transform: translateY(-8px);
-    transition: transform 160ms ease;
-}
-
-
-/* revert/soften lifts on small screens to avoid overlap */
-@media (max-width: 480px) {
-    .section-title,
-    .mails,
-    .map,
-    .address {
-        transform: none;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-        text-align: center;
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+        padding: 40px 30px;
+        top: -40px;
+    }
+    
+    .container::before {
+        left: calc(250px + 20px); /* Adjusted for smaller sidebar and gap */
+    }
+    
+    .container {
+        gap: 40px;
+    }
+    
+    .main-content {
+        padding: 40px 50px 40px 0;
+    }
+    
+    h1 {
+        font-size: 42px;
     }
 }
 
-/* responsive: keep the single-column layout and adjust widths */
 @media (max-width: 768px) {
-    .map {
-        gap: 0.6rem;
-        max-width: 92%;
+    .container {
+        flex-direction: column;
+        gap: 0;
+        padding-left: clamp(0.75rem, 4vw, 1rem);
+        padding-right: clamp(0.75rem, 4vw, 1rem);
     }
-    .gmap, .address {
-        max-width: 100%;
+    
+    .container::before {
+        display: none; /* Hide vertical line on mobile */
     }
-    .headingContactus{
+    
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        min-height: 0 !important; /* Override desktop min-height: 80vh */
+        max-height: none; /* Remove any max-height constraints */
+        padding: 0;
+        background: transparent;
+        top: 0;
+        border: none;
+        margin-bottom: clamp(1rem, 3vw, 1.5rem); /* Reduced margin */
+        align-self: flex-start; /* Only take space needed */
+        flex-shrink: 0; /* Don't shrink */
+    }
+    
+    .sidebar ul {
         display: flex;
         flex-direction: row;
-        justify-content: center;
-        padding: 2rem 2rem;
+        list-style: none;
+        background: linear-gradient(to right, 
+            #FCAB1E 0%, 
+            #f7b844 25%, 
+            rgba(247, 184, 68, 0.6) 50%,
+            rgba(247, 184, 68, 0.3) 75%,
+            rgba(247, 184, 68, 0.1) 100%
+        );
+        border-radius: 999px; /* Pill shape */
+        padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1.5rem);
+        gap: clamp(0.5rem, 2vw, 1rem);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        margin: 0; /* Remove any default margins */
+        width: 100%; /* Ensure it takes full width */
+        box-sizing: border-box;
     }
-    .mails{
-        padding: 2rem 2rem;
+    
+    .sidebar ul::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+    
+    .sidebar li {
+        font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+        margin: 0; /* Remove all margins */
+        margin-bottom: 0;
+        white-space: nowrap;
+        flex-shrink: 0;
+        position: relative;
+        line-height: 1.2; /* Tighter line height */
+    }
+    
+    .sidebar li a {
+        display: block;
+        padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1.25rem);
+        border-radius: 999px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        line-height: 1.2; /* Tighter line height */
+        margin: 0; /* Remove any margins */
+    }
+    
+    .sidebar li.highlighted {
+        opacity: 1;
+        font-weight: 700;
+    }
+    
+    .sidebar li.highlighted a {
+        background: #FCAB1E;
+        color: #000;
+        box-shadow: 0 2px 8px rgba(252, 171, 30, 0.3);
+    }
+    
+    .sidebar li.unhighlighted {
+        opacity: 0.6;
+        font-weight: 600;
+    }
+    
+    .sidebar li.unhighlighted a {
+        color: rgba(0, 0, 0, 0.7);
+        background: transparent;
+    }
+    
+    .sidebar li:hover {
+        opacity: 1;
+    }
+    
+    .sidebar li.unhighlighted:hover a {
+        background: rgba(252, 171, 30, 0.2);
+        color: #000;
+    }
+    
+    .main-content {
+        padding: 30px 0;
+    }
+    
+    h1 {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        margin-bottom: 40px;
+    }
+    
+    .section-title {
+        font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    }
+    
+    .section p {
+        font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+    }
+
+    .headingWork{
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar ul {
+        padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.5rem, 2.5vw, 1rem);
+        gap: clamp(0.4rem, 1.5vw, 0.75rem);
+    }
+    
+    .sidebar li {
+        font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+    }
+    
+    .sidebar li a {
+        padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.6rem, 2.5vw, 1rem);
+    }
+
+    .heading{
+        text-align: center;
     }
 }
