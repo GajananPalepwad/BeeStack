@@ -8,7 +8,7 @@
     font-size: clamp(0.9rem, 1.2vw, 1.05rem);
     color: #000;
     border-top: 0.1875rem solid #BBBBBC; /* ~3px, relative */
-    width: min(90%, 85rem);
+    width: min(95%, 120rem);
     margin: 0 auto; 
   }
   

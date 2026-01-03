@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer">
   <div className="footer-left">
-    Copyright © 2025 BeeStack. All Rights Reserved.
+    Copyright © 2026 BeeStack. All Rights Reserved.
   </div>
 
   <div className="footer-links">
