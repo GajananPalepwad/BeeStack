@@ -51,7 +51,7 @@ const CurrentOpenings = () => {
           </div>
           <div className="section">
             <p>If you’re experienced in creating and shipping high-performance applications — mobile or web — we’d love to hear from you.<br/>
-            📩 How to Apply:<br/>Send your resume to <u><a href="careers@beestack.com">careers@beestack.com</a></u></p>
+            📩 How to Apply:<br/>Send your resume to <u><a href="hr@beestack.in">hr@beestack.in</a></u></p>
           </div>
         </main>
       </div>

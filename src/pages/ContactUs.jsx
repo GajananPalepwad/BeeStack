@@ -21,15 +21,15 @@ const ContactUs = () => {
         <ul>
           <li>
             For project and business inquiries, please email us at{" "}
-            <u>business@beestack.com</u>
+            <u>business@beestack.in</u>
           </li>
           <li>
             For Career related inquiries, please send your resume and cover
-            letter to <u>careers@beestack.com</u>
+            letter to <u>hr@beestack.in</u>
           </li>
           <li>
             For all other questions, please write us at{" "}
-            <u>info@beestack.com.</u>
+            <u>info.</u>
           </li>
         </ul>
       </div>

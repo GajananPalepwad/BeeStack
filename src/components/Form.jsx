@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import "./Form.css";
 
-const CONTACT_EMAIL = "contact@beestack.com";
+const CONTACT_EMAIL = "contact@beestack.in";
 
 export default function Form() {
   const {
