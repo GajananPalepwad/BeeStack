@@ -29,7 +29,7 @@ const ContactUs = () => {
           </li>
           <li>
             For all other questions, please write us at{" "}
-            <u>info.</u>
+            <u>info.beestack.in</u>
           </li>
         </ul>
       </div>
