@@ -121,7 +121,7 @@ export default function Form() {
       {status === "success" && (
         <div className="modal-backdrop">
           <div className="modal">
-            <h2>🎉 Message Sent Successfully!</h2>
+            <h2> Message Sent Successfully!</h2>
             <p>Thanks for reaching out, we’ll get back to you soon.</p>
             <button
               onClick={() => setStatus(null)}

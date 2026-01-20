@@ -52,30 +52,31 @@ const HomePage = () => {
             </h2>
             <div className="buttons">
               <button
-                type="button"
-                className="btn consultation"
-                onClick={() =>
-                  formRef.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  })
-                }
-              >
-                <b>Get A Free Consultation</b>
-              </button>
+  type="button"
+  className="btn consultation"
+  onClick={() =>
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
+>
+  Get A Free Consultation
+</button>
 
-              <button
-                type="button"
-                className="btn services"
-                onClick={() =>
-                  servicesRef.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  })
-                }
-              >
-                <b>Our Services</b>
-              </button>
+<button
+  type="button"
+  className="btn services"
+  onClick={() =>
+    servicesRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
+>
+  Services
+</button>
+
             </div>
           </div>
           <div className="right flex items-center w-1/2">
