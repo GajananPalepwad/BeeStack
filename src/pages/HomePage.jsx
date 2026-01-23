@@ -17,8 +17,6 @@ const HomePage = () => {
   const servicesRef = useRef(null);
   return (
     <>
-
-
       <div className="homepage">
         <Navbar />
         <div className="carousal flex">
@@ -54,31 +52,30 @@ const HomePage = () => {
             </h2>
             <div className="buttons">
               <button
-  type="button"
-  className="btn consultation"
-  onClick={() =>
-    formRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    })
-  }
->
-  Get A Free Consultation
-</button>
+                type="button"
+                className="btn consultation"
+                onClick={() =>
+                  formRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  })
+                }
+              >
+                Get A Free Consultation
+              </button>
 
-<button
-  type="button"
-  className="btn services"
-  onClick={() =>
-    servicesRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    })
-  }
->
-  Services
-</button>
-
+              <button
+                type="button"
+                className="btn services"
+                onClick={() =>
+                  servicesRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  })
+                }
+              >
+                Services
+              </button>
             </div>
           </div>
           <div className="right flex items-center w-1/2">
@@ -116,11 +113,11 @@ const HomePage = () => {
           <div className="flex flex-col md:flex-row justify-center items-stretch w-full max-w-7xl 2xl:max-w-[1530px] gap-8 2xl:gap-16">
             {/* Left */}
             <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4 flex-1">
-            <img
+              <img
                 src="./logo.png"
                 alt="mail icon"
                 className="hidden lg:block w-16 xl:w-28 h-auto"
-                />
+              />
               <h2 className="headingFF text-center md:text-left whitespace-nowrap">
                 Say Hello!
               </h2>
