@@ -17,6 +17,8 @@ const HomePage = () => {
   const servicesRef = useRef(null);
   return (
     <>
+
+
       <div className="homepage">
         <Navbar />
         <div className="carousal flex">
