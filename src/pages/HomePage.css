@@ -118,31 +118,30 @@ h2 {
 
 /* BASE BUTTON (shared size) */
 /* FORCE SAME BUTTON SIZE */
+buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
 .btn {
-  box-sizing: border-box;
-
-  height: 44px;
-  min-width: 220px;   /* 🔑 THIS fixes the visual mismatch */
-  padding: 0 22px;
-
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-
-  border-radius: 10px;
+  cursor: pointer;
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
+  padding: clamp(0.5rem, 2vw, 0.65rem) clamp(1rem, 3.5vw, 1.25rem);
+  border-radius: 0.75rem;
   border: none;
-
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+  white-space: nowrap;
+  margin-right: clamp(0.5rem, 3vw, 1.5rem);
+  margin-top: 0;
+  min-height: 2.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  white-space: nowrap;
-  cursor: pointer;
 }
 
-
-
-/* COLORS ONLY */
 .consultation {
   background: #fcab1e;
   color: #000;
@@ -151,9 +150,17 @@ h2 {
 .services {
   background: #fff;
   color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+}
+.btn:active {
+  transform: translateY(0);
+  opacity: 0.95;
+}
 
 .left {
   width: 100%;
@@ -573,5 +580,23 @@ h2 {
 @media (min-width: 769px) and (max-width: 1000px) {
   .carousal .left h5 {
     margin-top: 0.75rem !important; /* ~12px */
+  }
+}
+@media (max-width: 1007px) {
+  .btn {
+    /* lock typography */
+    font-size: 15px;
+    font-weight: 600;
+
+    /* lock size */
+    height: 44px;
+    min-height: 44px;
+    min-width: 220px;
+
+    /* normalize padding */
+    padding: 0 20px;
+
+    /* prevent clamp scaling */
+    margin-right: 12px;
   }
 }
