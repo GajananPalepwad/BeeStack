@@ -14,17 +14,16 @@
 
 /* layout: heading left, form right */
 .contact-section {
-  display: flex;
-  gap: clamp(1rem, 4vw, 2.5rem);
-  /* changed: let columns stretch to same height so we can center content inside each column */
-  align-items: stretch;
-  justify-content: center;
-  text-align: center;
+  display: block; /* remove flex */
+  gap: clamp(1rem, 4vw, 2.5rem); /* optional if you have multiple children */
+  /* remove align-items and justify-content */
+  text-align: left; /* left-align labels and text */
   width: min(1400px, 100%);
-  margin: 2rem auto;
+  margin: 2rem auto; /* horizontal centering of container only */
   box-sizing: border-box;
   padding-inline: clamp(1rem, 4vw, 2rem);
 }
+
 
 /* make heading a vertical center-aligned column */
 .contact-heading{
@@ -238,5 +237,72 @@
 @media (max-width:320px) {
   .contact-section, .contact-form{
     height: 400px !important;
+  }
+}
+/* Modal backdrop: covers the entire screen */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* ensures it appears above all other content */
+}
+
+/* Modal box: white container in center */
+.modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%; /* responsive */
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Modal heading */
+.modal h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
+/* Modal paragraph */
+.modal p {
+  font-size: 1rem;
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+/* Close button */
+.modal-close-btn {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
+}
+
+.modal-close-btn:hover {
+  background: #1e293b;
+}
+
+/* Optional fade-in animation for modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

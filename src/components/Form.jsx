@@ -1,86 +1,137 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { sendGetInTouch } from "../api/contact.api";
 import "./Form.css";
-
-const CONTACT_EMAIL = "contact@beestack.in";
 
 export default function Form() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const { email, subject, message } = data;
-    const body = encodeURIComponent(`From: ${email}\n\n${message}`);
-    const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject
-    )}&body=${body}`;
-    window.location.href = mailto;
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // success | error
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setStatus(null);
+    setStatusMessage("");
+
+    try {
+      await sendGetInTouch(data);
+      setStatus("success");
+      setStatusMessage("Message sent successfully!");
+      reset();
+    } catch (err) {
+      setStatus("error");
+      setStatusMessage(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // ✅ Make sure to include "return"
   return (
-    <section className="contact-section">
-      {/* <div className="whatwedo flex flex-col gap-4">
-        <h2 className="headingHP">Say Hello!</h2>
-        <p>We'd love to hear about your project. Drop us a message.</p>
-      </div> */}
-      {/* <div className="contact-heading">
-        <h2 className="headingC">Say Hello!</h2>
-        <p>We'd love to hear about your project. Drop us a message.</p>
-      </div> */}
+    <>
+      <section className="contact-section">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="contact-form"
+          noValidate
+        >
+          {/* Name Field */}
+          <div className="mb-4">
+            <label className="block font-semibold mb-1">Name</label>
+            <input
+              type="text"
+              placeholder="Your full name"
+              className="w-full p-2 border rounded"
+              {...register("name", { required: "Name is required" })}
+            />
+            {errors.name && <div className="error">{errors.name.message}</div>}
+          </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="contact-form scale-95"
-        noValidate
-      >
-        <label className="flex items-start ml-2 w-full">
-          Email
-        </label>
-        <input
-            type="email"
-            placeholder="you@example.com"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
-                message: "Enter a valid email",
-              },
-            })}
-          />
-        {errors.email && <div className="error">{errors.email.message}</div>}
+          {/* Email Field */}
+          <div className="mb-4">
+            <label className="block font-semibold mb-1">Email</label>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              className="w-full p-2 border rounded"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+                  message: "Enter a valid email",
+                },
+              })}
+            />
+            {errors.email && (
+              <div className="error">{errors.email.message}</div>
+            )}
+          </div>
 
-        <label className="flex items-start ml-2 w-full">
-          Subject
-        </label>
-         <input
-            type="text"
-            placeholder="Subject"
-            {...register("subject", { required: "Subject is required" })}
-          />
-        {errors.subject && (
-          <div className="error">{errors.subject.message}</div>
-        )}
+          {/* Subject Field */}
+          <div className="mb-4">
+            <label className="block font-semibold mb-1">Subject</label>
+            <input
+              type="text"
+              placeholder="Subject"
+              className="w-full p-2 border rounded"
+              {...register("subject", { required: "Subject is required" })}
+            />
+            {errors.subject && (
+              <div className="error">{errors.subject.message}</div>
+            )}
+          </div>
 
-        <label className="flex items-start ml-2 w-full">
-          Message
-        </label>
-        <textarea
-            placeholder="Write your message..."
-            rows={6}
-            {...register("message", { required: "Message is required" })}
-          />
-        {errors.message && (
-          <div className="error">{errors.message.message}</div>
-        )}
+          {/* Message Field */}
+          <div className="mb-4">
+            <label className="block font-semibold mb-1">Message</label>
+            <textarea
+              rows={6}
+              placeholder="Write your message..."
+              className="w-full p-2 border rounded"
+              {...register("message", { required: "Message is required" })}
+            />
+            {errors.message && (
+              <div className="error">{errors.message.message}</div>
+            )}
+          </div>
 
-        <button type="submit" className="get-in-touch-btn">
-          Get in touch
-        </button>
-      </form>
-    </section> 
+          {/* Inline Error Message */}
+          {status && status !== "success" && (
+            <div className={`status ${status} mb-4`}>{statusMessage}</div>
+          )}
 
+          <button
+            type="submit"
+            className="get-in-touch-btn"
+            disabled={loading}
+          >
+            {loading ? "Sending..." : "Get in touch"}
+          </button>
+        </form>
+      </section>
+
+      {/* Success Modal */}
+      {status === "success" && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h2> Message Sent Successfully!</h2>
+            <p>Thanks for reaching out, we’ll get back to you soon.</p>
+            <button
+              onClick={() => setStatus(null)}
+              className="modal-close-btn"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

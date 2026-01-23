@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { getProjects } from "../api/projects.api";
+
+/* ICONS POOL */
+const projectIcons = [
+  "/images/forward.png",
+  "/images/team.png",
+  "/images/heart.png",
+  "/images/fingerprint.png",
+  "/images/secure.png",
+];
+
+/* STABLE ICON PICKER */
+const getProjectIcon = (id) => {
+  return projectIcons[id % projectIcons.length];
+};
 
 const Products = () => {
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const data = await getProjects();
+        setProjects(data.projects || []);
+      } catch (err) {
+        console.error("Failed to load projects", err);
+        setProjects([]);
+      }
+    }
+    fetchProjects();
+  }, []);
+
   return (
     <>
       <Navbar />
+
       <div className="headingWork pl-28">OUR WORK</div>
 
       <div className="container">
+        {/* SIDEBAR */}
         <aside className="sidebar">
           <ul>
             <li className="unhighlighted font-bold">
@@ -28,134 +61,49 @@ const Products = () => {
           </ul>
         </aside>
 
+        {/* MAIN CONTENT */}
         <main className="main-content HT">
-          {/* Intro Section */}
           <p className="tagline">
             <b>We build impactful products that scale globally.</b>
           </p>
+
           <h1>Tech We’ve Built</h1>
 
           <div className="section">
             <p>
               BeeStack is a product engineering company that helps clients
-              deliver high-volume, high-impact products used by millions. We
-              enable companies to bring their products to market faster, smarter,
-              and with confidence.
+              deliver high-volume, high-impact products used by millions.
             </p>
-            <p>
-              Here are some of the projects we’ve successfully executed.
-            </p>
+            <p>Here are some of the projects we’ve successfully executed.</p>
           </div>
 
-          {/* Project: LinkedIn */}
-          <div className="section">
-            <h2 className="section-title">
-              LinkedIn
-              <img
-                src="/images/forward.png"
-                alt="LinkedIn icon"
-                className="icon"
-              />
-            </h2>
-            <p>
-              RSL has been a key development partner for LinkedIn for over 10
-              years, with significant contributions to the flagship LinkedIn
-              Android, iOS, and web apps.
-            </p>
-            <p className="read-more">Read more…</p>
+          {/* PROJECTS */}
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <div className="project-card" key={project.id}>
+                <h2 className="section-title">
+                  {project.title}
+                  <img
+                    src={getProjectIcon(project.id)}
+                    alt="project icon"
+                    className="icon"
+                  />
+                </h2>
+
+                <p className="duration">{project.duration}</p>
+
+                <p>{project.description.slice(0, 140)}...</p>
+
+                <p
+                  className="read-more"
+                  onClick={() => setSelectedProject(project)}
+                >
+                  Read more…
+                </p>
+              </div>
+            ))}
           </div>
 
-          {/* Project: Google Nest */}
-          <div className="section">
-            <h2 className="section-title">
-              Google Nest
-              <img src="/images/team.png" alt="Nest icon" className="icon" />
-            </h2>
-            <p>
-              RSL has been working with Nest for 8+ years, contributing to the
-              development of the Nest App and the Google Home App, along with
-              development work on Hangouts, Gmail, and Google+.
-            </p>
-            <p className="read-more">Read more…</p>
-          </div>
-
-          {/* Project: Truepill */}
-          <div className="section">
-            <h2 className="section-title">
-              Truepill
-              <img src="/images/heart.png" alt="Truepill icon" className="icon" />
-            </h2>
-            <p>
-              RSL helped Truepill with full stack development to build and ship
-              multiple end-user medical solutions.
-            </p>
-            <p className="read-more">Read more…</p>
-          </div>
-
-          {/* Project: CocoTerra */}
-          <div className="section">
-            <h2 className="section-title">
-              CocoTerra
-              <img
-                src="/images/fingerprint.png"
-                alt="CocoTerra icon"
-                className="icon"
-              />
-            </h2>
-            <p>
-              RSL helped CocoTerra with the end-to-end architecture and
-              implementation of the full system — including backend services,
-              IoT signaling mechanisms to communicate with the device, smartphone
-              companion apps, and the e-commerce website.
-            </p>
-            <p className="read-more">Read more…</p>
-          </div>
-
-          {/* Project: StubHub */}
-          <div className="section">
-            <h2 className="section-title">
-              StubHub
-              <img src="/images/secure.png" alt="StubHub icon" className="icon" />
-            </h2>
-            <p>
-              RSL worked with StubHub to analyze the existing mobile app code and
-              suggest architectural, framework, and performance improvements.
-            </p>
-            <p className="read-more">Read more…</p>
-          </div>
-
-          {/* Project: Vida Health */}
-          <div className="section">
-            <h2 className="section-title">
-              Vida Health
-              <img src="/images/heart.png" alt="Vida icon" className="icon" />
-            </h2>
-            <p>
-              RSL helped Vida with its Android and iOS mobile app, as well as web
-              front-end development.
-            </p>
-            <p className="read-more">Read more…</p>
-          </div>
-
-          {/* Project: Wimm, Pebble */}
-          <div className="section">
-            <h2 className="section-title">
-              Wimm, Pebble
-              <img
-                src="/images/forward.png"
-                alt="Pebble icon"
-                className="icon"
-              />
-            </h2>
-            <p>
-              RSL built the Bluetooth Connectivity module for the Wimm Smartwatch,
-              as well as Android and iOS Companion Apps for Wimm and Pebble that
-              communicated with the watch.
-            </p>
-            <p className="read-more">Read more…</p>
-          </div>
-
-          {/* Disclaimer */}
           <div className="section disclaimer">
             <p>
               <b>Disclaimer:</b> Customer and product names, trademarks, and logos
@@ -167,6 +115,61 @@ const Products = () => {
       </div>
 
       <Footer />
+
+      {/* MODAL */}
+      {selectedProject && (
+        <div
+          className="modal-backdrop"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div
+            className="modal premium-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="modal-close"
+              onClick={() => setSelectedProject(null)}
+            >
+              ✕
+            </button>
+
+            {selectedProject.image && (
+              <div className="modal-image-wrapper">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="modal-image"
+                />
+              </div>
+            )}
+
+            <div className="modal-content">
+              <h2 className="modal-title">
+                {selectedProject.title}
+              </h2>
+
+              <p className="modal-duration">
+                {selectedProject.duration}
+              </p>
+
+              <p className="modal-description">
+                {selectedProject.description}
+              </p>
+
+              {selectedProject.technologies?.length > 0 && (
+                <>
+                  <h4 className="tech-heading">Technologies Used</h4>
+                  <ul className="tech-list">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <li key={index}>{tech}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

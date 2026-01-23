@@ -116,6 +116,15 @@ h2 {
   align-items: center;
 }
 
+/* BASE BUTTON (shared size) */
+/* FORCE SAME BUTTON SIZE */
+buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
 .btn {
   cursor: pointer;
   font-size: clamp(1rem, 3.5vw, 1.2rem);
@@ -542,5 +551,52 @@ h2 {
   }
   .name {
     font-size: clamp(0.3rem, 1.4vw, 0.55rem);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1000px) {
+  .carousal .left h5 {
+    /* remove glass / pill design */
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    text-shadow: none !important;
+
+    /* reset spacing & shape */
+    padding: 0 !important;
+    border-radius: 0 !important;
+
+    /* normal text behavior */
+    color: #fff; /* or your normal text color */
+    font-size: clamp(0.9rem, 2.6vw, 1.1rem);
+    white-space: normal !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1000px) {
+  .carousal .left h5 {
+    margin-top: 0.75rem !important; /* ~12px */
+  }
+}
+@media (max-width: 1007px) {
+  .btn {
+    /* lock typography */
+    font-size: 15px;
+    font-weight: 600;
+
+    /* lock size */
+    height: 44px;
+    min-height: 44px;
+    min-width: 220px;
+
+    /* normalize padding */
+    padding: 0 20px;
+
+    /* prevent clamp scaling */
+    margin-right: 12px;
   }
 }
