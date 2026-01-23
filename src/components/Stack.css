@@ -56,12 +56,13 @@
 /* Overall subtle tilt */
 @keyframes rotate3D {
   0% {
-    transform: rotateX(10deg) rotateY(-10deg);
+    transform: rotateX(8deg);
   }
   100% {
-    transform: rotateX(-10deg) rotateY(10deg);
+    transform: rotateX(-8deg);
   }
 }
+
 
 /* ---------- Responsive scaling ---------- */
 
@@ -82,7 +83,7 @@
 }
 
 /* Hide on very small screens (mobile portrait) */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .stack {
     display: none;
   }

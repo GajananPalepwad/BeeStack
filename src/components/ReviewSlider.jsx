@@ -1,12 +1,12 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Slider from "react-slick";
 import "./ReviewSlider.css";
 
 function ReviewSlider() {
   const [isMobile, setIsMobile] = useState(false);
-
+  
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -53,6 +53,7 @@ function ReviewSlider() {
     cssEase: "ease-in-out",
     centerMode: false,
     arrows: false,
+    responsive: [],
   };
 
   const reviews = [
@@ -114,9 +115,15 @@ function ReviewSlider() {
     },
   ];
 
+  const settings = useMemo(
+    () => (isMobile ? mobileSettings : desktopSettings),
+    [isMobile]
+  );
+
   return (
     <div className="w-full h-full slider-container pb-10 m-0">
-      <Slider {...(isMobile ? mobileSettings : desktopSettings)}>
+      <Slider key={isMobile ? "mobile" : "desktop"} {...settings}>
+
         {reviews.map((review, i) => (
           <div key={i} className="h-full">
             <section className="reviewbg rounded-3xl shadow-lg p-6 md:p-8">

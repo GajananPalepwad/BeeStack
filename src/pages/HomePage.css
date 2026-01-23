@@ -113,17 +113,12 @@ h2 {
   display: flex;
   gap: 0.75rem;
   margin-top: 1rem;
+  width: 100%;
   align-items: center;
 }
 
 /* BASE BUTTON (shared size) */
 /* FORCE SAME BUTTON SIZE */
-buttons {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  align-items: center;
-}
 
 .btn {
   cursor: pointer;
@@ -134,7 +129,6 @@ buttons {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
   white-space: nowrap;
-  margin-right: clamp(0.5rem, 3vw, 1.5rem);
   margin-top: 0;
   min-height: 2.5rem;
   display: inline-flex;
@@ -418,6 +412,7 @@ buttons {
   .buttons {
     display: flex;
     flex-direction: column;
+    width: 100%;
     align-items: center;
     text-align: center;
   }
@@ -557,17 +552,13 @@ buttons {
 @media (min-width: 769px) and (max-width: 1000px) {
   .carousal .left h5 {
     /* remove glass / pill design */
-    background: none !important;
+    /* background: none !important;
     border: none !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    text-shadow: none !important;
-
-    /* reset spacing & shape */
-    padding: 0 !important;
-    border-radius: 0 !important;
-
+    text-shadow: none !important; */
+    
     /* normal text behavior */
     color: #fff; /* or your normal text color */
     font-size: clamp(0.9rem, 2.6vw, 1.1rem);
@@ -579,10 +570,10 @@ buttons {
 
 @media (min-width: 769px) and (max-width: 1000px) {
   .carousal .left h5 {
-    margin-top: 0.75rem !important; /* ~12px */
+    margin-top: 1.75rem !important; /* ~12px */
   }
 }
-@media (max-width: 1007px) {
+@media (max-width: 1000px) {
   .btn {
     /* lock typography */
     font-size: 15px;
@@ -592,7 +583,7 @@ buttons {
     height: 44px;
     min-height: 44px;
     min-width: 220px;
-
+    width: 100%;
     /* normalize padding */
     padding: 0 20px;
 

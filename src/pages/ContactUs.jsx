@@ -3,10 +3,24 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "./ContactUs.css";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const ContactUs = () => {
   return (
     <>
+      <Helmet>
+        <title>Contact BeeStack | Get in Touch</title>
+        <meta
+          name="description"
+          content="Reach out to BeeStack for project inquiries, career opportunities, or general questions. Email us at business@beestack.in, hr@beestack.in, or info@beestack.in. We're here to help you build the future of technology."
+        />
+        <link rel="canonical" href="https://www.beestack.in/contact-us" />
+        {/* Optional: structured email meta */}
+        <meta
+          name="email"
+          content="business@beestack.in, hr@beestack.in, info@beestack.in"
+        />
+      </Helmet>
       <Navbar />
       <div className="HT headingWork pl-28">CONTACT US</div>
       <div className="container">

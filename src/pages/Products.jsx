@@ -22,15 +22,19 @@ const getProjectIcon = (id) => {
 const Products = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchProjects() {
       try {
+        setLoading(true);
         const data = await getProjects();
         setProjects(data.projects || []);
       } catch (err) {
         console.error("Failed to load projects", err);
         setProjects([]);
+      } finally {
+        setLoading(false);
       }
     }
     fetchProjects();
@@ -79,29 +83,38 @@ const Products = () => {
 
           {/* PROJECTS */}
           <div className="projects-grid">
-            {projects.map((project) => (
-              <div className="project-card" key={project.id}>
-                <h2 className="section-title">
-                  {project.title}
-                  <img
-                    src={getProjectIcon(project.id)}
-                    alt="project icon"
-                    className="icon"
-                  />
-                </h2>
-
-                <p className="duration">{project.duration}</p>
-
-                <p>{project.description.slice(0, 140)}...</p>
-
-                <p
-                  className="read-more"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  Read more…
-                </p>
+            {loading ? (
+              <div className="projects-loader">
+                <div className="spinner"></div>
+                <p>Loading projects...</p>
               </div>
-            ))}
+            ) : projects.length === 0 ? (
+              <p className="no-projects">No projects available</p>
+            ) : (
+              projects.map((project) => (
+                <div className="project-card" key={project.id}>
+                  <h2 className="section-title">
+                    {project.title}
+                    <img
+                      src={getProjectIcon(project.id)}
+                      alt="project icon"
+                      className="icon"
+                    />
+                  </h2>
+
+                  <p className="duration">{project.duration}</p>
+
+                  <p>{project.description.slice(0, 140)}...</p>
+
+                  <p
+                    className="read-more"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    Read more…
+                  </p>
+                </div>
+              ))
+            )}
           </div>
 
           <div className="section disclaimer">
@@ -144,14 +157,8 @@ const Products = () => {
             )}
 
             <div className="modal-content">
-              <h2 className="modal-title">
-                {selectedProject.title}
-              </h2>
-
-              <p className="modal-duration">
-                {selectedProject.duration}
-              </p>
-
+              <h2 className="modal-title">{selectedProject.title}</h2>
+              <p className="modal-duration">{selectedProject.duration}</p>
               <p className="modal-description">
                 {selectedProject.description}
               </p>

@@ -11,12 +11,21 @@ import Stack from "../components/Stack";
 import Form from "../components/Form";
 import ReviewSlider from "../components/ReviewSlider";
 import React, { useRef } from "react";
+import { Helmet } from "react-helmet-async";
 
 const HomePage = () => {
   const formRef = useRef(null);
   const servicesRef = useRef(null);
   return (
     <>
+    <Helmet>
+        <title>BeeStack | Next-Gen Technology Solutions</title>
+        <meta
+          name="description"
+          content="BeeStack is a next-gen technology company crafting intelligent, scalable, and future-ready software solutions. From AI-driven automation to full-stack development, we bring ideas to life."
+        />
+        <link rel="canonical" href="https://www.beestack.in/" />
+      </Helmet>
       <div className="homepage">
         <Navbar />
         <div className="carousal flex">
