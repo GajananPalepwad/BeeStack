@@ -5,29 +5,41 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { getProjects } from "../api/projects.api";
 
+/* ICONS POOL */
+const projectIcons = [
+  "/images/forward.png",
+  "/images/team.png",
+  "/images/heart.png",
+  "/images/fingerprint.png",
+  "/images/secure.png",
+];
+
+/* STABLE ICON PICKER */
+const getProjectIcon = (id) => {
+  return projectIcons[id % projectIcons.length];
+};
+
 const Products = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-  async function fetchProjects() {
-    try {
-      const data = await getProjects();
-
-      // ✅ FIX HERE
-      setProjects(data.projects || []);
-    } catch (err) {
-      console.error("Failed to load projects", err);
-      setProjects([]); // safety
+    async function fetchProjects() {
+      try {
+        const data = await getProjects();
+        setProjects(data.projects || []);
+      } catch (err) {
+        console.error("Failed to load projects", err);
+        setProjects([]);
+      }
     }
-  }
-
-  fetchProjects();
-}, []);
+    fetchProjects();
+  }, []);
 
   return (
     <>
       <Navbar />
+
       <div className="headingWork pl-28">OUR WORK</div>
 
       <div className="container">
@@ -65,11 +77,21 @@ const Products = () => {
             <p>Here are some of the projects we’ve successfully executed.</p>
           </div>
 
+          {/* PROJECTS */}
           <div className="projects-grid">
             {projects.map((project) => (
               <div className="project-card" key={project.id}>
-                <h2 className="section-title">{project.title}</h2>
+                <h2 className="section-title">
+                  {project.title}
+                  <img
+                    src={getProjectIcon(project.id)}
+                    alt="project icon"
+                    className="icon"
+                  />
+                </h2>
+
                 <p className="duration">{project.duration}</p>
+
                 <p>{project.description.slice(0, 140)}...</p>
 
                 <p
@@ -122,8 +144,13 @@ const Products = () => {
             )}
 
             <div className="modal-content">
-              <h2 className="modal-title">{selectedProject.title}</h2>
-              <p className="modal-duration">{selectedProject.duration}</p>
+              <h2 className="modal-title">
+                {selectedProject.title}
+              </h2>
+
+              <p className="modal-duration">
+                {selectedProject.duration}
+              </p>
 
               <p className="modal-description">
                 {selectedProject.description}
@@ -146,4 +173,5 @@ const Products = () => {
     </>
   );
 };
+
 export default Products;
