@@ -58,11 +58,11 @@ function ReviewSlider() {
 
   const reviews = [
     {
-      name: "Akshit Tupkar",
-      text: "“The professionalism and technical depth at BeeStack are unmatched. We felt like they were part of our own team.”",
-      role: "BeeStack Customer",
+      name: "Dr. B. R. Bombade",
+      text: "“The SGGSIE&T Nanded mobile application is a commendable digital initiative developed to enhance academic and examination-related communication within the institute.”",
+      role: "Controller of Examinations",
       stars: 5,
-      img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png",
+      img: "https://www.sggs.ac.in/uploads/faculty_image/1731055967.webp",
     },
     {
       name: "Sameer Chore",
@@ -71,48 +71,48 @@ function ReviewSlider() {
       stars: 4,
       img: "https://randomuser.me/api/portraits/men/32.jpg",
     },
-    {
-      name: "Jayneet Bhingardeve",
-      text: "“We launched faster than expected — the team truly understands product quality and deadlines.”",
-      role: "Product Manager",
-      stars: 5,
-      img: "https://randomuser.me/api/portraits/women/45.jpg",
-    },
-    {
-      name: "Sanket Kokate",
-      text: "“Great communication and execution. Our stack is cleaner and much easier to maintain now.”",
-      role: "Technical Lead",
-      stars: 5,
-      img: "https://randomuser.me/api/portraits/men/40.jpg",
-    },
-    {
-      name: "Vikramaditya Khupse",
-      text: "“From idea to delivery, the process was smooth and outcomes exceeded expectations.”",
-      role: "Startup Founder",
-      stars: 5,
-      img: "https://randomuser.me/api/portraits/men/50.jpg",
-    },
-    {
-      name: "Jaykumar Gupta",
-      text: "“Engineering excellence with a product mindset — exactly what we needed.”",
-      role: "CTO",
-      stars: 5,
-      img: "https://randomuser.me/api/portraits/men/22.jpg",
-    },
-    {
-      name: "Shruti Kadam",
-      text: "“BeeStack helped us scale from prototype to production seamlessly — highly recommended.”",
-      role: "Project Manager",
-      stars: 5,
-      img: "https://randomuser.me/api/portraits/women/55.jpg",
-    },
-    {
-      name: "Sachikaur Sidhu",
-      text: "“They understood our vision perfectly and built a product beyond expectations.”",
-      role: "Entrepreneur",
-      stars: 4,
-      img: "https://randomuser.me/api/portraits/women/65.jpg",
-    },
+    // {
+    //   name: "Jayneet Bhingardeve",
+    //   text: "“We launched faster than expected — the team truly understands product quality and deadlines.”",
+    //   role: "Product Manager",
+    //   stars: 5,
+    //   img: "https://randomuser.me/api/portraits/women/45.jpg",
+    // },
+    // {
+    //   name: "Sanket Kokate",
+    //   text: "“Great communication and execution. Our stack is cleaner and much easier to maintain now.”",
+    //   role: "Technical Lead",
+    //   stars: 5,
+    //   img: "https://randomuser.me/api/portraits/men/40.jpg",
+    // },
+    // {
+    //   name: "Vikramaditya Khupse",
+    //   text: "“From idea to delivery, the process was smooth and outcomes exceeded expectations.”",
+    //   role: "Startup Founder",
+    //   stars: 5,
+    //   img: "https://randomuser.me/api/portraits/men/50.jpg",
+    // },
+    // {
+    //   name: "Jaykumar Gupta",
+    //   text: "“Engineering excellence with a product mindset — exactly what we needed.”",
+    //   role: "CTO",
+    //   stars: 5,
+    //   img: "https://randomuser.me/api/portraits/men/22.jpg",
+    // },
+    // {
+    //   name: "Shruti Kadam",
+    //   text: "“BeeStack helped us scale from prototype to production seamlessly — highly recommended.”",
+    //   role: "Project Manager",
+    //   stars: 5,
+    //   img: "https://randomuser.me/api/portraits/women/55.jpg",
+    // },
+    // {
+    //   name: "Sachikaur Sidhu",
+    //   text: "“They understood our vision perfectly and built a product beyond expectations.”",
+    //   role: "Entrepreneur",
+    //   stars: 4,
+    //   img: "https://randomuser.me/api/portraits/women/65.jpg",
+    // },
   ];
 
   const settings = useMemo(
