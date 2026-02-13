@@ -16,7 +16,7 @@ const Footer = () => {
   </div>
 
   <div className="footer-social">
-    <span>Follow the vibe?</span>
+    <span>Follow the vibe</span>
     <a
       href="https://www.linkedin.com/company/beestack/"
       target="_blank"
