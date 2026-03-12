@@ -71,13 +71,13 @@ function ReviewSlider() {
       stars: 4,
       img: "https://randomuser.me/api/portraits/men/32.jpg",
     },
-    // {
-    //   name: "Jayneet Bhingardeve",
-    //   text: "“We launched faster than expected — the team truly understands product quality and deadlines.”",
-    //   role: "Product Manager",
-    //   stars: 5,
-    //   img: "https://randomuser.me/api/portraits/women/45.jpg",
-    // },
+    {
+      name: "Swapnil",
+      text: "“I had a great experience working with Beestack Website Builder. They created a very professional and beautiful website exactly as I wanted. The team was supportive, responsive, and delivered excellent quality work. Highly recommended for anyone looking for reliable website development services! 👏💻”",
+      role: "Business Owner",
+      stars: 5,
+      img: "https://media.licdn.com/dms/image/v2/D4D03AQFNP5qlDAv5Ew/profile-displayphoto-shrink_800_800/B4DZYajVGJHAAc-/0/1744202193647?e=1775088000&v=beta&t=XnjLwKwX9tTqhnS4C3bv4iOOUnpPOjiix64ct3d-JwQ",
+    },
     // {
     //   name: "Sanket Kokate",
     //   text: "“Great communication and execution. Our stack is cleaner and much easier to maintain now.”",
