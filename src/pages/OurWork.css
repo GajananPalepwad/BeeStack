@@ -498,17 +498,47 @@
     min-width: unset;
     height: auto;
     position: relative;
+    top: 0;
     clip-path: none;
-    -webkit-mask-image: none;
-    mask-image: none;
     padding: 16px;
     background: linear-gradient(135deg, #e8c007, #dec50a);
+    /* Fade out toward the right edge on mobile */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 55%,
+      rgba(0,0,0,0.65) 75%,
+      rgba(0,0,0,0.15) 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 55%,
+      rgba(0,0,0,0.65) 75%,
+      rgba(0,0,0,0.15) 90%,
+      transparent 100%
+    );
   }
 
-  .ow-sidebar::before,
-  .ow-sidebar::after { display: none; }
+  /* Keep beehive (::before) and glow bubbles (::after) visible on mobile */
+  .ow-sidebar::before {
+    display: block;
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 55%, rgba(0,0,0,0.5) 75%, transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black 55%, rgba(0,0,0,0.5) 75%, transparent 100%);
+  }
+
+  .ow-sidebar::after {
+    display: block;
+  }
 
   .ow-nav { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+
+  .ow-nav::before {
+    width: 100%;
+    margin: 0 0 8px 0;
+    justify-content: center;
+  }
 
   .ow-nav-item {
     border-radius: 10px;
@@ -526,6 +556,87 @@
   .ow-nav-item--active::before,
   .ow-nav-item--active::after { display: none; }
 
-  .ow-main { padding: 24px 20px; }
-  .ow-cards-grid { grid-template-columns: 1fr; }
+  .ow-main {
+    margin-top: 0;
+    padding: 24px 20px;
+  }
+
+  .ow-title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+
+  .ow-subtitle {
+    font-size: 14px;
+  }
+
+  .ow-intro-text {
+    font-size: 14.5px;
+  }
+
+  .ow-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ow-card {
+    padding: 20px 20px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ow-sidebar {
+    padding: 14px 12px;
+  }
+
+  .ow-sidebar-logo {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .ow-nav-item {
+    font-size: 12px;
+    padding: 7px 10px;
+    gap: 6px;
+  }
+
+  .ow-main {
+    padding: 20px 16px;
+  }
+
+  .ow-header {
+    margin-bottom: 24px;
+  }
+
+  .ow-intro {
+    margin-bottom: 28px;
+  }
+
+  .ow-badge {
+    font-size: 11px;
+    letter-spacing: 1.4px;
+  }
+
+  .ow-badge::before {
+    width: 32px;
+  }
+
+  .ow-card {
+    padding: 18px 16px 20px;
+    border-radius: 12px;
+  }
+
+  .ow-card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .ow-card-title {
+    font-size: 14.5px;
+  }
+
+  .ow-card-text {
+    font-size: 13px;
+  }
 }
