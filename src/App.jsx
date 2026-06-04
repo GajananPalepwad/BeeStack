@@ -3,7 +3,7 @@ import './App.css'
 import HomePage from './pages/HomePage';
 import LoadingPage from './pages/LoadingPage'
 import OurWork from './pages/OurWork'
-import {createBrowserRouter , RouterProvider} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom'
 import Technique from './pages/Technique';
 import Technology from './pages/Technology';
 import Products from './pages/Products';
@@ -20,76 +20,111 @@ import ContactUs from './pages/ContactUs';
 import Location from './pages/Location';
 import Sitemap from './pages/Sitemap';
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.querySelectorAll('.ow-main, .main-content').forEach((el) => {
+        if (el instanceof HTMLElement) {
+          el.scrollTop = 0;
+        }
+      });
+    };
+
+    const frame = window.requestAnimationFrame(resetScroll);
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname]);
+
+  return null;
+};
+
+const RootLayout = () => (
+  <>
+    <ScrollToTop />
+    <Outlet />
+  </>
+);
+
 function App() {
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />,
-    },
-    {
-      path: "/our-work",
-      element: <OurWork />,
-    },
-    {
-      path: "/our-work/technique",
-      element: <Technique />
-    },
-    {
-      path: "/our-work/technology",
-      element: <Technology />
-    },
-    {
-      path: "/our-work/products",
-      element: <Products />
-    },
-    {
-      path: "/about-us",
-      element: <AboutUs />
-    },
-    {
-      path: "/about-us/testimonials",
-      element: <Testimonials />
-    },
+      element: <RootLayout />,
+      children: [
         {
-      path: "/careers",
-      element: <Careers />
-    },
+          index: true,
+          element: <HomePage />,
+        },
         {
-      path: "/careers/getting-in",
-      element: <GettingIn />
-    },
-    {
-      path: "/careers/current-openings",
-      element: <CurrentOpenings />
-    },
-    {
-      path: "/jobs/android",
-      element: <Android />
-    },
-    {
-      path: "/jobs/ios",
-      element: <IOS />
-    },
-    {
-      path: "/jobs/webfrontend",
-      element: <WebFrontend />
-    },
-    {
-      path: "/jobs/webbackend",
-      element: <WebBackend />
-    },
-    {
-      path: "/contact-us",
-      element: <ContactUs />
-    },
-    {
-      path: "/contact-us/location",
-      element: <Location />
-    },
-    {
-      path: "/sitemap",
-      element: <Sitemap />
+          path: "our-work",
+          element: <OurWork />,
+        },
+        {
+          path: "our-work/technique",
+          element: <Technique />
+        },
+        {
+          path: "our-work/technology",
+          element: <Technology />
+        },
+        {
+          path: "our-work/products",
+          element: <Products />
+        },
+        {
+          path: "about-us",
+          element: <AboutUs />
+        },
+        {
+          path: "about-us/testimonials",
+          element: <Testimonials />
+        },
+        {
+          path: "careers",
+          element: <Careers />
+        },
+        {
+          path: "careers/getting-in",
+          element: <GettingIn />
+        },
+        {
+          path: "careers/current-openings",
+          element: <CurrentOpenings />
+        },
+        {
+          path: "jobs/android",
+          element: <Android />
+        },
+        {
+          path: "jobs/ios",
+          element: <IOS />
+        },
+        {
+          path: "jobs/webfrontend",
+          element: <WebFrontend />
+        },
+        {
+          path: "jobs/webbackend",
+          element: <WebBackend />
+        },
+        {
+          path: "contact-us",
+          element: <ContactUs />
+        },
+        {
+          path: "contact-us/location",
+          element: <Location />
+        },
+        {
+          path: "sitemap",
+          element: <Sitemap />
+        },
+      ],
     },
   ]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect} from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -103,6 +103,26 @@ const techniqueSections = [
 ];
 
 const Technique = () => {
+  useEffect(() => {
+  const targets = document.querySelectorAll(
+    ".ow-card, .ow-intro, .ow-header, .ow-badge"
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("ow-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  targets.forEach((el) => observer.observe(el));
+  return () => observer.disconnect();
+}, []);
   return (
     <>
       <Navbar />

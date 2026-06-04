@@ -265,6 +265,28 @@ const Products = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hoveredCard, setHoveredCard] = useState(null);
+  useEffect(() => {
+    // Target both OurWork CSS classes AND the inline-styled project cards
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge, [data-reveal]"
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [loading]); // ← re-run after projects load
 
   useEffect(() => {
     async function fetchProjects() {
@@ -296,9 +318,8 @@ const Products = () => {
               <Link
                 key={item.label}
                 to={item.to}
-                className={`ow-nav-item ${
-                  item.label === "Tech we've built" ? "ow-nav-item--active" : ""
-                }`}
+                className={`ow-nav-item ${item.label === "Tech we've built" ? "ow-nav-item--active" : ""
+                  }`}
               >
                 <span className="ow-nav-icon">{item.icon}</span>
                 <span>{item.label}</span>
@@ -341,7 +362,14 @@ const Products = () => {
               {projects.map((project, index) => (
                 <div
                   key={project.id}
-                  style={S.card(index, hoveredCard)}
+                  data-reveal
+                  style={{
+                    ...S.card(index, hoveredCard),
+                    opacity: 0,
+                    transform: "translateY(40px)",
+                    transition: "opacity 0.55s cubic-bezier(0.22,0.68,0,1.1), transform 0.55s cubic-bezier(0.22,0.68,0,1.1), box-shadow 0.25s ease, border-color 0.2s", // ← ADD
+                    transitionDelay: `${index * 0.1}s`,
+                  }}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
