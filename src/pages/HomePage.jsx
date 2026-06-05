@@ -12,6 +12,7 @@ import Form from "../components/Form";
 import ReviewSlider from "../components/ReviewSlider";
 import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
+import WhatWeDoSection from "../components/WhatWeDoSection";
 
 const HomePage = () => {
   const formRef = useRef(null);
@@ -95,20 +96,9 @@ const HomePage = () => {
           className="testimonial-heading whatwedo justify-left pl-4 md:pl-14"
           ref={servicesRef}
         >
-          <div className="headingHP">WHAT WE DO</div>
+        
         </div>
-
-        <div className="card-grid">
-          {members.map((member, index) => (
-            <Card
-              key={index}
-              name={member.name}
-              description={member.description}
-              photo={member.photo}
-              hoverColor={member.hoverColor}
-            />
-          ))}
-        </div>
+<WhatWeDoSection members={members} />
 
         <div className="testimonial-heading whatwedo justify-left pl-4 md:pl-14">
           <div className="headingHP">TESTIMONIALS</div>
