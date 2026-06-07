@@ -3,6 +3,7 @@ import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import BlobBackground from "../components/BlobBackground";
 
 const CurrentOpenings = () => {
   useEffect(() => {
@@ -30,6 +31,7 @@ const CurrentOpenings = () => {
       <Navbar />
 
       <div className="ow-page">
+        <BlobBackground />
         {/* ── SIDEBAR ── */}
         <aside className="ow-sidebar">
           <nav className="ow-nav" data-section="CAREERS">

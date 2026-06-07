@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { getProjects } from "../api/projects.api";
+import BlobBackground from "../components/BlobBackground";
 
 const navItems = [
   {
@@ -17,7 +18,7 @@ const navItems = [
   },
   {
     label: "The Concept",
-    to: "/our-work",
+    to: "/our-work/concept",
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3" />
@@ -68,21 +69,24 @@ const S = {
     marginBottom: "40px",
   },
   card: (idx, hovered) => ({
-    background: "#ffffff",
-    border: `1px solid ${hovered === idx ? accentBorders[idx % 4] : "rgba(0,0,0,0.07)"}`,
-    borderRadius: "16px",
-    padding: "28px 26px 22px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    position: "relative",
-    overflow: "hidden",
-    transition: "transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s ease, border-color 0.2s",
-    transform: hovered === idx ? "translateY(-5px) scale(1.01)" : "none",
-    boxShadow: hovered === idx
-      ? "0 20px 48px -12px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.06)"
-      : "none",
-  }),
+  background: "rgba(255, 255, 255, 0.62)",
+  backdropFilter: "blur(16px) saturate(1.5)",
+  WebkitBackdropFilter: "blur(16px) saturate(1.5)",
+  border: `1.5px solid ${hovered === idx ? accentBorders[idx % 4] : "rgba(255,255,255,0.75)"}`,
+  borderRadius: "16px",
+  padding: "28px 26px 22px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  position: "relative",
+  overflow: "hidden",
+  isolation: "isolate",
+  boxShadow: hovered === idx
+    ? "0 20px 48px rgba(50,50,130,0.15), inset 0 1px 0 rgba(255,255,255,1)"
+    : "0 4px 24px rgba(50,50,130,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
+  transition: "transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s ease, border-color 0.2s, background 0.3s ease",
+  transform: hovered === idx ? "translateY(-5px) scale(1.01)" : "none",
+}),
   accentBar: (idx) => ({
     position: "absolute",
     top: 0, left: 0, right: 0,
@@ -311,6 +315,7 @@ const Products = () => {
 
       <Navbar />
       <div className="ow-page">
+        <BlobBackground />
         {/* Sidebar */}
         <aside className="ow-sidebar">
           <nav className="ow-nav">

@@ -3,6 +3,7 @@ import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import BlobBackground from "../components/BlobBackground";
 
 const navItems = [
   {
@@ -130,10 +131,12 @@ const Testimonials = () => {
   targets.forEach((el) => observer.observe(el));
   return () => observer.disconnect();
 }, []);
+
   return (
     <>
       <Navbar />
       <div className="ow-page">
+        <BlobBackground />
         {/* Sidebar */}
         <aside className="ow-sidebar">
           <nav className="ow-nav" data-section="ABOUT US">
