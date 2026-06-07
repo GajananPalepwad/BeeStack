@@ -306,3 +306,10 @@
     transform: translateY(0);
   }
 }
+.form-card, .form-box, .contact-form {
+  background: rgba(255, 255, 255, 0.54) !important;
+  backdrop-filter: blur(20px) saturate(1.7) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.7) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 4px 28px rgba(50, 50, 130, 0.09) !important;
+}

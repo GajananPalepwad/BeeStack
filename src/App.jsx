@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { Navigate } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import LoadingPage from './pages/LoadingPage'
 import OurWork from './pages/OurWork'
@@ -62,7 +63,7 @@ function App() {
         },
         {
           path: "our-work",
-          element: <OurWork />,
+          element: <Navigate to="/our-work/products" replace />,
         },
         {
           path: "our-work/technique",
@@ -77,6 +78,10 @@ function App() {
           element: <Products />
         },
         {
+          path: "our-work/concept",
+          element: <OurWork />
+        },
+        {
           path: "about-us",
           element: <AboutUs />
         },
@@ -89,7 +94,7 @@ function App() {
           element: <Careers />
         },
         {
-          path: "careers/getting-in",
+          path: "contact-us/getting-in",
           element: <GettingIn />
         },
         {
@@ -135,7 +140,7 @@ function App() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3500);
-    
+
     return () => clearTimeout(timer);
   }, []);
 

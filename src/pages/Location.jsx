@@ -3,6 +3,7 @@ import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import BlobBackground from "../components/BlobBackground";
 
 /* ── SVG icons (inline, zero extra deps) ── */
 const IconMail = () => (
@@ -47,6 +48,7 @@ const Location = () => {
       <Navbar />
 
       <div className="ow-page">
+        <BlobBackground />
         {/* ── SIDEBAR ── */}
         <aside className="ow-sidebar">
 
@@ -65,6 +67,20 @@ const Location = () => {
             >
               <span className="ow-nav-icon"><IconLocation /></span>
               Location
+            </Link>
+            <Link
+              to="/contact-us/getting-in"
+              className="ow-nav-item"
+            >
+              <span className="ow-nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/>
+                  <polyline points="10 17 15 12 10 7"/>
+                  <line x1="15" y1="12" x2="3" y2="12"/>
+                </svg>
+              </span>
+              Getting In
             </Link>
           </nav>
         </aside>

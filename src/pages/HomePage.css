@@ -287,6 +287,9 @@ h2 {
 }
 
 .form{
+   background: transparent !important;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   width: 98.5%;
   margin: auto;
 }
@@ -590,4 +593,8 @@ h2 {
     /* prevent clamp scaling */
     margin-right: 12px;
   }
+}
+@keyframes dividerShimmer {
+  0%   { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
 }

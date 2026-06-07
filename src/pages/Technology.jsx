@@ -3,6 +3,7 @@ import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import BlobBackground from "../components/BlobBackground";
 
 const navItems = [
     {
@@ -16,7 +17,7 @@ const navItems = [
   },
   {
     label: "The Concept",
-    to: "/our-work",
+    to: "/our-work/concept",
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3" />
@@ -131,6 +132,7 @@ const Technology = () => {
     <>
       <Navbar />
       <div className="ow-page">
+        <BlobBackground />
         {/* Sidebar */}
         <aside className="ow-sidebar">
           <nav className="ow-nav">

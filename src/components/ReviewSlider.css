@@ -1,52 +1,214 @@
-.reviewbg {
-  background-color: #bbd4c5;
+/* ============================================================
+   REVIEW SLIDER — animated blob bg + glassmorphism cards
+   ============================================================ */
+
+.review-section {
+  border-top: 1px solid transparent;
+  background-image: linear-gradient(#d8eaf2, #d8eaf2), 
+                    linear-gradient(to right, transparent, #fcab1e, #e879a0, transparent);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 4.5rem 0 5rem;
+  background: #d8eaf2;
+  font-family: "K2D", sans-serif;
 }
 
-/* Desktop + Tablet center effect */
-.slick-slide {
-  opacity: 0.7;
-  transform: scale(0.9);
-  transition: all 0.5s ease;
-  padding: 0 8px; /* Add gutter padding between slides */
+/* ── Blobs ── */
+.review-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.slick-center {
-  opacity: 1;
-  transform: scale(1.05);
+.review-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.78;
+  will-change: transform, background-color;
 }
 
-/* 📱 Mobile: no scaling, no fade */
-@media (max-width: 768px) {
-  .slick-slide,
-  .slick-center {
-    transform: scale(0.9);
-    opacity: 1;
-  }
+.review-blob--0 { width: 520px; height: 520px; top: -18%; left: -8%; }
+.review-blob--1 { width: 380px; height: 380px; top: 15%; left: 58%; }
+.review-blob--2 { width: 320px; height: 320px; top: 60%; left: -3%; }
+.review-blob--3 { width: 250px; height: 250px; top: -10%; left: 75%; }
+.review-blob--4 { width: 440px; height: 440px; top: 50%; left: 42%; }
+
+/* ── Heading ── */
+.review-heading {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 0 1rem;
 }
 
-/* --- Equal Height Fixes --- */
-
-/* Ensure the track takes up the container's height and allows slides to stretch */
-.slick-track {
-  display: flex !important; /* Use important to override inline styles */
-  align-items: stretch;
-  /* height: 500px; */
-  padding: 5% 5%;
+.review-label {
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  font-weight: 800;
+  color: rgba(18, 18, 46, 0.13);
+  letter-spacing: 0.15em;
+  line-height: 1;
+  font-family: "K2D", sans-serif;
 }
 
-/* Ensure slides can grow to fill the track's height */
-.slick-slide {
-  height: inherit !important; /* Use important to override inline styles */
+.review-sub {
+  margin-top: 0.45rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(18, 18, 56, 0.44);
 }
 
-/* Make the direct child of the slide take up full height */
-.slick-slide > div {
+/* ── Slider wrapper ── */
+.review-slider-wrap {
+  position: relative;
+  z-index: 1;
+  padding: 0 1rem 2rem;
+}
+
+/* ── Individual slide padding ── */
+.review-slide {
+    display: flex !important;
+  flex-direction: column;
+  padding: 0.75rem 0.65rem;
+}
+
+/* ── Glass card ── */
+.review-card {
+   min-height: 320px;
   height: 100%;
-}
-
-/* Make the review card itself a flex container that takes up full height */
-.slick-slide .reviewbg {
-  height: 100%;
+  background: rgba(255, 255, 255, 0.54);
+  -webkit-backdrop-filter: blur(20px) saturate(1.7);
+  backdrop-filter: blur(20px) saturate(1.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.82);
+  border-radius: 1.4rem;
+  padding: 2rem 1.75rem 1.75rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  box-shadow:
+    0 4px 28px rgba(50, 50, 130, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease;
+  height: 100%;
+}
+
+.review-card:hover {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 18px 52px rgba(50, 50, 130, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-4px);
+}
+
+/* ── Quote icon ── */
+.review-quote-icon {
+  width: 28px;
+  height: 28px;
+  color: rgba(18, 18, 56, 0.25);
+  flex-shrink: 0;
+}
+
+/* ── Review text ── */
+.review-text {
+  font-size: clamp(0.88rem, 2vw, 1rem);
+  font-weight: 500;
+  color: #1a1a3a;
+  line-height: 1.7;
+  flex: 1;
+  font-family: "K2D", sans-serif;
+}
+
+/* ── Stars ── */
+.review-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.review-star {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Author row ── */
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(160, 160, 210, 0.2);
+}
+
+.review-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.review-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f0f28;
+  font-family: "K2D", sans-serif;
+}
+
+.review-role {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: rgba(18, 18, 56, 0.5);
+  font-family: "K2D", sans-serif;
+}
+
+/* ── Slick dot overrides to match theme ── */
+.review-slider-wrap .slick-dots li button:before {
+  color: rgba(50, 50, 130, 0.3);
+  font-size: 8px;
+}
+
+.review-slider-wrap .slick-dots li.slick-active button:before {
+  color: #fcab1e;
+}
+
+.review-slider-wrap .slick-prev:before,
+.review-slider-wrap .slick-next:before {
+  color: rgba(50, 50, 130, 0.4);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .review-section { padding: 3rem 0 4rem; }
+  .review-slide { padding: 0.5rem 0.4rem; }
+}
+
+.review-slider-wrap .slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.review-slider-wrap .slick-slide {
+  height: inherit !important;
+}
+
+.review-slider-wrap .slick-slide > div {
+  height: 100%;
+}
+
+.review-slide {
+  height: 100%;
 }

@@ -3,6 +3,7 @@ import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import BlobBackground from "../components/BlobBackground";
 
 const sections = [
   {
@@ -83,7 +84,7 @@ const navItems = [
    { label: "Tech we've built", to: "/our-work/products", icon: (
     <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM12 12h.01"/></svg>
   )},
-  { label: "The Concept", to: "/our-work", icon: (
+  { label: "The Concept", to: "/our-work/concept", icon: (
     <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
   )},
   { label: "Technique", to: "/our-work/technique", icon: (
@@ -119,6 +120,7 @@ const OurWork = () => {
     <>
       <Navbar />
       <div className="ow-page">
+        <BlobBackground />
         {/* Sidebar */}
         <aside className="ow-sidebar">
           <nav className="ow-nav">
