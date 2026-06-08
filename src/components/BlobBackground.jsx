@@ -1,5 +1,5 @@
 import React from "react";
-import { useBlobAnimation } from "./useBlobAnimation";
+import { useBlobAnimation } from "./UseBlobAnimation";
 
 /**
  * Drop-in animated blob background.
