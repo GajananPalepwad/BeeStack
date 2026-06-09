@@ -94,7 +94,7 @@ function App() {
           element: <Careers />
         },
         {
-          path: "contact-us/getting-in",
+          path: "careers/getting-in",
           element: <GettingIn />
         },
         {

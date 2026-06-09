@@ -1,48 +1,54 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BlobBackground from "../components/BlobBackground";
 
 /* ── SVG icons (inline, zero extra deps) ── */
 const IconMail = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="4" width="20" height="16" rx="2"/>
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
 );
 
 const IconLocation = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/>
-    <circle cx="12" cy="10" r="3"/>
+    <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" />
+    <circle cx="12" cy="10" r="3" />
   </svg>
 );
 
 const Location = () => {
+  const navigate = useNavigate();
+
+  const handleGetInTouch = () => {
+    navigate("/#contact-form");
+  };
+
   useEffect(() => {
-  const targets = document.querySelectorAll(
-    ".ow-card, .ow-intro, .ow-header, .ow-badge"
-  );
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge"
+    );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("ow-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ow-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
 
-  targets.forEach((el) => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
   return (
     <>
       <Navbar />
@@ -67,20 +73,6 @@ const Location = () => {
             >
               <span className="ow-nav-icon"><IconLocation /></span>
               Location
-            </Link>
-            <Link
-              to="/contact-us/getting-in"
-              className="ow-nav-item"
-            >
-              <span className="ow-nav-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/>
-                  <polyline points="10 17 15 12 10 7"/>
-                  <line x1="15" y1="12" x2="3" y2="12"/>
-                </svg>
-              </span>
-              Getting In
             </Link>
           </nav>
         </aside>
@@ -142,8 +134,8 @@ const Location = () => {
                 {/* clock icon */}
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
                 </svg>
               </div>
               <h3 className="ow-card-title">Working Hours</h3>
@@ -155,7 +147,7 @@ const Location = () => {
             </div>
 
             {/* Card 4 — Contact */}
-            <div className="ow-card">
+            <div className="ow-card" style={{ cursor: "pointer" }} onClick={handleGetInTouch}>
               <div className="ow-card-icon">
                 <IconMail />
               </div>
