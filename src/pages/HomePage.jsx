@@ -11,11 +11,20 @@ import ReviewSlider from "../components/ReviewSlider";
 import React, {useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import WhatWeDoSection from "../components/WhatWeDoSection";
-
+import { useLocation } from "react-router-dom";
 const HomePage = () => {
   const formRef = useRef(null);
   const servicesRef = useRef(null);
 const formBlobsRef = useRef([]);
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash === "#contact-form" && formRef.current) {
+      setTimeout(() => {
+        formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100); // slight delay lets the page render first
+    }
+  }, [hash]);
 
 useEffect(() => {
   const palette = [
@@ -185,6 +194,7 @@ useEffect(() => {
           <div
             className="form flex justify-center items-center w-full px-4"
             ref={formRef}
+             id="contact-form"
             style={{ position: "relative", zIndex: 1 }}
           >
             <div className="flex flex-col md:flex-row justify-center items-stretch w-full max-w-7xl 2xl:max-w-[1530px] gap-8 2xl:gap-16">
