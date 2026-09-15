@@ -20,6 +20,7 @@ import WebBackend from './pages/jobs/WebBackend';
 import ContactUs from './pages/ContactUs';
 import Location from './pages/Location';
 import Sitemap from './pages/Sitemap';
+import Seo from './components/Seo';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -45,6 +46,7 @@ const ScrollToTop = () => {
 
 const RootLayout = () => (
   <>
+    <Seo />
     <ScrollToTop />
     <Outlet />
   </>
