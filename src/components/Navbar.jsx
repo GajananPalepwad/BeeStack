@@ -66,9 +66,13 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      {/* Brand Logo with Official Wordmark */}
-      <Link to="/" className="navbar-brand">
-        <img src="/beestack_logo.png" alt="BeeStack" className="navbar-logo-img" />
+      {/* Brand Logo with Mascot & Wordmark */}
+      <Link to="/" className="navbar-brand" onClick={handleLinkClick} aria-label="BeeStack Software Labs Home">
+        <img src="/logo.png" alt="BeeStack Logo" className="navbar-brand-logo" />
+        <div className="navbar-brand-text">
+          <span className="navbar-brand-name">BeeStack</span>
+          <span className="navbar-brand-sub">SOFTWARE LABS</span>
+        </div>
       </Link>
 
       {/* Desktop Navigation */}

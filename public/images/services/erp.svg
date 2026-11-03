@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="erpGrad" x1="8" y1="6" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#DC2626" />
+    </linearGradient>
+    <linearGradient id="erpAccent" x1="24" y1="4" x2="24" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FCA5A5" />
+      <stop offset="100%" stop-color="#EF4444" />
+    </linearGradient>
+    <filter id="erpGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#EF4444" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Central Operational Enterprise Core (Cog) -->
+  <path d="M21.5 5H26.5L27.2 8.2C28.2 8.6 29.2 9.2 30.1 9.9L33.1 8.5L36.6 12L35.2 15C35.9 15.9 36.5 16.9 36.9 17.9L40 18.6V23.6L36.9 24.3C36.5 25.3 35.9 26.3 35.2 27.2L36.6 30.2L33.1 33.7L30.1 32.3C29.2 33 28.2 33.6 27.2 34L26.5 37.2H21.5L20.8 34C19.8 33.6 18.8 33 17.9 32.3L14.9 33.7L11.4 30.2L12.8 27.2C12.1 26.3 11.5 25.3 11.1 24.3L8 23.6V18.6L11.1 17.9C11.5 16.9 12.1 15.9 12.8 15L11.4 12L14.9 8.5L17.9 9.9C18.8 9.2 19.8 8.6 20.8 8.2L21.5 5Z" fill="url(#erpAccent)" filter="url(#erpGlow)" />
+
+  <!-- Gear Center Inner Ring -->
+  <circle cx="24" cy="21.1" r="9" fill="url(#erpGrad)" />
+  <circle cx="24" cy="21.1" r="6" fill="#1C1917" />
+
+  <!-- Central Processor Core -->
+  <circle cx="24" cy="21.1" r="3.2" fill="#FFFFFF" />
+
+  <!-- Modular Enterprise Data Bars (Finance, Admissions, HR, BI) -->
+  <rect x="13" y="38" width="5" height="6" rx="2" fill="#FCA5A5" />
+  <rect x="21.5" y="34" width="5" height="10" rx="2" fill="url(#erpAccent)" />
+  <rect x="30" y="30" width="5" height="14" rx="2" fill="url(#erpGrad)" />
+
+  <!-- Ascending Growth / Efficiency Trend Indicator -->
+  <path d="M14 36L22 31L29 27L37 20" stroke="#FBBF24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M33 20H37V24" stroke="#FBBF24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Enterprise Sparkle -->
+  <path d="M38 7L38.8 8.7L40.5 9.5L38.8 10.3L38 12L37.2 10.3L35.5 9.5L37.2 8.7L38 7Z" fill="#FDE68A" />
+</svg>

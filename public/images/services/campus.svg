@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="campusGrad" x1="8" y1="8" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#0891B2" />
+    </linearGradient>
+    <linearGradient id="campusAccent" x1="24" y1="6" x2="24" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#67E8F9" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <filter id="campusGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#06B6D4" flood-opacity="0.32" />
+    </filter>
+  </defs>
+  <!-- Wireless IoT Telemetry Waves -->
+  <path d="M18 6C19.8 4.7 21.8 4 24 4C26.2 4 28.2 4.7 30 6" stroke="#67E8F9" stroke-width="2" stroke-linecap="round" />
+  <path d="M20.5 8.5C21.6 7.8 22.8 7.4 24 7.4C25.2 7.4 26.4 7.8 27.5 8.5" stroke="#A5F3FC" stroke-width="1.8" stroke-linecap="round" />
+  <circle cx="24" cy="11.5" r="1.8" fill="#67E8F9" />
+
+  <!-- Classical Campus Pediment Roof -->
+  <path d="M24 13L8 21H40L24 13Z" fill="url(#campusAccent)" filter="url(#campusGlow)" />
+  <path d="M24 16.5L13.5 21H34.5L24 16.5Z" fill="#FFFFFF" fill-opacity="0.25" />
+
+  <!-- Campus Pillars & Central Gateway -->
+  <rect x="11.5" y="22" width="4" height="15" rx="1.5" fill="url(#campusGrad)" />
+  <rect x="32.5" y="22" width="4" height="15" rx="1.5" fill="url(#campusGrad)" />
+
+  <!-- Central Smart Hub Archway -->
+  <path d="M19.5 37V26.5C19.5 24 21.5 22 24 22C26.5 22 28.5 24 28.5 26.5V37H19.5Z" fill="url(#campusGrad)" />
+  <path d="M21.5 37V27C21.5 25.6 22.6 24.5 24 24.5C25.4 24.5 26.5 25.6 26.5 27V37H21.5Z" fill="#083344" />
+  <!-- IoT Pulse Node inside entrance -->
+  <circle cx="24" cy="29" r="1.8" fill="#67E8F9" />
+  <line x1="24" y1="31" x2="24" y2="37" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round" />
+
+  <!-- Foundation Steps -->
+  <rect x="8" y="38" width="32" height="3" rx="1.5" fill="url(#campusGrad)" />
+  <rect x="5" y="42" width="38" height="3" rx="1.5" fill="url(#campusAccent)" />
+
+  <!-- Automation Tech Sparkle -->
+  <path d="M38 12L38.7 13.5L40.2 14.2L38.7 14.9L38 16.4L37.3 14.9L35.8 14.2L37.3 13.5L38 12Z" fill="#FFFFFF" />
+</svg>

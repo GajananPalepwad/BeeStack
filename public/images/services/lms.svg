@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="lmsGrad" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="lmsAccent" x1="24" y1="4" x2="24" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6EE7B7" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <filter id="lmsGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#10B981" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  <!-- Graduation Mortarboard Top -->
+  <path d="M24 6L4 16L24 26L44 16L24 6Z" fill="url(#lmsAccent)" filter="url(#lmsGlow)" />
+  <!-- Mortarboard UnderCap -->
+  <path d="M10 20.5V30.5C10 30.5 15 35 24 35C33 35 38 30.5 38 30.5V20.5L24 27.5L10 20.5Z" fill="url(#lmsGrad)" fill-opacity="0.9" />
+  <!-- Tassel Ribbon & Bobble -->
+  <path d="M40 17.5V30C40 31.5 38.5 32 37.5 32" stroke="#34D399" stroke-width="2.2" stroke-linecap="round" />
+  <circle cx="37.5" cy="33.5" r="2" fill="#FBBF24" />
+  <!-- Open Book Base -->
+  <path d="M12 37C17 35 21 37 24 39C27 37 31 35 36 37V42C31 40 27 41.5 24 43.5C21 41.5 17 40 12 42V37Z" fill="url(#lmsGrad)" fill-opacity="0.75" />
+  <!-- Central Knowledge Sparkle -->
+  <path d="M24 13L25.2 15.8L28 17L25.2 18.2L24 21L22.8 18.2L20 17L22.8 15.8L24 13Z" fill="#FFFFFF" />
+</svg>

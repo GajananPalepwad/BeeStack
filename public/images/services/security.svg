@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="secGrad" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <linearGradient id="secShieldGlow" x1="24" y1="4" x2="24" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <filter id="secGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0284C7" flood-opacity="0.32" />
+    </filter>
+  </defs>
+  <!-- Outer Fortress Shield -->
+  <path d="M24 4L9 10.5V22C9 32.5 15.5 41 24 44C32.5 41 39 32.5 39 22V10.5L24 4Z" fill="url(#secShieldGlow)" filter="url(#secGlow)" />
+  <!-- Inner Shield Core -->
+  <path d="M24 8L12.5 13V22C12.5 30 17.5 37 24 39.5C30.5 37 35.5 30 35.5 22V13L24 8Z" fill="url(#secGrad)" />
+  <!-- Padlock Shackle -->
+  <path d="M19 22V17C19 14.2 21.2 12 24 12C26.8 12 29 14.2 29 17V22" stroke="#BAE6FD" stroke-width="2.6" stroke-linecap="round" />
+  <!-- Padlock Body -->
+  <rect x="17" y="21" width="14" height="11" rx="3" fill="#FFFFFF" />
+  <!-- Biometric Keyhole -->
+  <circle cx="24" cy="25" r="1.6" fill="#0284C7" />
+  <path d="M23.2 25.5L22.5 29H25.5L24.8 25.5" stroke="#0284C7" stroke-width="1.2" stroke-linejoin="round" />
+  <!-- Concentric Trust Arc -->
+  <path d="M16 35C18.2 36.5 21 37.3 24 37.3C27 37.3 29.8 36.5 32 35" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2 3" />
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="libGrad" x1="6" y1="12" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    <linearGradient id="libAccent" x1="24" y1="6" x2="24" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C4B5FD" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+    <filter id="libGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#8B5CF6" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Open Digital Book (Left & Right Wings) -->
+  <!-- Left Page -->
+  <path d="M24 15C18.5 12.5 12.5 13 6 15.5V36.5C12.5 34 18.5 33.5 24 36V15Z" fill="url(#libAccent)" filter="url(#libGlow)" />
+  <!-- Right Page -->
+  <path d="M24 15C29.5 12.5 35.5 13 42 15.5V36.5C35.5 34 29.5 33.5 24 36V15Z" fill="url(#libGrad)" />
+
+  <!-- Hardcover Backing Underlay -->
+  <path d="M6 37C12.5 34.5 18.5 35 24 37.5C29.5 35 35.5 34.5 42 37V39C35.5 36.5 29.5 37 24 39.5C18.5 37 12.5 36.5 6 39V37Z" fill="#4C1D95" />
+
+  <!-- Book Spine Center Binding -->
+  <line x1="24" y1="15" x2="24" y2="38" stroke="#DDD6FE" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Left Page Content Lines -->
+  <line x1="10" y1="20" x2="20" y2="20" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round" />
+  <line x1="10" y1="25" x2="19" y2="25" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="2" stroke-linecap="round" />
+  <line x1="10" y1="30" x2="16" y2="30" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Golden Bookmark Ribbon -->
+  <path d="M22 10V18L24 16.5L26 18V10H22Z" fill="#FBBF24" />
+
+  <!-- Discovery / OPAC Search Lens -->
+  <circle cx="33" cy="24" r="6.5" stroke="#FFFFFF" stroke-width="2.2" fill="#8B5CF6" fill-opacity="0.35" />
+  <path d="M37.5 28.5L42 33" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" />
+  <!-- Spark inside lens -->
+  <circle cx="33" cy="24" r="2.2" fill="#DDD6FE" />
+
+  <!-- Digital Knowledge Sparkle -->
+  <path d="M12 7L12.8 8.7L14.5 9.5L12.8 10.3L12 12L11.2 10.3L9.5 9.5L11.2 8.7L12 7Z" fill="#FDE68A" />
+</svg>
