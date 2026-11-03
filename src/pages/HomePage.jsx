@@ -60,64 +60,110 @@ useEffect(() => {
       <div className="homepage">
         <Navbar />
 
-        {/* ── Hero ── */}
-        <div className="carousal flex">
-          <AnimatedGradient className="threestacks" />
-          <div className="left flex flex-col">
-            <h5>Trusted by 100+ Business</h5>
-            <h1>
-              <b>
-                Build Systems That Move
-                <br />
-                Ideas Forward.
-              </b>
-            </h1>
-            <h2>
-              {" "}
-              <br />
-              BeeStack is a next-gen technology company crafting intelligent,
-              <br />
-              scalable, and future-ready software solutions.
-              <br />
-              <br />
-              From connected devices to cloud platforms, we engineer products
-              <br />
-              that power the digital future which are fast, reliable, and built
-              to last.
-              <br />
-              Whether it's AI-driven automation, or full-stack development,
-              <br />
-              We make tech feel seamless.
-              <br />
-              <br /> See what we build. Feel what we solve.
-            </h2>
-            <div className="buttons">
-              <button
-                type="button"
-                className="btn consultation"
-                onClick={() =>
-                  formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }
-              >
-                Get A Free Consultation
-              </button>
-              <button
-                type="button"
-                className="btn services"
-                onClick={() =>
-                  servicesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }
-              >
-                Services
-              </button>
+        {/* ── Hero Section ── */}
+        <section className="hero-section carousal flex" aria-label="Hero Section">
+          <div className="hero-gradient-canvas">
+            <AnimatedGradient className="threestacks" />
+            <div className="hero-ambient-vignette" />
+          </div>
+
+          <div className="hero-container flex">
+            {/* Left Column: Value Proposition & Actions */}
+            <div className="hero-content left flex flex-col">
+              <div className="hero-status-badge">
+                <span className="hero-status-pulse">
+                  <span className="hero-status-dot" />
+                </span>
+                <span className="hero-status-text">Available for New Projects</span>
+                <span className="hero-status-sep">•</span>
+                <span className="hero-status-highlight">Next-Gen Software Lab</span>
+              </div>
+
+              <h1 className="hero-title">
+                Build Systems That Move Ideas Forward.
+              </h1>
+
+              <p className="hero-lead">
+                BeeStack is a technology company crafting intelligent,
+                scalable, and future-ready digital platforms. From connected IoT
+                ecosystems to resilient enterprise cloud platforms, we engineer
+                high-throughput systems that are fast, reliable, and built to scale.
+              </p>
+
+              <div className="hero-actions buttons">
+                <button
+                  type="button"
+                  className="hero-btn hero-btn--primary btn consultation"
+                  onClick={() =>
+                    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+                  }
+                >
+                  <span>Get A Free Consultation</span>
+                  <svg
+                    className="hero-btn-arrow"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className="hero-btn hero-btn--secondary btn services"
+                  onClick={() =>
+                    servicesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+                  }
+                >
+                  <span>Explore Capabilities</span>
+                  <svg
+                    className="hero-btn-chevron"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Social Proof / Trust Metrics Row */}
+              <div className="hero-metrics-row">
+                <div className="hero-metric-item">
+                  <span className="hero-metric-num">10+</span>
+                  <span className="hero-metric-label">Platforms Shipped</span>
+                </div>
+                <div className="hero-metric-divider" />
+                <div className="hero-metric-item">
+                  <span className="hero-metric-num">99.9%</span>
+                  <span className="hero-metric-label">System Uptime</span>
+                </div>
+                <div className="hero-metric-divider" />
+                <div className="hero-metric-item">
+                  <span className="hero-metric-num">100%</span>
+                  <span className="hero-metric-label">IP & Code Ownership</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Interactive 3D Stack */}
+            <div className="hero-stack-column right flex items-center">
+              <Stack />
             </div>
           </div>
-          <div className="right flex items-center w-1/2">
-            <Stack />
-          </div>
-        </div>
+        </section>
 
-        {/* Scroll anchor for Services */}
         <div ref={servicesRef} />
 
         {/* ── What We Do ── */}

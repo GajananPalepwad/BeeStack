@@ -110,10 +110,6 @@ export default function Form() {
       <div className="bs-contact-container">
         {/* Left Column: Direct Inquiries, Trust & Info */}
         <div className="bs-contact-info-col">
-          {/* <div className="bs-contact-badge">
-            <span className="bs-contact-badge-dot" />
-            LET'S TALK
-          </div> */}
 
           <h2 className="bs-contact-headline">
             Let's build something extraordinary together.
