@@ -1,12 +1,13 @@
 {
-  "name": "BeeStack | Software Development & Digital Solutions",
+  "name": "BeeStack Technologies",
   "short_name": "BeeStack",
-  "description": "BeeStack builds scalable web apps, mobile apps, SaaS products, APIs, dashboards, and digital solutions for startups and growing businesses.",
+  "description": "BeeStack builds scalable web apps, mobile apps, SaaS products, APIs, dashboards, and digital solutions for startups and businesses.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "orientation": "portrait-primary",
+  "categories": ["business", "developer", "productivity", "utilities"],
   "icons": [
     {
       "src": "/logo.png",

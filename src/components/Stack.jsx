@@ -199,8 +199,8 @@ const Stack = () => {
                     <path
                       d="M 50,3 Q 54,4 96,41 Q 100,46 96,51 Q 54,96 50,97 Q 46,96 4,51 Q 0,46 4,41 Q 46,4 50,3 Z"
                       fill="none"
-                      stroke={isSelected ? layer.color : "rgba(255, 255, 255, 0.42)"}
-                      strokeWidth={isSelected ? "2.2" : "1.2"}
+                      stroke={isSelected ? layer.color : "rgba(255, 255, 255, 0.62)"}
+                      strokeWidth={isSelected ? "2.2" : "1.5"}
                       vectorEffect="non-scaling-stroke"
                     />
                   </svg>

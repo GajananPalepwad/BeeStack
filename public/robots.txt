@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Host
+Host: https://beestack.in
+
+# Sitemaps
 Sitemap: https://beestack.in/sitemap.xml

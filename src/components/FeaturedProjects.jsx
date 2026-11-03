@@ -153,7 +153,7 @@ export default function FeaturedProjects() {
 
       {/* Section Heading matching What We Do & Testimonials */}
       <div className="fp-heading-wrap">
-        <div className="fp-label">OUR WORK</div>
+        <h2 className="fp-label">OUR WORK</h2>
         <p className="fp-sub">Flagship platforms and products, crafted to move your ideas forward.</p>
       </div>
 

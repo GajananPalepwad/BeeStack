@@ -177,7 +177,7 @@ function ReviewSlider() {
 
       {/* Section heading */}
       <div className="review-heading">
-        <div className="review-label">TESTIMONIALS</div>
+        <h2 className="review-label">TESTIMONIALS</h2>
         <p className="review-sub">What our clients say about working with us.</p>
       </div>
 
