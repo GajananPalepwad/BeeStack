@@ -16,6 +16,11 @@ body,
   box-sizing: border-box;
 }
 
+:root {
+  --nav-height: 72px;
+  --content-pad: 4vw;
+}
+
 .homepage {
   width: 100%;
   max-width: 100vw;
@@ -35,7 +40,8 @@ body,
 .carousal {
   position: relative;
   width: 100%;
-  min-height: 88vh;
+  min-height: 100vh;
+  padding-top: var(--nav-height, 72px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,7 +88,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: clamp(2.5rem, 6vw, 4.5rem) var(--content-pad);
+  padding: clamp(1.5rem, 3.5vw, 3rem) var(--content-pad);
   gap: clamp(2rem, 4vw, 4.5rem);
   box-sizing: border-box;
 }
@@ -582,11 +588,18 @@ body,
 }
 
 @media screen and (max-width: 960px) {
+  .hero-section,
+  .carousal {
+    min-height: auto;
+    padding-top: var(--nav-height, 72px);
+    padding-bottom: 2rem;
+  }
+
   .hero-container {
     flex-direction: column;
     text-align: center;
-    padding-top: clamp(2rem, 5vw, 3.5rem);
-    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
     gap: 2rem;
   }
 
@@ -646,13 +659,18 @@ body,
 
 @media (max-width: 768px) {
   .homepage {
+    padding-top: 0;
+  }
+
+  .hero-section,
+  .carousal {
     padding-top: 64px;
+    min-height: auto;
   }
 
   :root {
     --content-pad: clamp(0.75rem, 4vw, 1rem);
   }
-
 
   .carousal {
     flex-direction: column;
@@ -799,4 +817,12 @@ body,
 @keyframes dividerShimmer {
   0%   { background-position: 0% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* Ensure anchor targets stop with clean clearance below fixed header */
+.whatwedo,
+.fp-section,
+.testimonials,
+.bs-contact-section {
+  scroll-margin-top: calc(var(--nav-height, 72px) + 20px);
 }
