@@ -1,276 +1,251 @@
-import React from "react";
+import React, { useEffect } from "react";
+import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import Sidebar from "../components/Sidebar";
 import BlobBackground from "../components/BlobBackground";
+import { Link } from "react-router-dom";
+
+const careerReasons = [
+  {
+    num: "01",
+    title: "We Ship Real Products",
+    tags: ["High Impact", "Production Code", "Real Users"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
+    ),
+    text: "From concept to global deployment, we build real applications that reach active users. There's nothing quite like seeing software you engineered used daily to solve real-world problems.",
+  },
+  {
+    num: "02",
+    title: "Technology at the Core",
+    tags: ["Modern Stacks", "Cutting-Edge", "No Legacy Drag"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+    text: "We are an engineer-first company. You'll work on new mobile platforms, explore bleeding-edge web frameworks, and help shape the future of how things are architected.",
+  },
+  {
+    num: "03",
+    title: "We Value Your Growth",
+    tags: ["Tech Mentorship", "Internal Talks", "Continuous Learning"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+      </svg>
+    ),
+    text: "We invest heavily in your professional development through one-on-one mentorship, weekly tech deep-dives, and dedicated learning allowances. We teach you how to master fundamentals.",
+  },
+  {
+    num: "04",
+    title: "Ownership, Not Oversight",
+    tags: ["Decentralized", "Autonomous", "No Micromanagement"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    ),
+    text: "You own features end-to-end from specification to release. We trust our engineers to make sound architectural decisions and take pride in shipping high-grade code.",
+  },
+  {
+    num: "05",
+    title: "Innovation Over Routine",
+    tags: ["Experimentation", "Rapid Prototyping", "Curiosity"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+    text: "We encourage bold experimentation and out-of-the-box thinking. Trying new libraries, benchmarking alternative databases, and failing fast is how we stay ahead.",
+  },
+  {
+    num: "06",
+    title: "Smart People, Small Teams",
+    tags: ["Tight-Knit", "Direct Impact", "Zero Bureaucracy"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    text: "You will collaborate directly with humble, talented builders who love technology. We keep teams intentionally compact so your voice directly influences project direction.",
+  },
+  {
+    num: "07",
+    title: "Work-Life Balance That's Real",
+    tags: ["Flexible Hours", "Sacred Weekends", "Sustainable Velocity"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
+      </svg>
+    ),
+    text: "We work diligently because we care, not because of artificial crunches. We set realistic sprint scopes and treat weekends as sacred time for rest, hobbies, and family.",
+  },
+  {
+    num: "08",
+    title: "We Celebrate Everything",
+    tags: ["Team Milestones", "Game Nights", "Good Vibes"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
+    ),
+    text: "From shipped features and zero-bug sprints to team birthdays and hackathons, we celebrate big milestones and everyday victories. A positive atmosphere is part of our workflow.",
+  },
+  {
+    num: "09",
+    title: "Perks That Actually Perk",
+    tags: ["Premium Gear", "Catered Lunches", "Wellness Support"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+    ),
+    text: "Top-tier developer workstations, ergonomic setups, high-refresh displays, catered food, and open creative lounges. We believe great tools foster great focus.",
+  },
+  {
+    num: "10",
+    title: "A Culture That Grows With You",
+    tags: ["Career Tracks", "Leadership", "Hive Spirit"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+        <polyline points="17 6 23 6 23 12" />
+      </svg>
+    ),
+    text: "At BeeStack, you won't just level up your commit history — you will grow as an architect, leader, and problem solver. We mentor engineers into tech leaders.",
+  },
+];
 
 const Careers = () => {
   useEffect(() => {
-  const targets = document.querySelectorAll(
-    ".ow-card, .ow-intro, .ow-header, .ow-badge"
-  );
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge"
+    );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("ow-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ow-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  targets.forEach((el) => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Navbar />
 
       <div className="ow-page">
         <BlobBackground />
-        {/* ── SIDEBAR ── */}
-        <aside className="ow-sidebar">
-          <nav className="ow-nav" data-section="CAREERS">
-            <Link to="/careers" className="ow-nav-item ow-nav-item--active">
-              <span className="ow-nav-icon">
-                {/* Star / "why" icon */}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
-              </span>
-              Why BeeStack?
-            </Link>
-            
-            <Link to="/careers/current-openings" className="ow-nav-item">
-              <span className="ow-nav-icon">
-                {/* Briefcase icon */}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-                </svg>
-              </span>
-              Current Openings
-            </Link>
-          </nav>
-        </aside>
 
-        {/* ── MAIN CONTENT ── */}
+        {/* Unified Modern Sidebar */}
+        <Sidebar section="CAREERS" />
+
+        {/* Main content */}
         <main className="ow-main">
           {/* Header */}
-          <div className="ow-header">
-            <h1 className="ow-title">
-              <span>Why BeeStack?</span>
-            </h1>
-            <p className="ow-subtitle">Because Building Together is Fun</p>
+          <header className="ow-header">
+            <div className="ow-breadcrumb">
+              <span>Careers</span>
+              <span>•</span>
+              <span>Life at BeeStack</span>
+            </div>
+            <h1 className="ow-title">Why BeeStack?</h1>
+            <p className="ow-subtitle">
+              Because building software together should be rewarding, inspiring, and fun.
+            </p>
             <hr className="ow-divider" />
-          </div>
+          </header>
 
-          {/* Intro */}
-          <div className="ow-intro">
-            <div className="ow-badge">Our Culture</div>
+          {/* Intro Card */}
+          <section className="ow-intro">
+            <div className="ow-badge">Our Engineering Culture</div>
             <p className="ow-intro-text">
-              At BeeStack, we believe that great products come from great people — and great people
-              thrive when work feels exciting. We're a tight-knit team of builders, designers, and
-              dreamers who love what we do. We take pride in shipping quality software, solving hard
-              problems, and enjoying every step of the journey.
+              At BeeStack, we believe exceptional software comes from empowered engineers — and great people thrive when work is challenging and exciting.
             </p>
             <p className="ow-intro-text">
-              We hire people who are curious, self-driven, and passionate — not just about their code
-              or design, but about everything they do in life. Every person here adds something unique
-              to the hive. We offer a place where your ideas matter, your work makes an impact, and
-              your growth is real — all while keeping things light, collaborative, and fun.
+              We're a tight-knit team of builders, designers, and systems architects who love shipping clean code. Here are the top 10 reasons engineers love building their careers with us.
             </p>
-          </div>
+          </section>
 
-          {/* Cards — Top 10 Reasons */}
-          <div className="ow-badge" style={{ marginBottom: "20px" }}>
-            Top 10 Reasons to Work at BeeStack ⚡
-          </div>
-
+          {/* Cards Grid */}
           <div className="ow-cards-grid">
-            {/* Card 1 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">1. We ship real products</div>
-              <p className="ow-card-text">
-                From concept to launch we build real products that reach real users. There's nothing
-                like seeing something you built come alive in the world, making people's lives easier
-                or better.
-              </p>
-            </div>
+            {careerReasons.map((r) => (
+              <article className="ow-card" key={r.title}>
+                <div>
+                  <div className="ow-card-header">
+                    <span className="ow-card-icon">{r.icon}</span>
+                    <span className="ow-card-num">{r.num}</span>
+                  </div>
 
-            {/* Card 2 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="16 18 22 12 16 6"/>
-                  <polyline points="8 6 2 12 8 18"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">2. Technology at the core</div>
-              <p className="ow-card-text">
-                We're a technology-first company. You'll work on new platforms, explore modern
-                frameworks, and help shape the future of how things are built. Geeky? Absolutely.
-                And proud of it.
-              </p>
-            </div>
+                  <h3 className="ow-card-title">{r.title}</h3>
+                  <p className="ow-card-text">{r.text}</p>
+                </div>
 
-            {/* Card 3 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 20h9"/>
-                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">3. We value your growth</div>
-              <p className="ow-card-text">
-                We invest in your development through mentorship, internal tech sessions, and constant
-                learning opportunities. At BeeStack, we don't just teach tools — we teach you how
-                to learn.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="12" y1="8" x2="12" y2="12"/>
-                  <line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">4. Ownership, not oversight</div>
-              <p className="ow-card-text">
-                You'll own your projects end-to-end from idea to delivery. We trust you to make
-                decisions, experiment, and take responsibility for what you build. We're here to
-                guide, not micromanage.
-              </p>
-            </div>
-
-            {/* Card 5 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">5. Innovation over routine</div>
-              <p className="ow-card-text">
-                We encourage new ideas and bold experimentation. Failure isn't something to fear —
-                it's just a part of building something better.
-              </p>
-            </div>
-
-            {/* Card 6 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">6. Smart people, small teams</div>
-              <p className="ow-card-text">
-                You'll collaborate with smart, humble, and driven teammates who love solving challenges
-                together. We keep teams small so everyone's voice counts and communication stays fast.
-              </p>
-            </div>
-
-            {/* Card 7 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">7. Work-life balance that's real</div>
-              <p className="ow-card-text">
-                We work hard because we care, not because of deadlines. Late nights happen when
-                curiosity strikes, not because someone said so. Weekends? They're sacred — go live
-                your life.
-              </p>
-            </div>
-
-            {/* Card 8 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">8. We celebrate everything</div>
-              <p className="ow-card-text">
-                From shipped features to birthdays, Friday game nights to team outings — we make
-                time to celebrate big wins and small joys. Good vibes are part of the workflow.
-              </p>
-            </div>
-
-            {/* Card 9 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">9. Perks that actually perk you up</div>
-              <p className="ow-card-text">
-                Think flexible hours, catered lunches, the latest devices, wellness breaks, and
-                creative spaces to brainstorm or just chill. We believe productivity and happiness
-                go hand in hand.
-              </p>
-            </div>
-
-            {/* Card 10 */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                  <polyline points="17 6 23 6 23 12"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">10. A culture that grows with you</div>
-              <p className="ow-card-text">
-                At BeeStack, you don't just grow in your career — you grow as a person. We want
-                you to explore, question, and create, because that's what keeps our hive buzzing.
-              </p>
-            </div>
+                <div className="ow-card-tags">
+                  {r.tags.map((tag, i) => (
+                    <span className="ow-card-tag" key={i}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            ))}
           </div>
 
-          {/* CTA */}
-          <div className="ow-intro" style={{ marginTop: "44px", marginBottom: "0" }}>
-            <p className="ow-intro-text">
-              Like what you read? Come build with us.{" "}
-              Check out our{" "}
-              <Link to="/careers/current-openings" style={{ color: "var(--amber-d)", fontWeight: 700, textDecoration: "underline" }}>
-                Open Positions
-              </Link>{" "}
-              and let's create something awesome together.
-            </p>
+          {/* Join the Hive Callout */}
+          <div style={{
+            background: "linear-gradient(135deg, rgba(254, 243, 199, 0.9), rgba(253, 230, 138, 0.7))",
+            border: "1.5px solid rgba(245, 158, 11, 0.4)",
+            borderRadius: "18px",
+            padding: "28px 32px",
+            maxWidth: "1200px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "20px",
+            boxShadow: "0 10px 30px rgba(217, 119, 6, 0.12)"
+          }}>
+            <div>
+              <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#0f172a", marginBottom: "4px" }}>
+                Ready to build what's next?
+              </h3>
+              <p style={{ fontSize: "14px", color: "#475569" }}>
+                We're always looking for passionate engineers across Mobile, Frontend, Backend, and IoT.
+              </p>
+            </div>
+            <Link
+              to="/careers/current-openings"
+              className="ow-sidebar-footer-btn"
+              style={{ padding: "10px 20px", fontSize: "13.5px" }}
+            >
+              Explore Open Positions
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </Link>
           </div>
         </main>
       </div>

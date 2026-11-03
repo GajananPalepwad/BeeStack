@@ -13,45 +13,48 @@ const Sitemap = () => {
     },
     {
       title: 'Our Work',
-      path: '/our-work',
+      path: '/our-work/products',
       children: [
+        { title: "Tech we've built", path: '/our-work/products' },
+        { title: 'The Concept', path: '/our-work/concept' },
         { title: 'Technique', path: '/our-work/technique' },
         { title: 'Technology', path: '/our-work/technology' },
-        { title: 'Products', path: '/our-work/products' }
       ]
     },
     {
       title: 'About Us',
       path: '/about-us',
-      children: []
-    },
-    {
-      title: 'Testimonials',
-      path: '/testimonials',
-      children: []
+      children: [
+        { title: 'Core Values', path: '/about-us' },
+        { title: 'Client Testimonials', path: '/about-us/testimonials' },
+      ]
     },
     {
       title: 'Careers',
       path: '/careers',
       children: [
-        { title: 'Getting In', path: '/careers/getting-in' },
-        { title: 'Current Openings', path: '/careers/current-openings' }
+        { title: 'Why BeeStack?', path: '/careers' },
+        { title: 'Current Openings', path: '/careers/current-openings' },
       ]
     },
     {
-      title: 'Job Openings',
-      path: null,
+      title: 'Engineering Job Openings',
+      path: '/careers/current-openings',
       children: [
-        { title: 'Android Developer', path: '/jobs/android' },
-        { title: 'iOS Developer', path: '/jobs/ios' },
-        { title: 'Web Frontend Developer', path: '/jobs/webfrontend' },
-        { title: 'Web Backend Developer', path: '/jobs/webbackend' }
+        { title: 'Software Engineer – Android', path: '/jobs/android' },
+        { title: 'Software Engineer – iOS', path: '/jobs/ios' },
+        { title: 'Software Engineer – Web Frontend', path: '/jobs/webfrontend' },
+        { title: 'Software Engineer – Backend / Full Stack', path: '/jobs/webbackend' }
       ]
     },
     {
       title: 'Contact Us',
       path: '/contact-us',
-      children: []
+      children: [
+        { title: 'Contact Mail & Inquiries', path: '/contact-us' },
+        { title: 'Office Location & Maps', path: '/contact-us/location' },
+        { title: 'Getting In / Hiring Journey', path: '/contact-us/getting-in' },
+      ]
     }
   ];
 
@@ -60,8 +63,8 @@ const Sitemap = () => {
       <Navbar />
       <div className="sitemap-container">
         <div className="sitemap-content">
-          <h1 className="sitemap-title">Sitemap</h1>
-          <p className="sitemap-subtitle">Navigate through all pages easily</p>
+          <h1 className="sitemap-title">Site Directory</h1>
+          <p className="sitemap-subtitle">Comprehensive sitemap across all BeeStack pages and services</p>
           
           <div className="sitemap-list">
             {sitemapData.map((section, index) => (
@@ -96,4 +99,3 @@ const Sitemap = () => {
 };
 
 export default Sitemap;
-

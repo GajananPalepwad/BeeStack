@@ -6,6 +6,13 @@
   max-width: 100vw;
   box-sizing: border-box;
   overflow-x: hidden;
+  margin-top: 72px;
+}
+
+@media (max-width: 768px) {
+  .sitemap-container {
+    margin-top: 64px;
+  }
 }
 
 .sitemap-content {

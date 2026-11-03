@@ -1,171 +1,207 @@
-import React , {useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 import BlobBackground from "../components/BlobBackground";
 
-/* ── SVG icons (inline, zero extra deps) ── */
-const IconMail = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="4" width="20" height="16" rx="2"/>
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-  </svg>
-);
-
-const IconLocation = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/>
-    <circle cx="12" cy="10" r="3"/>
-  </svg>
-);
-
 const Location = () => {
+  const [copiedAddress, setCopiedAddress] = useState(false);
+  const fullAddress = "BeeStack Software Labs, Ramdasji Nagar, Vishnupuri, Nanded, Maharashtra — 431606";
+
+  const handleCopyAddress = () => {
+    navigator.clipboard.writeText(fullAddress);
+    setCopiedAddress(true);
+    setTimeout(() => setCopiedAddress(false), 2000);
+  };
+
   useEffect(() => {
-  const targets = document.querySelectorAll(
-    ".ow-card, .ow-intro, .ow-header, .ow-badge"
-  );
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge"
+    );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("ow-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ow-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  targets.forEach((el) => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Navbar />
 
       <div className="ow-page">
         <BlobBackground />
-        {/* ── SIDEBAR ── */}
-        <aside className="ow-sidebar">
 
-          <nav className="ow-nav" data-section="CONTACT US">
-            <Link
-              to="/contact-us"
-              className="ow-nav-item"
-            >
-              <span className="ow-nav-icon"><IconMail /></span>
-              Contact Mail
-            </Link>
+        {/* Unified Modern Sidebar */}
+        <Sidebar section="CONTACT US" />
 
-            <Link
-              to="/contact-us/location"
-              className="ow-nav-item ow-nav-item--active"
-            >
-              <span className="ow-nav-icon"><IconLocation /></span>
-              Location
-            </Link>
-            <Link
-              to="/contact-us/getting-in"
-              className="ow-nav-item"
-            >
-              <span className="ow-nav-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/>
-                  <polyline points="10 17 15 12 10 7"/>
-                  <line x1="15" y1="12" x2="3" y2="12"/>
-                </svg>
-              </span>
-              Getting In
-            </Link>
-          </nav>
-        </aside>
-
-        {/* ── MAIN ── */}
+        {/* Main Content */}
         <main className="ow-main">
           {/* Header */}
           <header className="ow-header">
-            <h1 className="ow-title">
-              Find <span>Us</span>
-            </h1>
-            <p className="ow-subtitle">We'd love to meet you in person.</p>
+            <div className="ow-breadcrumb">
+              <span>Contact Us</span>
+              <span>•</span>
+              <span>Headquarters & Labs</span>
+            </div>
+            <h1 className="ow-title">Our Location</h1>
+            <p className="ow-subtitle">
+              We'd love to welcome you in person. Come visit our engineering lab, share a cup of chai, and discuss what we can build together.
+            </p>
             <hr className="ow-divider" />
           </header>
 
-          {/* Intro */}
+          {/* Intro Card */}
           <section className="ow-intro">
-            <div className="ow-badge">Our Location</div>
+            <div className="ow-badge">Engineering Lab • Maharashtra</div>
             <p className="ow-intro-text">
-              Our main office is nestled in Vishnupuri, Nanded — come say hello,
-              grab a cup of chai, and let's build something great together.
+              Our central engineering lab is based in Vishnupuri, Nanded — close to academic centers, talent hubs, and serene surroundings that foster focused technical creation.
             </p>
           </section>
 
-          {/* Cards */}
+          {/* Cards Grid */}
           <div className="ow-cards-grid">
-
             {/* Card 1 — Address */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <IconLocation />
+            <article className="ow-card">
+              <div>
+                <div className="ow-card-header">
+                  <span className="ow-card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </span>
+                  <span className="ow-status-badge ow-status-badge--live">Headquarters</span>
+                </div>
+
+                <h3 className="ow-card-title">Office Address</h3>
+                <p className="ow-card-text" style={{ lineHeight: "1.8", color: "#334155" }}>
+                  <strong>BeeStack Software Labs</strong><br />
+                  Ramdasji Nagar, Vishnupuri<br />
+                  Nanded, Maharashtra — 431606, India
+                </p>
+
+                <div style={{ marginTop: "16px" }}>
+                  <button
+                    onClick={handleCopyAddress}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      background: copiedAddress ? "#059669" : "rgba(252, 171, 30, 0.12)",
+                      color: copiedAddress ? "#ffffff" : "#d97706",
+                      border: "1px solid rgba(252, 171, 30, 0.35)",
+                      borderRadius: "8px",
+                      padding: "7px 14px",
+                      fontSize: "12px",
+                      fontWeight: "700",
+                      cursor: "pointer",
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                    {copiedAddress ? "Address Copied!" : "Copy Full Address"}
+                  </button>
+                </div>
               </div>
-              <h3 className="ow-card-title">Office Address</h3>
-              <p className="ow-card-text">
-                BeeStack Software Labs<br />
-                Ramdasji Nagar, Vishnupuri<br />
-                Nanded, Maharashtra — 431606
-              </p>
-            </div>
 
-            {/* Card 2 — Map embed */}
-            <div className="ow-card" style={{ padding: 0, overflow: "hidden" }}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d15079.236071356052!2d77.3055517!3d19.1160325!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2sin!4v1763433426176!5m2!1sen!2sin"
-                width="100%"
-                height="260"
-                style={{ display: "block", border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="BeeStack Office Map"
-              />
-              {/* coloured top-bar pseudo-element still renders via ::before */}
-            </div>
-
-            {/* Card 3 — Hours */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                {/* clock icon */}
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
+              <a
+                href="https://maps.google.com/?q=BeeStack+Software+Labs+Vishnupuri+Nanded"
+                target="_blank"
+                rel="noreferrer"
+                className="ow-card-btn"
+              >
+                <span>Open in Google Maps</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <polyline points="9 18 15 12 9 6" />
                 </svg>
-              </div>
-              <h3 className="ow-card-title">Working Hours</h3>
-              <p className="ow-card-text">
-                Monday – Friday: 9 AM – 6 PM<br />
-                Saturday: 10 AM – 2 PM<br />
-                Sunday: Closed
-              </p>
-            </div>
+              </a>
+            </article>
 
-            {/* Card 4 — Contact */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <IconMail />
-              </div>
-              <h3 className="ow-card-title">Get in Touch</h3>
-              <p className="ow-card-text">
-                Prefer to reach us remotely? Drop us a mail or give us a call —
-                we typically respond within one business day.
-              </p>
-            </div>
+            {/* Card 2 — Working Hours */}
+            <article className="ow-card">
+              <div>
+                <div className="ow-card-header">
+                  <span className="ow-card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </span>
+                  <span className="ow-status-badge ow-status-badge--live">Open Mon - Sat</span>
+                </div>
 
+                <h3 className="ow-card-title">Operating Hours</h3>
+                
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "10px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13.5px", color: "#334155", paddingBottom: "6px", borderBottom: "1px solid rgba(226, 232, 240, 0.7)" }}>
+                    <span style={{ fontWeight: "600" }}>Monday – Friday:</span>
+                    <span>9:00 AM – 6:00 PM IST</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13.5px", color: "#334155", paddingBottom: "6px", borderBottom: "1px solid rgba(226, 232, 240, 0.7)" }}>
+                    <span style={{ fontWeight: "600" }}>Saturday:</span>
+                    <span>10:00 AM – 2:00 PM IST</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13.5px", color: "#64748b" }}>
+                    <span style={{ fontWeight: "600" }}>Sunday:</span>
+                    <span style={{ color: "#ef4444", fontWeight: "700" }}>Closed</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ fontSize: "12px", color: "#64748b", marginTop: "16px" }}>
+                * Remote emergency support available 24/7 for SLA enterprise clients.
+              </div>
+            </article>
+
+            {/* Card 3 — Interactive Map */}
+            <article className="ow-card" style={{ gridColumn: "1 / -1", padding: "18px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+                <div>
+                  <h3 className="ow-card-title" style={{ marginBottom: 0 }}>Campus Navigation Map</h3>
+                  <p style={{ fontSize: "12.5px", color: "#64748b" }}>Interactive geographic satellite and street navigation map</p>
+                </div>
+                <a
+                  href="https://maps.google.com/?q=19.1160325,77.3055517"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ow-sidebar-footer-btn"
+                  style={{ padding: "6px 14px", fontSize: "12px" }}
+                >
+                  Get Directions
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </a>
+              </div>
+
+              <div style={{ borderRadius: "14px", overflow: "hidden", border: "1px solid rgba(226, 232, 240, 0.8)", boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d15079.236071356052!2d77.3055517!3d19.1160325!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2sin!4v1763433426176!5m2!1sen!2sin"
+                  width="100%"
+                  height="340"
+                  style={{ display: "block", border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="BeeStack Office Map"
+                />
+              </div>
+            </article>
           </div>
         </main>
       </div>

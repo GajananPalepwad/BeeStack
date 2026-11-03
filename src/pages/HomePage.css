@@ -446,6 +446,10 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  .homepage {
+    padding-top: 64px;
+  }
+
   :root {
     --content-pad: clamp(0.75rem, 4vw, 1rem);
   }

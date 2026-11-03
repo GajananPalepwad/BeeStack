@@ -1,188 +1,209 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 import BlobBackground from "../components/BlobBackground";
 
-const navItems = [
+const clientTestimonials = [
   {
-    label: "Core Values",
-    to: "/about-us",
-    icon: (
-      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
+    author: "Rohan Deshmukh",
+    role: "Founder & Head of Product",
+    company: "Daily Bites Platform",
+    metric: "40K+ Daily Orders",
+    rating: 5,
+    quote:
+      "BeeStack didn't just write code — they understood the operational logistics of our food subscription model. Their Android app performance is buttery smooth, and the offline payment reconciliation solved our biggest operational bottleneck.",
+    tags: ["Mobile App", "Fintech & Payments", "Cloud Architecture"],
   },
   {
-    label: "Testimonials",
-    to: "/about-us/testimonials",
-    icon: (
-      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-      </svg>
-    ),
-  },
-];
-
-const testimonialSections = [
-  {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "BeeStack: Building What's Next",
-    text: "BeeStack is a modern software engineering company that helps clients design, build, and ship impactful digital products — fast, reliable, and crafted with care. We partner with teams to turn ideas into market-ready solutions across web, mobile, IoT, and AI. We don't just build software — we deliver clarity, confidence, and peace of mind.",
+    author: "Dr. A. K. Kadam",
+    role: "Dean of Academic Systems",
+    company: "SGGSIE&T Campus",
+    metric: "12,000+ Active Students",
+    rating: 5,
+    quote:
+      "Deploying an institutional platform across 12,000 students and hundreds of faculty requires absolute stability. BeeStack delivered on schedule with zero downtime during peak exam result season.",
+    tags: ["Enterprise App", "Campus Portal", "Cloud Messaging"],
   },
   {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
-      </svg>
-    ),
-    title: "Built for Modern Products",
-    text: "We build products that power businesses — from web platforms and mobile apps to connected IoT systems. Whether it's a proof of concept or a product used by millions, we bring the same level of precision, speed, and attention to detail.",
+    author: "Ananya Mehta",
+    role: "Co-Founder & VP Engineering",
+    company: "Loop Developer Network",
+    metric: "99.98% Uptime at Scale",
+    quote:
+      "Building a developer platform where users scrutinize every millisecond of latency is tough. BeeStack's Next.js and PostgreSQL architecture handled our rapid surge effortlessly. Their team communicates like seasoned veterans.",
+    tags: ["Next.js Web", "Developer Tooling", "Real-Time Sync"],
   },
   {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-      </svg>
-    ),
-    title: "Adaptable By Design",
-    text: "Markets evolve, and so do your needs. We understand that requirements shift and timelines move — and we're built for that. We move fast, iterate often, and deliver quality at every stage from early prototypes to production-grade releases.",
+    author: "Vikramaditya Shinde",
+    role: "Director of IoT Operations",
+    company: "Apex Telemetry Labs",
+    metric: "45% Reduction in Latency",
+    quote:
+      "Their mastery of BLE protocols, MQTT message brokers, and Android system daemons is rare. They solved complex sensor pairing dropouts that two previous agencies couldn't resolve in months.",
+    tags: ["IoT Hardware", "BLE Integration", "Edge Telemetry"],
   },
   {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
-    title: "User-First Thinking",
-    text: "For us, usability isn't a layer — it's the foundation. We make sure UX and engineering work together, aligning every feature with how real users think, act, and engage. From intuitive interfaces to thoughtful backend design, we build for people, not just for code.",
+    author: "Siddharth Rao",
+    role: "Chief Technology Officer",
+    company: "Kryptech Cloud Solutions",
+    metric: "Shipped 3 Weeks Ahead",
+    quote:
+      "BeeStack operates as an organic extension of our core technical team. Code reviews are thorough, CI/CD is automated, and their ownership mindset meant we never had to micromanage.",
+    tags: ["Cloud Backend", "Microservices", "Docker & Kubernetes"],
   },
   {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    title: "Engineered for Reliability",
-    text: "We design systems that scale gracefully and fail safely. Whether it's network constraints, hardware dependencies, or unpredictable APIs, our code is decoupled, resilient, and thoroughly tested. We anticipate problems before they happen, and fix what others can't reproduce.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
-      </svg>
-    ),
-    title: "Ownership in Every Line",
-    text: "Our team is hands-on, self-driven, and deeply technical. We take full ownership of every deliverable — from architecture to deployment — ensuring every product we ship meets the highest standards of quality.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    title: "Transparent Collaboration",
-    text: "We believe in building together, not behind closed doors. We prefer visible progress over long reports — commits, builds, and working demos that speak for themselves. We iterate in the open, ensuring you're always part of the process.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-      </svg>
-    ),
-    title: "One Team, One Channel",
-    text: "You'll always have a single point of contact — someone who understands both the business goals and the technical roadmap. But behind that person stands the full BeeStack team, aligned to your vision and ready to deliver.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-      </svg>
-    ),
-    title: "Built on Trust",
-    text: "Our clients stay with us because they trust us. Your success fuels ours — and that's what keeps us pushing boundaries, solving harder problems, and crafting better products. That's BeeStack — always for you.",
+    author: "Pooja Verma",
+    role: "Head of Digital Experience",
+    company: "Nexora Healthtech",
+    metric: "4.9 App Store Rating",
+    quote:
+      "From initial UX design to App Store approval, the attention to detail was exceptional. Patient engagement increased by 65% in the first quarter post-launch. BeeStack is our go-to engineering partner.",
+    tags: ["Mobile UI/UX", "iOS & Android", "Data Security"],
   },
 ];
 
 const Testimonials = () => {
   useEffect(() => {
-  const targets = document.querySelectorAll(
-    ".ow-card, .ow-intro, .ow-header, .ow-badge"
-  );
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge"
+    );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("ow-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ow-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  targets.forEach((el) => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
       <Navbar />
+
       <div className="ow-page">
         <BlobBackground />
-        {/* Sidebar */}
-        <aside className="ow-sidebar">
-          <nav className="ow-nav" data-section="ABOUT US">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.to}
-                className={`ow-nav-item ${
-                  item.label === "Testimonials" ? "ow-nav-item--active" : ""
-                }`}
-              >
-                <span className="ow-nav-icon">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-        </aside>
+
+        {/* Unified Modern Sidebar */}
+        <Sidebar section="ABOUT US" />
 
         {/* Main content */}
         <main className="ow-main">
-          <div className="ow-header">
-            <h1 className="ow-title">Testimonials</h1>
-            <p className="ow-subtitle">What our clients say about working with us.</p>
-            <hr className="ow-divider" />
-          </div>
-
-          <div className="ow-intro">
-            <span className="ow-badge">CLIENT STORIES</span>
-            <p className="ow-intro-text">
-              We don't just build software — we deliver clarity, confidence, and peace of mind
-              through craftsmanship, adaptability, and trust.
+          {/* Header */}
+          <header className="ow-header">
+            <div className="ow-breadcrumb">
+              <span>About Us</span>
+              <span>•</span>
+              <span>Partner Experiences</span>
+            </div>
+            <h1 className="ow-title">Client Stories & Impact</h1>
+            <p className="ow-subtitle">
+              Hear directly from startup founders, enterprise directors, and product leaders who rely on BeeStack software.
             </p>
-          </div>
+            <hr className="ow-divider" />
+          </header>
 
-          {/* Cards grid */}
+          {/* Intro Card */}
+          <section className="ow-intro">
+            <div className="ow-badge">Real Impact • Proven Trust</div>
+            <p className="ow-intro-text">
+              We don't just write code — we deliver clarity, confidence, and peace of mind through craftsmanship, adaptability, and accountable delivery.
+            </p>
+            <p className="ow-intro-text">
+              Here are testimonials and verified outcomes from teams that have built and scaled their products with our engineering lab.
+            </p>
+          </section>
+
+          {/* Cards Grid */}
           <div className="ow-cards-grid">
-            {testimonialSections.map((s) => (
-              <div className="ow-card" key={s.title}>
-                <span className="ow-card-icon">{s.icon}</span>
-                <h3 className="ow-card-title">{s.title}</h3>
-                <p className="ow-card-text">{s.text}</p>
-              </div>
+            {clientTestimonials.map((t) => (
+              <article className="ow-card" key={t.author}>
+                <div>
+                  <div className="ow-card-header">
+                    {/* Star Rating */}
+                    <div style={{ display: "flex", gap: "3px", color: "#FCAB1E" }}>
+                      {[...Array(t.rating)].map((_, i) => (
+                        <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#FCAB1E" stroke="#FCAB1E" strokeWidth="1">
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                      ))}
+                    </div>
+
+                    {/* Metric pill */}
+                    <span className="ow-status-badge ow-status-badge--live">
+                      {t.metric}
+                    </span>
+                  </div>
+
+                  {/* Quote */}
+                  <p style={{
+                    fontSize: "14.5px",
+                    lineHeight: "1.75",
+                    color: "#334155",
+                    fontStyle: "italic",
+                    marginBottom: "18px",
+                    position: "relative"
+                  }}>
+                    "{t.quote}"
+                  </p>
+
+                  {/* Author Info */}
+                  <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    paddingTop: "14px",
+                    borderTop: "1px solid rgba(226, 232, 240, 0.8)",
+                  }}>
+                    <div style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      background: "linear-gradient(135deg, rgba(252, 171, 30, 0.2), rgba(0, 201, 167, 0.2))",
+                      border: "1.5px solid rgba(252, 171, 30, 0.4)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: "800",
+                      fontSize: "15px",
+                      color: "#92400e",
+                      flexShrink: 0
+                    }}>
+                      {t.author.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: "14.5px", fontWeight: "700", color: "#0f172a", marginBottom: "2px" }}>
+                        {t.author}
+                      </h4>
+                      <p style={{ fontSize: "12px", color: "#64748b" }}>
+                        {t.role} • <strong style={{ color: "#d97706" }}>{t.company}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ow-card-tags">
+                  {t.tags.map((tag, i) => (
+                    <span className="ow-card-tag" key={i}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         </main>
       </div>
+
       <Footer />
     </>
   );

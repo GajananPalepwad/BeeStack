@@ -1,232 +1,225 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 import BlobBackground from "../components/BlobBackground";
+import { Link } from "react-router-dom";
+
+const openings = [
+  {
+    id: "Android-2023",
+    title: "Software Engineer – Android",
+    department: "Mobile Engineering",
+    location: "Nanded / Hybrid",
+    type: "Full-Time",
+    experience: "2+ Years",
+    path: "/jobs/android",
+    description:
+      "Design, build, and ship high-performance native Android applications. You'll architect robust modules with Kotlin and Jetpack Compose, handle offline persistence, and integrate seamlessly with cloud microservices.",
+    tags: ["Kotlin", "Jetpack Compose", "Coroutines", "Room DB", "REST APIs", "Play Store"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+        <line x1="12" y1="18" x2="12.01" y2="18" />
+      </svg>
+    ),
+  },
+  {
+    id: "iOS-2023",
+    title: "Software Engineer – iOS",
+    department: "Mobile Engineering",
+    location: "Nanded / Hybrid",
+    type: "Full-Time",
+    experience: "2+ Years",
+    path: "/jobs/ios",
+    description:
+      "Craft fluid, polished, and performant iOS experiences using Swift and SwiftUI. You'll collaborate directly with design and backend leads to build consumer-loved mobile products with deep system integration.",
+    tags: ["Swift", "SwiftUI", "Combine", "Core Data", "RESTful APIs", "App Store"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />
+        <path d="M12 8v4l3 3" />
+      </svg>
+    ),
+  },
+  {
+    id: "WebFE-2023",
+    title: "Software Engineer – Web Frontend",
+    department: "Web Platform",
+    location: "Nanded / Hybrid",
+    type: "Full-Time",
+    experience: "2+ Years",
+    path: "/jobs/webfrontend",
+    description:
+      "Engineer fast, responsive, and accessible web applications using React, Next.js, and TypeScript. You will turn UI designs into production-ready frontends with exceptional Core Web Vitals performance.",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux / Zustand", "Web Vitals"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+  },
+  {
+    id: "WebBE-2023",
+    title: "Software Engineer – Backend / Full Stack",
+    department: "Cloud Systems",
+    location: "Nanded / Hybrid",
+    type: "Full-Time",
+    experience: "2+ Years",
+    path: "/jobs/webbackend",
+    description:
+      "Architect and scale distributed backend APIs, data models, and event-driven microservices using Node.js, Python, and SQL/NoSQL databases across modern cloud environments (AWS / GCP).",
+    tags: ["Node.js", "Python / Go", "PostgreSQL", "MongoDB", "Docker", "AWS / GCP"],
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+      </svg>
+    ),
+  },
+];
 
 const CurrentOpenings = () => {
   useEffect(() => {
-  const targets = document.querySelectorAll(
-    ".ow-card, .ow-intro, .ow-header, .ow-badge"
-  );
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge"
+    );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("ow-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ow-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  targets.forEach((el) => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Navbar />
 
       <div className="ow-page">
         <BlobBackground />
-        {/* ── SIDEBAR ── */}
-        <aside className="ow-sidebar">
-          <nav className="ow-nav" data-section="CAREERS">
-            <Link to="/careers" className="ow-nav-item">
-              <span className="ow-nav-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
-              </span>
-              Why BeeStack?
-            </Link>
-            <Link to="/careers/current-openings" className="ow-nav-item ow-nav-item--active">
-              <span className="ow-nav-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-                </svg>
-              </span>
-              Current Openings
-            </Link>
-          </nav>
-        </aside>
 
-        {/* ── MAIN CONTENT ── */}
+        {/* Unified Modern Sidebar */}
+        <Sidebar section="CAREERS" />
+
+        {/* Main content */}
         <main className="ow-main">
           {/* Header */}
-          <div className="ow-header">
-            <h1 className="ow-title">
-              <span>Current Openings</span>
-            </h1>
-            <p className="ow-subtitle">A Great Place for Top Talent</p>
+          <header className="ow-header">
+            <div className="ow-breadcrumb">
+              <span>Careers</span>
+              <span>•</span>
+              <span>Opportunities</span>
+            </div>
+            <h1 className="ow-title">Current Openings</h1>
+            <p className="ow-subtitle">
+              Join our engineering lab. Build software that powers businesses and scales to thousands of active users.
+            </p>
             <hr className="ow-divider" />
-          </div>
+          </header>
 
-          {/* Intro */}
-          <div className="ow-intro">
-            <div className="ow-badge">We're Hiring</div>
+          {/* Intro Card */}
+          <section className="ow-intro">
+            <div className="ow-badge">We're Actively Hiring</div>
             <p className="ow-intro-text">
-              At BeeStack, we're driven by technology, creativity, and curiosity. We believe the
-              best products come from hands-on builders — people who love exploring, experimenting,
-              and pushing boundaries. Our structure is flat, our culture is open, and our environment
-              is built for growth.
+              At BeeStack, we're driven by technology, craft, and curiosity. Our organizational structure is flat, our culture is open, and our environment is built for engineers who love shipping real software.
             </p>
             <p className="ow-intro-text">
-              We're always on the lookout for passionate engineers who love to build, break, and
-              rebuild things better. If you thrive on solving hard problems, learning fast, and
-              shipping real products — you'll fit right in.
+              If you enjoy solving tricky system challenges, debugging hard problems, and collaborating with a smart team — explore our open roles below.
             </p>
-          </div>
+          </section>
 
-          {/* Job Cards */}
-          <div className="ow-badge" style={{ marginBottom: "20px" }}>Open Positions</div>
-
+          {/* Job Openings Grid */}
           <div className="ow-cards-grid">
+            {openings.map((job) => (
+              <article className="ow-card" key={job.id}>
+                <div>
+                  <div className="ow-card-header">
+                    <span className="ow-card-icon">{job.icon}</span>
+                    <span className="ow-status-badge ow-status-badge--live">
+                      {job.type}
+                    </span>
+                  </div>
 
-            {/* Android */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                  <line x1="12" y1="18" x2="12.01" y2="18"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">Software Engineer – Android</div>
-              <p className="ow-card-text">
-                Build high-performance Android applications used by real users. You'll own features
-                end-to-end, from architecture decisions to shipping to the Play Store.
-              </p>
-              <Link
-                to="/jobs/Android"
-                style={{
-                  display: "inline-block",
-                  marginTop: "14px",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "var(--amber-d)",
-                  textDecoration: "underline",
-                  letterSpacing: "0.3px"
-                }}
-              >
-                View Role →
-              </Link>
-            </div>
+                  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "8px" }}>
+                    <span style={{ fontSize: "11px", fontWeight: "700", color: "#d97706", textTransform: "uppercase" }}>
+                      {job.department}
+                    </span>
+                    <span style={{ fontSize: "11px", color: "#64748b" }}>•</span>
+                    <span style={{ fontSize: "11px", fontWeight: "600", color: "#64748b" }}>
+                      {job.location}
+                    </span>
+                    <span style={{ fontSize: "11px", color: "#64748b" }}>•</span>
+                    <span style={{ fontSize: "11px", fontWeight: "600", color: "#64748b" }}>
+                      {job.experience}
+                    </span>
+                  </div>
 
-            {/* iOS */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/>
-                  <path d="M12 8v4l3 3"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">Software Engineer – iOS</div>
-              <p className="ow-card-text">
-                Craft polished, performant iOS experiences using Swift. You'll work closely with
-                design and backend teams to deliver seamless, user-loved features.
-              </p>
-              <Link
-                to="/jobs/ios"
-                style={{
-                  display: "inline-block",
-                  marginTop: "14px",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "var(--amber-d)",
-                  textDecoration: "underline",
-                  letterSpacing: "0.3px"
-                }}
-              >
-                View Role →
-              </Link>
-            </div>
+                  <h3 className="ow-card-title">{job.title}</h3>
+                  <p className="ow-card-text">{job.description}</p>
 
-            {/* Web Frontend */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="16 18 22 12 16 6"/>
-                  <polyline points="8 6 2 12 8 18"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">Software Engineer – Web Frontend</div>
-              <p className="ow-card-text">
-                Build fast, accessible, and beautiful web interfaces. You'll bring designs to life
-                with clean React code and a sharp eye for detail and performance.
-              </p>
-              <Link
-                to="/jobs/webfrontend"
-                style={{
-                  display: "inline-block",
-                  marginTop: "14px",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "var(--amber-d)",
-                  textDecoration: "underline",
-                  letterSpacing: "0.3px"
-                }}
-              >
-                View Role →
-              </Link>
-            </div>
+                  <div className="ow-card-tags">
+                    {job.tags.map((tag, i) => (
+                      <span className="ow-card-tag" key={i}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Backend / Full Stack */}
-            <div className="ow-card">
-              <div className="ow-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-                </svg>
-              </div>
-              <div className="ow-card-title">Software Engineer – Backend / Full Stack</div>
-              <p className="ow-card-text">
-                Design and build scalable APIs, services, and data pipelines. You'll work across
-                the stack to power the products our users depend on every day.
-              </p>
-              <Link
-                to="/jobs/webbackend"
-                style={{
-                  display: "inline-block",
-                  marginTop: "14px",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "var(--amber-d)",
-                  textDecoration: "underline",
-                  letterSpacing: "0.3px"
-                }}
-              >
-                View Role →
-              </Link>
-            </div>
-
+                <Link to={job.path} className="ow-card-btn">
+                  <span>View Role & Apply</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </Link>
+              </article>
+            ))}
           </div>
 
-          {/* Apply CTA */}
-          <div className="ow-intro" style={{ marginTop: "44px", marginBottom: "0" }}>
-            <p className="ow-intro-text">
-              If you're experienced in creating and shipping high-performance applications — mobile
-              or web — we'd love to hear from you.
+          {/* Apply Instructions Card */}
+          <div style={{
+            background: "rgba(255, 255, 255, 0.75)",
+            backdropFilter: "blur(16px)",
+            border: "1px solid rgba(255, 255, 255, 0.9)",
+            borderRadius: "18px",
+            padding: "26px 30px",
+            maxWidth: "1200px",
+            boxShadow: "0 4px 20px rgba(15, 23, 42, 0.05)"
+          }}>
+            <h3 style={{ fontSize: "16px", fontWeight: "800", color: "#0f172a", marginBottom: "6px" }}>
+              Don't see your specific role?
+            </h3>
+            <p style={{ fontSize: "14px", color: "#475569", lineHeight: "1.7", marginBottom: "12px" }}>
+              We're always excited to connect with exceptional engineers, designers, and systems architects. Send your resume, GitHub profile, or portfolio to:
             </p>
-            <p className="ow-intro-text">
-              📩 <strong>How to Apply:</strong> Send your resume to{" "}
-              <a
-                href="mailto:hr@beestack.in"
-                style={{ color: "var(--amber-d)", fontWeight: 700, textDecoration: "underline" }}
-              >
-                hr@beestack.in
-              </a>
-            </p>
+            <a
+              href="mailto:hr@beestack.in"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                color: "#d97706",
+                fontWeight: "700",
+                fontSize: "15px",
+                textDecoration: "underline",
+              }}
+            >
+              <span>hr@beestack.in</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
           </div>
         </main>
       </div>

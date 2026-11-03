@@ -2,305 +2,71 @@ import React, { useEffect, useState } from "react";
 import "./OurWork.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
-import { getProjects } from "../api/projects.api";
+import Sidebar from "../components/Sidebar";
 import BlobBackground from "../components/BlobBackground";
+import { getProjects } from "../api/projects.api";
 
-const navItems = [
+const fallbackProjects = [
   {
-    label: "Tech we've built",
-    to: "/our-work/products",
-    icon: (
-      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM12 12h.01" />
-      </svg>
-    ),
+    id: "daily-bites",
+    title: "Daily Bites – Monthly Food Subscription Platform",
+    duration: "June 2023 – August 2023",
+    status: "Live App",
+    category: "Mobile Platform",
+    description:
+      "Daily Bites is an Android-based food subscription platform designed to help students and working professionals relocate to new cities and easily find healthy, verified daily meal subscriptions with scheduled delivery and live tracking.",
+    technologies: ["Android", "Kotlin", "Node.js", "Firebase", "Razorpay", "AWS"],
   },
   {
-    label: "The Concept",
-    to: "/our-work/concept",
-    icon: (
-      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" />
-      </svg>
-    ),
+    id: "sggsiet-app",
+    title: "SGGSIE&T College Management Application",
+    duration: "February 2023 – May 2023",
+    status: "Live App",
+    category: "Enterprise Solution",
+    description:
+      "A comprehensive academic companion application developed for students and faculty. It enables student attendance tracking, timetable management, exam schedules, campus notices, and academic resource distribution in real time.",
+    technologies: ["Android", "Kotlin", "RESTful APIs", "Room DB", "Firebase Cloud Messaging"],
   },
   {
-    label: "Technique",
-    to: "/our-work/technique",
-    icon: (
-      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
-      </svg>
-    ),
+    id: "loop-platform",
+    title: "Loop – Social Media Platform for Developers",
+    duration: "September 2024 – Present",
+    status: "Live Platform",
+    category: "Developer Tooling",
+    description:
+      "A niche social networking platform built exclusively for developers and tech teams. Centers around code snippets, architectural challenges, peer review discussions, and portfolio showcase with interactive execution.",
+    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Node.js"],
   },
   {
-    label: "Technology",
-    to: "/our-work/technology",
-    icon: (
-      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <path d="M8 21h8M12 17v4" />
-      </svg>
-    ),
+    id: "beemine-platform",
+    title: "BeeMine Platform – Industrial Telemetry System",
+    duration: "In Development",
+    status: "In Development",
+    category: "IoT & Analytics",
+    description:
+      "An industrial digital platform being developed by BeeStack Software Labs. The platform provides a scalable infrastructure for sensor telemetry ingestion, fleet coordination, safety monitoring, and predictive analytics.",
+    technologies: ["React Native", "MQTT", "Golang", "Docker", "TimescaleDB", "GCP"],
   },
 ];
-
-const accentBars = [
-  "linear-gradient(90deg,#FCAB1E,#00C9A7)",
-  "linear-gradient(90deg,#00C9A7,#7C3AED)",
-  "linear-gradient(90deg,#7C3AED,#F43F5E)",
-  "linear-gradient(90deg,#F43F5E,#FCAB1E)",
-];
-const accentBorders = [
-  "rgba(252,171,30,0.3)",
-  "rgba(0,201,167,0.3)",
-  "rgba(124,58,237,0.3)",
-  "rgba(244,63,94,0.3)",
-];
-
-const S = {
-  projectsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "20px",
-    maxWidth: "920px",
-    marginBottom: "40px",
-  },
-  card: (idx, hovered) => ({
-  background: "rgba(255, 255, 255, 0.62)",
-  backdropFilter: "blur(16px) saturate(1.5)",
-  WebkitBackdropFilter: "blur(16px) saturate(1.5)",
-  border: `1.5px solid ${hovered === idx ? accentBorders[idx % 4] : "rgba(255,255,255,0.75)"}`,
-  borderRadius: "16px",
-  padding: "28px 26px 22px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  position: "relative",
-  overflow: "hidden",
-  isolation: "isolate",
-  boxShadow: hovered === idx
-    ? "0 20px 48px rgba(50,50,130,0.15), inset 0 1px 0 rgba(255,255,255,1)"
-    : "0 4px 24px rgba(50,50,130,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
-  transition: "transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s ease, border-color 0.2s, background 0.3s ease",
-  transform: hovered === idx ? "translateY(-5px) scale(1.01)" : "none",
-}),
-  accentBar: (idx) => ({
-    position: "absolute",
-    top: 0, left: 0, right: 0,
-    height: "3px",
-    borderRadius: "16px 16px 0 0",
-    background: accentBars[idx % 4],
-  }),
-  cardTitle: {
-    fontFamily: "'K2D', sans-serif",
-    fontWeight: 700,
-    fontSize: "16px",
-    color: "#111827",
-    marginBottom: "6px",
-    letterSpacing: "-0.2px",
-    lineHeight: 1.3,
-  },
-  cardDuration: {
-    fontSize: "12px",
-    fontWeight: 600,
-    color: "#e8960a",
-    letterSpacing: "0.4px",
-    textTransform: "uppercase",
-    marginBottom: "12px",
-  },
-  cardDesc: {
-    fontSize: "13.5px",
-    lineHeight: 1.7,
-    color: "#6B7280",
-    marginBottom: "18px",
-  },
-  readMoreBtn: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "6px",
-    background: "none",
-    border: "none",
-    padding: 0,
-    fontFamily: "'K2D', sans-serif",
-    fontSize: "13px",
-    fontWeight: 700,
-    color: "#e8960a",
-    cursor: "pointer",
-  },
-  loader: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "14px",
-    padding: "60px 0",
-    color: "#6B7280",
-    fontSize: "14px",
-  },
-  spinner: {
-    width: "36px",
-    height: "36px",
-    border: "3px solid rgba(252,171,30,0.2)",
-    borderTopColor: "#FCAB1E",
-    borderRadius: "50%",
-    animation: "spin 0.7s linear infinite",
-  },
-  disclaimer: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "10px",
-    maxWidth: "920px",
-    background: "rgba(252,171,30,0.06)",
-    border: "1px solid rgba(252,171,30,0.2)",
-    borderRadius: "12px",
-    padding: "14px 18px",
-    marginTop: "8px",
-    color: "#6B7280",
-    fontSize: "13px",
-    lineHeight: 1.6,
-  },
-  backdrop: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(10,10,18,0.72)",
-    backdropFilter: "blur(6px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 1000,
-    padding: "24px",
-  },
-  modal: {
-    background: "#fff",
-    borderRadius: "20px",
-    width: "100%",
-    maxWidth: "560px",
-    maxHeight: "88vh",
-    overflowY: "auto",
-    position: "relative",
-    boxShadow: "0 32px 80px -12px rgba(0,0,0,0.35)",
-  },
-  modalTopBar: {
-    height: "4px",
-    background: "linear-gradient(90deg,#FCAB1E,#00C9A7)",
-    borderRadius: "20px 20px 0 0",
-  },
-  modalClose: {
-    position: "absolute",
-    top: "16px",
-    right: "16px",
-    width: "34px",
-    height: "34px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "rgba(0,0,0,0.06)",
-    border: "none",
-    borderRadius: "50%",
-    cursor: "pointer",
-    color: "#6B7280",
-    zIndex: 1,
-  },
-  modalImageWrapper: {
-    width: "100%",
-    maxHeight: "220px",
-    overflow: "hidden",
-  },
-  modalImage: {
-    width: "100%",
-    height: "220px",
-    objectFit: "cover",
-    display: "block",
-  },
-  modalBody: {
-    padding: "28px 32px 32px",
-  },
-  modalTitle: {
-    fontFamily: "'K2D', sans-serif",
-    fontWeight: 700,
-    fontSize: "20px",
-    color: "#111827",
-    marginBottom: "6px",
-    letterSpacing: "-0.3px",
-  },
-  modalDuration: {
-    fontSize: "12px",
-    fontWeight: 700,
-    textTransform: "uppercase",
-    letterSpacing: "0.5px",
-    color: "#e8960a",
-    marginBottom: "16px",
-  },
-  modalDesc: {
-    fontSize: "14.5px",
-    lineHeight: 1.75,
-    color: "#374151",
-    marginBottom: "24px",
-  },
-  techHeading: {
-    fontFamily: "'K2D', sans-serif",
-    fontSize: "13px",
-    fontWeight: 700,
-    textTransform: "uppercase",
-    letterSpacing: "0.6px",
-    color: "#6B7280",
-    marginBottom: "12px",
-  },
-  techTags: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "8px",
-  },
-  techTag: {
-    background: "linear-gradient(135deg,rgba(252,171,30,0.1),rgba(0,201,167,0.08))",
-    border: "1px solid rgba(252,171,30,0.3)",
-    color: "#e8960a",
-    fontSize: "12px",
-    fontWeight: 600,
-    padding: "4px 12px",
-    borderRadius: "999px",
-  },
-};
 
 const Products = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  useEffect(() => {
-    // Target both OurWork CSS classes AND the inline-styled project cards
-    const targets = document.querySelectorAll(
-      ".ow-card, .ow-intro, .ow-header, .ow-badge, [data-reveal]"
-    );
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    targets.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [loading]); // ← re-run after projects load
 
   useEffect(() => {
     async function fetchProjects() {
       try {
         setLoading(true);
         const data = await getProjects();
-        setProjects(data.projects || []);
+        if (data && data.projects && data.projects.length > 0) {
+          setProjects(data.projects);
+        } else {
+          setProjects(fallbackProjects);
+        }
       } catch (err) {
-        console.error("Failed to load projects", err);
-        setProjects([]);
+        console.warn("Using curated BeeStack projects showcase:", err);
+        setProjects(fallbackProjects);
       } finally {
         setLoading(false);
       }
@@ -308,104 +74,159 @@ const Products = () => {
     fetchProjects();
   }, []);
 
+  useEffect(() => {
+    const targets = document.querySelectorAll(
+      ".ow-card, .ow-intro, .ow-header, .ow-badge"
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ow-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [loading, projects]);
+
   return (
     <>
-      {/* spinner keyframe injected once */}
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-
       <Navbar />
+
       <div className="ow-page">
         <BlobBackground />
-        {/* Sidebar */}
-        <aside className="ow-sidebar">
-          <nav className="ow-nav">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.to}
-                className={`ow-nav-item ${item.label === "Tech we've built" ? "ow-nav-item--active" : ""
-                  }`}
-              >
-                <span className="ow-nav-icon">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-        </aside>
+
+        {/* Unified Modern Sidebar */}
+        <Sidebar section="OUR WORK" />
 
         {/* Main content */}
         <main className="ow-main">
-          <div className="ow-header">
-            <h1 className="ow-title">Tech We've Built</h1>
-            <p className="ow-subtitle">We build impactful products that scale globally.</p>
-            <hr className="ow-divider" />
-          </div>
-
-          <div className="ow-intro">
-            <span className="ow-badge">🏗️ Real products. Real impact.</span>
-            <p className="ow-intro-text">
-              BeeStack is a product engineering company that helps clients deliver
-              high-volume, high-impact products used by millions.
-            </p>
-            <p className="ow-intro-text">
-              Here are some of the projects we've successfully executed.
-            </p>
-          </div>
-
-          {/* Projects grid */}
-          {loading ? (
-            <div style={S.loader}>
-              <div style={S.spinner} />
-              <p>Loading projects...</p>
+          {/* Header */}
+          <header className="ow-header">
+            <div className="ow-breadcrumb">
+              <span>Our Work</span>
+              <span>•</span>
+              <span>Portfolio</span>
             </div>
-          ) : projects.length === 0 ? (
-            <p style={{ color: "#6B7280", fontSize: "14px", padding: "40px 0" }}>
-              No projects available at the moment.
+            <h1 className="ow-title">Tech We've Built</h1>
+            <p className="ow-subtitle">
+              We design, engineer, and deploy high-volume, high-impact digital products used by thousands.
             </p>
+            <hr className="ow-divider" />
+          </header>
+
+          {/* Intro Card */}
+          <section className="ow-intro">
+            <div className="ow-badge">Real Products • Real Impact</div>
+            <p className="ow-intro-text">
+              BeeStack is a product engineering company that helps startups and enterprises deliver robust,
+              scalable software across mobile, web, IoT, and AI architectures.
+            </p>
+            <p className="ow-intro-text">
+              Here are some of the flagship applications and systems we have successfully crafted and executed.
+            </p>
+          </section>
+
+          {/* Projects Grid */}
+          {loading ? (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "60px 0", gap: "16px" }}>
+              <div style={{ width: "36px", height: "36px", border: "3px solid rgba(252,171,30,0.2)", borderTopColor: "#FCAB1E", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
+              <p style={{ color: "#64748b", fontSize: "14px" }}>Loading projects...</p>
+            </div>
           ) : (
-            <div style={S.projectsGrid}>
-              {projects.map((project, index) => (
-                <div
-                  key={project.id}
-                  data-reveal
-                  style={{
-                    ...S.card(index, hoveredCard),
-                    opacity: 0,
-                    transform: "translateY(40px)",
-                    transition: "opacity 0.55s cubic-bezier(0.22,0.68,0,1.1), transform 0.55s cubic-bezier(0.22,0.68,0,1.1), box-shadow 0.25s ease, border-color 0.2s", // ← ADD
-                    transitionDelay: `${index * 0.1}s`,
-                  }}
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  <div style={S.accentBar(index)} />
+            <div className="ow-cards-grid">
+              {projects.map((project, idx) => (
+                <article className="ow-card" key={project.id || idx}>
                   <div>
-                    <h3 style={S.cardTitle}>{project.title}</h3>
-                    <p style={S.cardDuration}>{project.duration}</p>
-                    <p style={S.cardDesc}>{project.description.slice(0, 140)}...</p>
+                    <div className="ow-card-header">
+                      <span className="ow-card-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                      </span>
+                      <span className={`ow-status-badge ${project.status === "In Development" ? "ow-status-badge--dev" : "ow-status-badge--live"}`}>
+                        {project.status || "Production"}
+                      </span>
+                    </div>
+
+                    <h3 className="ow-card-title">{project.title}</h3>
+                    
+                    <p style={{ fontSize: "12px", fontWeight: "700", color: "#d97706", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                      </svg>
+                      {project.duration}
+                    </p>
+
+                    <p className="ow-card-text">
+                      {project.description?.length > 150
+                        ? `${project.description.slice(0, 150)}...`
+                        : project.description}
+                    </p>
+
+                    {/* Tech Pills Preview */}
+                    {project.technologies && project.technologies.length > 0 && (
+                      <div className="ow-card-tags">
+                        {project.technologies.slice(0, 4).map((tech, i) => (
+                          <span className="ow-card-tag" key={i}>
+                            {tech}
+                          </span>
+                        ))}
+                        {project.technologies.length > 4 && (
+                          <span className="ow-card-tag" style={{ background: "rgba(0,0,0,0.04)", color: "#64748b" }}>
+                            +{project.technologies.length - 4} more
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
+
                   <button
-                    style={S.readMoreBtn}
+                    className="ow-card-btn"
                     onClick={() => setSelectedProject(project)}
                   >
-                    Read more
-                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    <span>View Case Study</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6"/>
                     </svg>
                   </button>
-                </div>
+                </article>
               ))}
             </div>
           )}
 
-          {/* Disclaimer */}
-          <div style={S.disclaimer}>
-            <svg width="16" height="16" fill="none" stroke="#e8960a" strokeWidth="2" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: "2px" }}>
-              <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
+          {/* Disclaimer Banner */}
+          <div style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "12px",
+            maxWidth: "1200px",
+            background: "rgba(252, 171, 30, 0.08)",
+            border: "1px solid rgba(252, 171, 30, 0.3)",
+            borderRadius: "14px",
+            padding: "16px 20px",
+            color: "#475569",
+            fontSize: "13px",
+            lineHeight: "1.6",
+            backdropFilter: "blur(10px)"
+          }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px" }}>
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
             <p>
-              <strong>Disclaimer:</strong> Customer and product names, trademarks, and logos
-              used on this website are intellectual property of their respective owners.
+              <strong style={{ color: "#0f172a" }}>Disclaimer:</strong> Client, partner, and product names, trademarks, and logos displayed on this website are the intellectual property of their respective owners. Showcases are for portfolio and engineering demonstration purposes.
             </p>
           </div>
         </main>
@@ -413,37 +234,114 @@ const Products = () => {
 
       <Footer />
 
-      {/* Modal */}
+      {/* Case Study Modal */}
       {selectedProject && (
-        <div style={S.backdrop} onClick={() => setSelectedProject(null)}>
-          <div style={S.modal} onClick={(e) => e.stopPropagation()}>
-            <div style={S.modalTopBar} />
-            <button style={S.modalClose} onClick={() => setSelectedProject(null)}>
-              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path d="M18 6L6 18M6 6l12 12" />
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(11, 18, 32, 0.65)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2000,
+            padding: "20px",
+          }}
+          onClick={() => setSelectedProject(null)}
+        >
+          <div
+            style={{
+              background: "#ffffff",
+              borderRadius: "22px",
+              width: "100%",
+              maxWidth: "600px",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              position: "relative",
+              boxShadow: "0 28px 70px -12px rgba(11, 18, 32, 0.35)",
+              border: "1px solid rgba(255, 255, 255, 0.8)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Top Bar */}
+            <div style={{
+              height: "5px",
+              background: "linear-gradient(90deg, #FCAB1E, #00C9A7, #7C3AED)",
+              borderRadius: "22px 22px 0 0"
+            }} />
+
+            <button
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                width: "36px",
+                height: "36px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(15, 23, 42, 0.06)",
+                border: "none",
+                borderRadius: "50%",
+                cursor: "pointer",
+                color: "#475569",
+                transition: "all 0.2s",
+                zIndex: 2,
+              }}
+              onClick={() => setSelectedProject(null)}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
             </button>
 
             {selectedProject.image && (
-              <div style={S.modalImageWrapper}>
-                <img src={selectedProject.image} alt={selectedProject.title} style={S.modalImage} />
+              <div style={{ width: "100%", maxHeight: "240px", overflow: "hidden" }}>
+                <img src={selectedProject.image} alt={selectedProject.title} style={{ width: "100%", height: "240px", objectFit: "cover" }} />
               </div>
             )}
 
-            <div style={S.modalBody}>
-              <h2 style={S.modalTitle}>{selectedProject.title}</h2>
-              <p style={S.modalDuration}>{selectedProject.duration}</p>
-              <p style={S.modalDesc}>{selectedProject.description}</p>
+            <div style={{ padding: "30px 32px 34px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                <span className="ow-status-badge ow-status-badge--live">
+                  {selectedProject.status || "Production"}
+                </span>
+                <span style={{ fontSize: "12px", color: "#64748b" }}>•</span>
+                <span style={{ fontSize: "12.5px", color: "#64748b", fontWeight: "600" }}>{selectedProject.duration}</span>
+              </div>
 
-              {selectedProject.technologies?.length > 0 && (
-                <>
-                  <h4 style={S.techHeading}>Technologies Used</h4>
-                  <div style={S.techTags}>
+              <h2 style={{ fontFamily: "'K2D', sans-serif", fontWeight: 800, fontSize: "22px", color: "#0f172a", marginBottom: "14px", lineHeight: 1.3 }}>
+                {selectedProject.title}
+              </h2>
+
+              <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#334155", marginBottom: "24px" }}>
+                {selectedProject.description}
+              </p>
+
+              {selectedProject.technologies && selectedProject.technologies.length > 0 && (
+                <div>
+                  <h4 style={{ fontSize: "12px", fontWeight: "800", textTransform: "uppercase", letterSpacing: "1px", color: "#64748b", marginBottom: "10px" }}>
+                    Technologies & Architecture
+                  </h4>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                     {selectedProject.technologies.map((tech, i) => (
-                      <span key={i} style={S.techTag}>{tech}</span>
+                      <span key={i} style={{
+                        background: "rgba(252, 171, 30, 0.12)",
+                        border: "1px solid rgba(252, 171, 30, 0.35)",
+                        color: "#92400e",
+                        fontSize: "12px",
+                        fontWeight: "700",
+                        padding: "5px 12px",
+                        borderRadius: "999px",
+                      }}>
+                        {tech}
+                      </span>
                     ))}
                   </div>
-                </>
+                </div>
               )}
             </div>
           </div>
