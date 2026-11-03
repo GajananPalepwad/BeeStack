@@ -1,319 +1,745 @@
-/* ...existing code... */
+/* ============================================================
+   CONTACT US SECTION — Modern Frosted Glassmorphism Architecture
+   Cohesive with What We Do, FeaturedProjects & ReviewSlider
+   ============================================================ */
 
-:root{
-  --form-width: 1080px;
-  --pad: 1.1rem;
-  --radius: 12px;
-  --bg: #ffffff;
-  --muted: #6b7280;
-  --accent: #fcab1e;
-  --accent-dark: #cf890f;
-  --error: #dc2626;
-  --glass: rgba(255,255,255,0.6);
-}
-
-/* layout: heading left, form right */
-.contact-section {
-  display: block; /* remove flex */
-  gap: clamp(1rem, 4vw, 2.5rem); /* optional if you have multiple children */
-  /* remove align-items and justify-content */
-  text-align: left; /* left-align labels and text */
-  width: min(1400px, 100%);
-  margin: 2rem auto; /* horizontal centering of container only */
-  box-sizing: border-box;
-  padding-inline: clamp(1rem, 4vw, 2rem);
-}
-
-
-/* make heading a vertical center-aligned column */
-.contact-heading{
-    width: 70%;
-    max-width: 100vw;
-    margin: 0;
-    display: flex;
-    align-items: center;       /* vertical centering */
-    justify-content: flex-start;
-    padding-top: 5vh; /* keep heading left aligned inside its column */
-    flex-direction: column;
-    padding-inline: 0.5rem;    /* small horizontal padding */
-    box-sizing: border-box;
-    min-height: 0;             /* avoid unexpected stretching on small screens */
-}
-
-/* left column (heading) */
-.heading{
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
-  margin: 0;
-  font-size: clamp(2rem, 6vw, 4rem);
-  color: #bbbbbc;
-  font-weight: 700;
+.bs-contact-wrapper {
+  position: relative;
+  width: 100%;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0 4rem;
   font-family: "K2D", sans-serif;
-  line-height: 1;
-  max-width: 100vw;
-  width: 100%;
   box-sizing: border-box;
-  text-align: left;
 }
 
-.headingC {
-    margin: 0;
-    font-size: clamp(2rem, 6vw, 4rem);
-    color: #BBBBBC;
-    font-weight: 700;
-    font-family: 'K2D', sans-serif;
-    line-height: 1;
-    max-width: 1080px;
-    /* protect from being moved/hidden by other negative transforms */
-    position: relative;
-    z-index: 10;
-
-    /* override accidental translations */
-    transform: none !important;
-}
-
-.contact-heading p {
-  margin: 0;
-  color: #475569;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  display: block;
-  white-space: normal;
-}
-
-/* right column (form) align to the right */
-.contact-form {
-  flex: 1 1 55%;
-  margin-left: auto; /* pushes form to the right */
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 1080px;
-
-  /* keep grid layout but center the grid content vertically */
-  display: grid;            /* already grid elsewhere — keep it */
-  align-content: center;    /* <-- centers the inputs/button vertically */
-}
-
-/* form container */
-.contact-form{
-  width: min(var(--form-width), 96%);
+.bs-contact-container {
+  max-width: 1260px;
   margin: 0 auto;
-  background: linear-gradient(180deg, var(--bg), #fbfbfb);
-  padding: clamp(1rem, 2.5vw, 1.25rem);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  padding: 0 clamp(1rem, 3.5vw, 2.5rem);
   display: grid;
-  gap: 0.75rem;
-  box-sizing: border-box;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
 }
 
-/* label + input layout */
-.contact-form label{
+/* ============================================================
+   LEFT COLUMN: CONTACT INTEL & TRUST HUB
+   ============================================================ */
+
+.bs-contact-info-col {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  color: #0b1220;
-  font-weight: 600;
-  font-size: 0.95rem;
+  gap: 1.35rem;
+  position: relative;
+  z-index: 2;
 }
 
-/* inputs and textarea */
-.contact-form input[type="email"],
-.contact-form input[type="text"],
-.contact-form input[type="tel"],
-.contact-form textarea{
-  width: 100%;
-  padding: 0.75rem 0.9rem;
-  border: 1px solid #d1d5db;
-  border-radius: var(--radius);
-  background-color: var(--glass);
-  font-size: 1rem;
-  color: #111827;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.contact-form input[type="email"]:focus,
-.contact-form input[type="text"]:focus,
-.contact-form input[type="tel"]:focus,
-.contact-form textarea:focus{
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(252, 171, 30, 0.25);
-}
-
-/* buttons */
-.contact-form button{
-  padding: 0.75rem 1.2rem;
-  background-color: var(--accent);
-  color: #000;
+/* ── Eyebrow Badge ── */
+.bs-contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(252, 171, 30, 0.12);
+  border: 1px solid rgba(252, 171, 30, 0.35);
+  color: #b45309;
+  font-size: 0.8rem;
   font-weight: 700;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: background-color 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
 }
 
-.contact-form button:hover{
-  background-color: var(--accent-dark);
+.bs-contact-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FCAB1E;
+  animation: bsDotPulse 2s infinite ease-in-out;
 }
 
-/* responsive adjustments */
-@media (max-width: 640px) {
-  :root{
-    --form-width: 90%;
-  }
-
-  .contact-form{
-    padding: clamp(0.8rem, 2vw, 1rem);
-  }
-
-  .contact-form label{
-    font-size: 0.9rem;
-  }
-
-  .contact-form input[type="email"],
-  .contact-form input[type="text"],
-  .contact-form input[type="tel"],
-  .contact-form textarea{
-    padding: 0.65rem 0.8rem;
-    font-size: 0.95rem;
-  }
-
-  .contact-form button{
-    padding: 0.65rem 1rem;
-    font-size: 0.95rem;
-  }
+@keyframes bsDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
 }
 
-.contact-form{
-  border: 2px solid #fcab1e;
-  transition: transform 0.4s ease-in-out;
+/* ── Headline ── */
+.bs-contact-headline {
+  font-size: clamp(2.1rem, 4.4vw, 3.1rem);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.18;
+  margin: 0;
+  letter-spacing: -0.01em;
+  font-family: "K2D", sans-serif;
 }
 
-.contact-form:hover{
-  transform: scale(1.03);
+/* ── Subtext ── */
+.bs-contact-subtext {
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  color: #475569;
+  line-height: 1.7;
+  margin: 0;
+  font-weight: 500;
 }
 
-/* responsive: stack on small screens and restore normal flow */
-@media (max-width: 880px) {
-  /* stack and center both columns */
-  .contact-section {
-    flex-direction: column;
-    align-items: center;    /* center children horizontally */
-    justify-content: flex-start;
-    padding-inline: 1rem;   /* remove large left offset */
-    gap: 1rem;
-  }
-
-  /* center heading text and allow it to wrap */
-  .contact-heading {
-    width: 100%;
-    max-width: 720px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-  }
-  .contact-heading .heading { white-space: normal; }
-
-  /* make form centered and full-width within limits */
-  .contact-form {
-    margin: 0 auto;         /* center the form block */
-    width: 100%;
-    max-width: 640px;       /* control form width */
-    align-content: start;   /* keep inputs from centering vertically if undesired */
-    box-sizing: border-box;
-    padding-inline: 0.5rem;
-  }
-
-  /* ensure inputs take full available width */
-  .contact-form input,
-  .contact-form textarea,
-  .get-in-touch-btn {
-    width: 100%;
-    box-sizing: border-box;
-  }
+/* ── SLA Card ── */
+.bs-sla-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.08);
 }
 
-@media (max-width:320px) {
-  .contact-section, .contact-form{
-    height: 400px !important;
-  }
-}
-/* Modal backdrop: covers the entire screen */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+.bs-sla-pulse {
+  position: relative;
+  width: 12px;
+  height: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999; /* ensures it appears above all other content */
+  flex-shrink: 0;
 }
 
-/* Modal box: white container in center */
-.modal {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 90%; /* responsive */
-  text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  animation: modalFadeIn 0.3s ease-out;
+.bs-sla-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
 }
 
-/* Modal heading */
-.modal h2 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: #0f172a;
+.bs-sla-ping {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.4);
+  animation: bsPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* Modal paragraph */
-.modal p {
-  font-size: 1rem;
-  color: #334155;
-  margin-bottom: 1.5rem;
+@keyframes bsPing {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
 
-/* Close button */
-.modal-close-btn {
-  padding: 0.5rem 1.5rem;
-  border: none;
-  background: #0f172a;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
+.bs-sla-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bs-sla-content strong {
+  font-size: 0.88rem;
+  color: #065f46;
+  font-weight: 700;
+}
+
+.bs-sla-content span {
+  font-size: 0.78rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* ── Connect Cards Grid ── */
+.bs-connect-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.bs-connect-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 16px rgba(50, 50, 130, 0.05);
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.bs-connect-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(252, 171, 30, 0.4);
+}
+
+.bs-connect-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bs-connect-icon--email {
+  background: rgba(252, 171, 30, 0.14);
+  color: #d97706;
+}
+
+.bs-connect-icon--chat {
+  background: rgba(16, 185, 129, 0.14);
+  color: #059669;
+}
+
+.bs-connect-icon--loc {
+  background: rgba(2, 132, 199, 0.14);
+  color: #0284c7;
+}
+
+.bs-connect-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+
+.bs-connect-label {
+  font-size: 0.74rem;
+  color: #64748b;
   font-weight: 600;
-  transition: background 0.2s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
-.modal-close-btn:hover {
-  background: #1e293b;
+.bs-connect-link {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Optional fade-in animation for modal */
-@keyframes modalFadeIn {
+.bs-connect-link:hover {
+  color: #d97706;
+}
+
+.bs-connect-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bs-copy-btn {
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.bs-copy-btn:hover {
+  background: #FCAB1E;
+  color: #000000;
+  border-color: #FCAB1E;
+}
+
+/* ── 3-Step Process Indicator ── */
+.bs-process-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.035);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  margin-top: 6px;
+}
+
+.bs-process-step {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.bs-step-num {
+  font-size: 0.72rem;
+  color: #d97706;
+  font-weight: 800;
+  background: rgba(252, 171, 30, 0.15);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.bs-process-arrow {
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   RIGHT COLUMN: FROSTED GLASSMORPHISM FORM CARD
+   ============================================================ */
+
+.bs-contact-form-col {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.bs-form-card {
+  position: relative;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 24px 60px -15px rgba(50, 50, 130, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  overflow: hidden;
+}
+
+.bs-form-accent {
+  height: 5px;
+  background: linear-gradient(90deg, #FCAB1E, #00C9A7, #7C3AED);
+  width: 100%;
+}
+
+.bs-form-body {
+  padding: clamp(22px, 3.5vw, 34px);
+}
+
+.bs-form-header {
+  margin-bottom: 20px;
+}
+
+.bs-form-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+  line-height: 1.25;
+}
+
+.bs-form-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ── Service Interest Chips ── */
+.bs-chips-section {
+  margin-bottom: 22px;
+}
+
+.bs-chips-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 9px;
+}
+
+.bs-chips-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.bs-chip-btn {
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: "K2D", sans-serif;
+}
+
+.bs-chip-btn:hover {
+  background: #ffffff;
+  border-color: #FCAB1E;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.bs-chip-btn--active {
+  background: #FCAB1E !important;
+  border-color: #FCAB1E !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 10px rgba(252, 171, 30, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ── Form Inputs ── */
+.bs-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bs-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.bs-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bs-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bs-field-label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.bs-required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+.bs-optional-badge {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ── Modern Input Pod ── */
+.bs-input-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1.5px solid rgba(203, 213, 225, 0.85);
+  border-radius: 12px;
+  padding: 10px 14px;
+  transition: all 0.2s ease;
+}
+
+.bs-input-box:focus-within {
+  border-color: #FCAB1E;
+  background: #ffffff;
+  box-shadow: 0 0 0 3.5px rgba(252, 171, 30, 0.22);
+}
+
+.bs-input-box:focus-within .bs-input-icon {
+  color: #FCAB1E;
+}
+
+.bs-input-box--textarea {
+  align-items: flex-start;
+  padding-top: 12px;
+}
+
+.bs-input-box--error {
+  border-color: #ef4444 !important;
+  background: rgba(254, 242, 242, 0.7) !important;
+}
+
+.bs-input-box--error:focus-within {
+  box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.2) !important;
+}
+
+.bs-input-icon {
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.bs-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.92rem;
+  color: #0f172a;
+  font-family: "K2D", sans-serif;
+  font-weight: 500;
+}
+
+.bs-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.bs-textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.92rem;
+  color: #0f172a;
+  font-family: "K2D", sans-serif;
+  font-weight: 500;
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.bs-textarea::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.bs-field-error {
+  font-size: 0.75rem;
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ── Error Banner ── */
+.bs-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ── Submit Button ── */
+.bs-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 13px 24px;
+  border-radius: 12px;
+  background: #FCAB1E;
+  color: #000000;
+  font-size: 0.98rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+  box-shadow: 0 6px 20px rgba(252, 171, 30, 0.35);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: "K2D", sans-serif;
+}
+
+.bs-submit-btn:hover:not(:disabled) {
+  background: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(252, 171, 30, 0.45);
+}
+
+.bs-submit-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.bs-btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000000;
+  border-radius: 50%;
+  animation: bsSpin 0.7s linear infinite;
+}
+
+@keyframes bsSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   CONFIRMATION MODAL DIALOG
+   ============================================================ */
+
+.bs-success-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+  animation: bsSuccessFadeIn 0.22s ease-out;
+}
+
+@keyframes bsSuccessFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bs-success-dialog {
+  background: #ffffff;
+  border-radius: 22px;
+  width: 100%;
+  max-width: 460px;
+  padding: 36px 30px 32px;
+  text-align: center;
+  box-shadow: 0 32px 80px -15px rgba(0, 0, 0, 0.45);
+  font-family: "K2D", sans-serif;
+  animation: bsSuccessSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bsSuccessSlideUp {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(24px) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
-.form-card, .form-box, .contact-form {
-  background: rgba(255, 255, 255, 0.54) !important;
-  backdrop-filter: blur(20px) saturate(1.7) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(1.7) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.82) !important;
-  box-shadow: 0 4px 28px rgba(50, 50, 130, 0.09) !important;
+
+.bs-success-icon-pod {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 2px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.bs-success-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+}
+
+.bs-success-text {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0 0 24px;
+  font-weight: 500;
+}
+
+.bs-success-close-btn {
+  padding: 10px 28px;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "K2D", sans-serif;
+}
+
+.bs-success-close-btn:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   RESPONSIVE ADAPTATIONS
+   ============================================================ */
+
+@media (max-width: 992px) {
+  .bs-contact-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .bs-contact-info-col {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+  }
+
+  .bs-contact-headline {
+    text-align: center;
+  }
+
+  .bs-contact-subtext {
+    text-align: center;
+  }
+
+  .bs-sla-card {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .bs-connect-cards {
+    width: 100%;
+  }
+
+  .bs-process-strip {
+    width: 100%;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bs-contact-wrapper {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .bs-form-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .bs-form-body {
+    padding: 20px 16px 22px;
+  }
+
+  .bs-process-strip {
+    display: none;
+  }
+
+  .bs-connect-card {
+    padding: 10px 12px;
+  }
+
+  .bs-connect-val,
+  .bs-connect-link {
+    font-size: 0.86rem;
+  }
 }

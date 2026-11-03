@@ -23,6 +23,7 @@ const WebBackend = lazy(() => import('./pages/jobs/WebBackend'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const Location = lazy(() => import('./pages/Location'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
+const Legal = lazy(() => import('./pages/Legal'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const ScrollToTop = () => {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
       {
         path: "sitemap",
         element: <Sitemap />
+      },
+      {
+        path: "legal",
+        element: <Legal />
       },
       {
         path: "*",

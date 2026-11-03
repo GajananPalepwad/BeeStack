@@ -117,6 +117,7 @@ function ReviewSlider() {
       displayUrl: "himroofabrics.com",
       text: "“BeeStack helped us establish a professional online presence for Himroofa Fabrics. The website showcases our brand and products in a clean, organized, and user-friendly way. The team was focused on presenting our business professionally and making it easier for customers to explore our offerings online. We appreciate BeeStack’s efforts in helping us strengthen our digital presence.”",
       stars: 5,
+      img: "/images/testimonials/faisal-quraishi.webp",
       initials: "FQ",
       color: "#7C3AED",
     },

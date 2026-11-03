@@ -1,44 +1,110 @@
 [
   {
+    "id": "lms",
     "name": "Student & Learning Management Systems",
-    "description": "Manage student records, performance, classes, and content.",
+    "badge": "EdTech Platform",
+    "description": "Comprehensive digital learning ecosystems managing student lifecycles, automated grading, multimedia coursework, and institutional progress.",
     "photo": "/images/hat.svg",
-    "hoverColor": "rgba(50, 205, 50, 0.6)",
-    "whichColorIsIt": "lime glow"
+    "accentColor": "#10b981",
+    "accentRgb": "16, 185, 129",
+    "hoverColor": "rgba(16, 185, 129, 0.6)",
+    "tags": ["Student Portals", "Grading & Rubrics", "Course Catalog", "Parent App"],
+    "modules": [
+      "Role-based portals for students, faculty, administrators & guardians",
+      "Automated assignment evaluation, continuous grading, and attendance sync",
+      "Interactive multimedia lecture repositories, syllabi tracking & downloads",
+      "Instant push alerts, SMS/WhatsApp notifications, and performance dashboards"
+    ],
+    "architecture": ["Cloud-Native", "RESTful APIs", "Role-Based RBAC", "Multi-Tenant"]
   },
   {
+    "id": "exam",
     "name": "Online Examination Platforms",
-    "description": "Create secure and scalable online test systems with automated evaluation, proctoring, and real-time performance analytics.",
+    "badge": "Assessment Engine",
+    "description": "Secure, tamper-resistant examination suites featuring automated evaluation, question shuffling, and high-concurrency testing.",
     "photo": "/images/notebook.png",
-    "hoverColor": "rgba(255, 250, 150, 0.6)",
-    "whichColorIsIt": "yellow glow"
+    "accentColor": "#f59e0b",
+    "accentRgb": "245, 158, 11",
+    "hoverColor": "rgba(245, 158, 11, 0.6)",
+    "tags": ["AI Proctoring", "Automated Grading", "Question Banks", "Live Audits"],
+    "modules": [
+      "Concurrent test delivery engineered for thousands of simultaneous examinees",
+      "Automated tab-lock, anti-cheat detection, and live session monitoring",
+      "Flexible question engines: MCQs, coding challenges, and subjective uploads",
+      "Real-time psychometric evaluation and instant scorecard generation"
+    ],
+    "architecture": ["Zero-Downtime Scale", "WebSockets Sync", "Anti-Tamper Lock", "Audit Logging"]
   },
   {
-    "name": "Security Management Systems",
-    "description": "Develop smart access control, surveillance monitoring, and digital security solutions to safeguard institutions and workplaces.",
+    "id": "security",
+    "name": "Security & Identity Management Systems",
+    "badge": "Zero-Trust Security",
+    "description": "Unified access control, biometric verification, and digital security frameworks engineered to safeguard institutions and campus assets.",
     "photo": "/images/lock.png",
-    "hoverColor": "rgba(0, 191, 255, 0.6)",
-    "whichColorIsIt": "dark blue glow"
+    "accentColor": "#0284c7",
+    "accentRgb": "2, 132, 199",
+    "hoverColor": "rgba(2, 132, 199, 0.6)",
+    "tags": ["Biometric Auth", "Smart Access", "Surveillance Feeds", "Audit Logs"],
+    "modules": [
+      "Hardware-integrated biometric access control (RFID, QR, Fingerprint)",
+      "Digital visitor logging with pre-approved entry passes",
+      "Encrypted credential vaults meeting institutional data standards",
+      "Automated intrusion alerts and tamper-proof security audit trails"
+    ],
+    "architecture": ["Hardware BLE/IoT", "End-to-End Encryption", "Fail-Safe Relays", "ISO Compliance"]
   },
   {
+    "id": "campus",
     "name": "Campus Automation Systems",
-    "description": "Automate administrative workflows such as attendance, scheduling, fee management, and campus communication.",
+    "badge": "Smart Campus IoT",
+    "description": "Connected workflows automating daily administrative operations, conflict-free timetable scheduling, fee collections, and announcements.",
     "photo": "/images/campus.png",
-    "hoverColor": "rgba(20, 240, 220, 0.6)",
-    "whichColorIsIt": "teal glow"
+    "accentColor": "#06b6d4",
+    "accentRgb": "6, 182, 212",
+    "hoverColor": "rgba(6, 182, 212, 0.6)",
+    "tags": ["Smart Attendance", "Timetable AI", "Fee Gateways", "Broadcast Comms"],
+    "modules": [
+      "Automated timetable generator with faculty conflict resolution",
+      "Integrated payment gateway for tuition, fines, and hostel dues",
+      "Multi-channel circular broadcasting via WhatsApp, Email, and Push",
+      "Digital workflow for leave requests, approvals, and facility bookings"
+    ],
+    "architecture": ["Payment Webhooks", "Real-Time Push", "Distributed Queues", "Smart Schedulers"]
   },
   {
+    "id": "library",
     "name": "Library & Resource Management Systems",
-    "description": "Digitize library operations with smart cataloging, book tracking, e-resources, and user activity monitoring.",
+    "badge": "Digital Knowledge Hub",
+    "description": "Smart resource management with automated RFID book tracking, OPAC discovery, digital repository archiving, and overdue alerts.",
     "photo": "/images/library.png",
-    "hoverColor": "rgba(220, 180, 255, 0.7)",
-    "whichColorIsIt": "purple glow"
+    "accentColor": "#8b5cf6",
+    "accentRgb": "139, 92, 246",
+    "hoverColor": "rgba(139, 92, 246, 0.6)",
+    "tags": ["RFID Cataloging", "OPAC Discovery", "Digital Archives", "Auto Reminders"],
+    "modules": [
+      "Lightning-fast OPAC book search with real-time shelf status",
+      "RFID / barcode self-service kiosk check-in and checkout",
+      "Centralized repository for institutional research, theses, and journals",
+      "Automated WhatsApp & SMS notifications for returns and penalty tracking"
+    ],
+    "architecture": ["RFID Integration", "Elastic Search", "Cloud Storage CDN", "Auto-Cron Reminders"]
   },
   {
-    "name": "ERP Solutions for Institutes",
-    "description": "Provide end-to-end enterprise resource planning tools for finance, HR, inventory, academics, and campus analytics.",
+    "id": "erp",
+    "name": "Institutional ERP Solutions",
+    "badge": "Enterprise Institutional ERP",
+    "description": "End-to-end enterprise planning unifying institutional finance, HR, inventory, student admissions, and executive decision dashboards.",
     "photo": "/images/erp.png",
-    "hoverColor": "rgba(255, 87, 51, 0.6)",
-    "whichColorIsIt": "red glow"
+    "accentColor": "#ef4444",
+    "accentRgb": "239, 68, 68",
+    "hoverColor": "rgba(239, 68, 68, 0.6)",
+    "tags": ["Finance & Payroll", "Admissions CRM", "HR & Inventory", "Executive BI"],
+    "modules": [
+      "Double-entry ledger accounting, fee reconciliation, and payroll processing",
+      "Admissions pipeline tracking from prospect inquiries to fee submission",
+      "Central inventory procurement, asset depreciation, and vendor tracking",
+      "Executive business intelligence dashboards with live operational KPIs"
+    ],
+    "architecture": ["PostgreSQL/MySQL", "Granular RBAC", "Financial Audit", "BI Analytics"]
   }
 ]

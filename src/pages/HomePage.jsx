@@ -185,32 +185,12 @@ useEffect(() => {
   ))}
 </div>
 
-          {/* Form */}
+          {/* ── Contact Section ── */}
           <div
-            className="form flex justify-center items-center w-full px-4"
             ref={formRef}
             style={{ position: "relative", zIndex: 1 }}
           >
-            <div className="flex flex-col md:flex-row justify-center items-stretch w-full max-w-7xl 2xl:max-w-[1530px] gap-8 2xl:gap-16">
-              {/* Left */}
-              <div className="whatwedo flex flex-col items-center md:items-start justify-center gap-4 flex-1">
-                <img
-                  src="./logo.png"
-                  alt="BeeStack logo"
-                  className="hidden lg:block w-16 xl:w-28 h-auto"
-                />
-                <h2 className="headingFF text-center md:text-left whitespace-nowrap">
-                  Say Hello!
-                </h2>
-                <p className="text-center md:text-center">
-                  We'd love to hear about your project. Drop us a message.
-                </p>
-              </div>
-              {/* Right */}
-              <div className="flex justify-center flex-1">
-                <Form />
-              </div>
-            </div>
+            <Form />
           </div>
 
           {/* Footer */}

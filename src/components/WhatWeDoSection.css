@@ -1,22 +1,24 @@
 /* ============================================================
-   WHAT WE DO SECTION
+   WHAT WE DO SECTION — Modern Frosted Glassmorphism Architecture
+   Synergized with FeaturedProjects & ReviewSlider Aesthetics
    ============================================================ */
 
 .wwdo-section {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 4.5rem 0 5.5rem;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0 5rem;
   background: #d8eaf2;
   font-family: "K2D", sans-serif;
 }
 
-/* ── Animated blobs ── */
+/* ── Animated ambient gradient blobs ── */
 .wwdo-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .wwdo-blob {
@@ -33,12 +35,12 @@
 .wwdo-blob--3 { width: 260px; height: 260px; top: -8%; left: 74%; }
 .wwdo-blob--4 { width: 460px; height: 460px; top: 52%; left: 40%; }
 
-/* ── Heading ── */
+/* ── Section Heading (Matching Projects & Testimonials) ── */
 .wwdo-heading-wrap {
   position: relative;
   z-index: 1;
   text-align: center;
-  margin-bottom: 2.8rem;
+  margin-bottom: 3rem;
   padding: 0 1rem;
 }
 
@@ -49,6 +51,8 @@
   letter-spacing: 0.15em;
   line-height: 1;
   font-family: "K2D", sans-serif;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .wwdo-sub {
@@ -56,180 +60,516 @@
   font-size: clamp(0.9rem, 2.2vw, 1.05rem);
   color: rgba(18, 18, 56, 0.44);
   font-weight: 500;
+  margin-bottom: 0;
 }
 
-/* ── Grid — all cards same height ── */
+/* ── Cards Grid ── */
 .wwdo-grid {
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
-  gap: 1.25rem;
-  max-width: 1100px;
+  gap: 1.75rem;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  padding: 0 clamp(1rem, 3.5vw, 2.5rem);
 }
 
-/* ── Card shell ── */
+/* ── Glassmorphism Card Container ── */
 .wwdo-card {
-  border-radius: 1.25rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  animation: wwdoFadeUp 0.45s ease both;
-}
-
-@keyframes wwdoFadeUp {
-  from { opacity: 0; transform: translateY(26px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Glass inner — hover color wash slides up (original Cards.css concept) ── */
-.wwdo-card-inner {
   position: relative;
-  flex: 1;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(20px) saturate(1.7);
+  -webkit-backdrop-filter: blur(20px) saturate(1.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 8px 32px rgba(50, 50, 130, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.54);
-  -webkit-backdrop-filter: blur(20px) saturate(1.7);
-  backdrop-filter: blur(20px) saturate(1.7);
-  border: 1.5px solid rgba(255, 255, 255, 0.82);
-  border-radius: 1.25rem;
-  padding: 1.75rem 1.65rem 1.6rem;
+  cursor: pointer;
+  user-select: none;
+  animation: wwdoCardFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease,
+    background 0.3s ease;
+}
+
+@keyframes wwdoCardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wwdo-card:hover {
+  transform: translateY(-7px);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(var(--card-accent-rgb, 252, 171, 30), 0.45);
   box-shadow:
-    0 4px 28px rgba(50, 50, 130, 0.09),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92);
-  transition: border-color 0.35s ease, box-shadow 0.38s ease;
+    0 22px 52px -10px rgba(50, 50, 130, 0.16),
+    0 8px 26px -4px rgba(var(--card-accent-rgb, 252, 171, 30), 0.22);
 }
 
-/* color fill slides up on hover — original effect */
-.wwdo-card-inner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 1.25rem;
-  background: var(--hover-color, #fcab1e);
-  opacity: 0;
-  transform: translateY(101%);
-  transition: opacity 0.38s ease, transform 0.40s cubic-bezier(0.22, 0.61, 0.36, 1);
-  z-index: 0;
+/* ── Card Top Subtle Colored Accent Line ── */
+.wwdo-card-top-accent {
+  height: 4px;
+  width: 100%;
 }
 
-.wwdo-card:hover .wwdo-card-inner::before {
-  opacity: 0.14;
-  transform: translateY(0);
-}
-
-.wwdo-card:hover .wwdo-card-inner {
-  border-color: rgba(255, 255, 255, 0.96);
-  box-shadow:
-    0 18px 52px rgba(50, 50, 130, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
-}
-
-/* content sits above wash */
-.wwdo-card-content {
-  position: relative;
-  z-index: 1;
-  flex: 1;
+/* ── Card Content ── */
+.wwdo-card-inner {
+  padding: 24px 22px 20px;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
 }
 
-
-
-/* ── Two icons row ── */
-.wwdo-icons-row {
+/* ── Card Top Row: Icon Pod + Badge ── */
+.wwdo-card-top-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.1rem;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-/* bare icons — no box, no border, no background */
-.wwdo-icon-img {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
+/* ── Elevated Glass Icon Pod ── */
+.wwdo-icon-pod {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.25s ease;
+  border: 1px solid;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
 }
 
-.wwdo-card:hover .wwdo-icon-img {
-  transform: translateY(-3px) scale(1.08);
+.wwdo-card:hover .wwdo-icon-pod {
+  transform: scale(1.08) translateY(-2px);
 }
 
-/* ── Text ── */
-.wwdo-card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #0f0f28;
-  margin: 0 0 0.48rem;
-  line-height: 1.2;
-  font-family: "K2D", sans-serif;
+.wwdo-icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
-.wwdo-card-desc {
-  font-size: 0.875rem;
-  color: rgba(18, 18, 56, 0.57);
-  line-height: 1.65;
-  margin: 0;
-  flex: 1;
-  font-family: "K2D", sans-serif;
-}
-
-/* ── Bottom tag row ── */
-.wwdo-card-tag-row {
-  margin-top: 1.1rem;
-  padding-top: 0;
-}
-
-.wwdo-tag {
+/* ── Category Pill Badge ── */
+.wwdo-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 5px 13px 5px 9px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.58);
-  border: 1px solid rgba(200, 210, 240, 0.48);
-  color: rgba(40, 40, 120, 0.56);
-  transition: background 0.30s ease, color 0.30s ease, border-color 0.30s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid;
+  white-space: nowrap;
 }
 
-.wwdo-card:hover .wwdo-tag {
-  background: var(--hover-color, #fcab1e);
-  border-color: transparent;
-  color: #fff;
-}
-
-.wwdo-tag-dot {
+.wwdo-badge-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: currentColor;
-  opacity: 0.65;
-  flex-shrink: 0;
+  animation: wwdoPulse 2s ease-in-out infinite;
 }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
+@keyframes wwdoPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* ── Card Title ── */
+.wwdo-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+  line-height: 1.35;
+  font-family: "K2D", sans-serif;
+  transition: color 0.2s ease;
+}
+
+.wwdo-card:hover .wwdo-card-title {
+  color: #0b1329;
+}
+
+/* ── Card Description ── */
+.wwdo-card-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0 0 16px;
+  font-weight: 500;
+  flex: 1;
+  font-family: "K2D", sans-serif;
+}
+
+/* ── Tags / Capabilities Row ── */
+.wwdo-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.wwdo-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3.5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+.wwdo-tag-pill--more {
+  background: rgba(15, 23, 42, 0.05);
+  border-color: transparent;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.wwdo-card:hover .wwdo-tag-pill {
+  background: #ffffff;
+  border-color: rgba(var(--card-accent-rgb, 252, 171, 30), 0.35);
+}
+
+/* ── Card Action Footer ── */
+.wwdo-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+.wwdo-explore-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.wwdo-arrow-icon {
+  transition: transform 0.25s ease;
+}
+
+.wwdo-card:hover .wwdo-arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ============================================================
+   SOLUTION ARCHITECTURE MODAL DIALOG
+   ============================================================ */
+
+.wwdo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+  animation: wwdoModalFadeIn 0.22s ease-out;
+}
+
+@keyframes wwdoModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wwdo-modal-dialog {
+  background: #ffffff;
+  border-radius: 22px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 32px 80px -15px rgba(0, 0, 0, 0.45);
+  font-family: "K2D", sans-serif;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  animation: wwdoModalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wwdo-modal-dialog::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@keyframes wwdoModalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wwdo-modal-accent {
+  height: 5px;
+  width: 100%;
+  border-radius: 22px 22px 0 0;
+}
+
+.wwdo-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.06);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.wwdo-modal-close:hover {
+  background: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+  transform: rotate(90deg);
+}
+
+.wwdo-modal-content {
+  padding: 28px 28px 32px;
+}
+
+/* ── Modal Header ── */
+.wwdo-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-right: 36px;
+}
+
+.wwdo-modal-icon-pod {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid;
+}
+
+.wwdo-modal-icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.wwdo-modal-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wwdo-modal-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.wwdo-modal-desc {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #334155;
+  font-weight: 500;
+  margin: 0 0 24px;
+}
+
+/* ── Modal Sections ── */
+.wwdo-modal-section {
+  margin-bottom: 22px;
+}
+
+.wwdo-modal-section-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+}
+
+/* ── Checklist ── */
+.wwdo-modal-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wwdo-modal-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: #1e293b;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.wwdo-check-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Architecture Tags ── */
+.wwdo-modal-arch-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wwdo-modal-arch-pill {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+/* ── Modal Actions ── */
+.wwdo-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(226, 232, 240, 0.85);
+  flex-wrap: wrap;
+}
+
+.wwdo-modal-inquire-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.wwdo-modal-inquire-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.wwdo-modal-close-btn {
+  padding: 11px 20px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wwdo-modal-close-btn:hover {
+  background: rgba(15, 23, 42, 0.09);
+  color: #0f172a;
+}
+
+/* ── Responsive Adaptations ── */
+@media (max-width: 1024px) {
   .wwdo-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 520px) {
-  .wwdo-section { padding: 3rem 0 4rem; }
+@media (max-width: 640px) {
+  .wwdo-section {
+    padding: 3.5rem 0 4rem;
+  }
+
+  .wwdo-heading-wrap {
+    margin-bottom: 2.2rem;
+  }
+
   .wwdo-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
     padding: 0 1rem;
   }
-}
 
+  .wwdo-card-inner {
+    padding: 20px 18px 18px;
+  }
+
+  .wwdo-modal-content {
+    padding: 22px 18px 24px;
+  }
+
+  .wwdo-modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .wwdo-modal-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .wwdo-modal-inquire-btn,
+  .wwdo-modal-close-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

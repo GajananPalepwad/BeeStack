@@ -43,6 +43,7 @@ const clientTestimonials = [
     author: "Faisal Quraishi",
     role: "Business Owner",
     company: "Himroofa Fabrics",
+    image: "/images/testimonials/faisal-quraishi.webp",
     metric: "Brand & Catalog Platform",
     rating: 5,
     quote:

@@ -44,6 +44,7 @@
 /* ── PAGE SHELL ─────────────────────────────────────────── */
 .ow-page {
   display: flex;
+  align-items: flex-start;
   min-height: calc(100vh - var(--nav-h));
   margin-top: var(--nav-h);
   background: #f1f5f9;
@@ -91,7 +92,9 @@
   backdrop-filter: blur(24px) saturate(1.6);
   position: sticky;
   top: var(--nav-h);
+  align-self: flex-start;
   height: calc(100vh - var(--nav-h));
+  max-height: calc(100vh - var(--nav-h));
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none !important;
@@ -353,8 +356,8 @@
 /* ── MAIN CONTENT AREA ───────────────────────────────────── */
 .ow-main {
   flex: 1;
+  min-width: 0;
   padding: 44px 56px 64px;
-  overflow-y: auto;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   position: relative;
@@ -900,6 +903,7 @@
 @media (max-width: 860px) {
   .ow-page {
     flex-direction: column;
+    align-items: stretch;
     margin-top: 64px; /* Matches 64px fixed mobile navbar */
   }
 
@@ -908,6 +912,8 @@
     width: 100%;
     min-width: 100%;
     height: auto;
+    max-height: none;
+    align-self: auto;
     position: sticky;
     top: 64px; /* Sticks directly below the 64px mobile navbar with zero gap */
     padding: 10px 14px 12px;
