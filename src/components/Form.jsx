@@ -20,8 +20,26 @@ export default function Form() {
     setStatus(null);
     setStatusMessage("");
 
+    // Honeypot check: automated bots will fill this hidden input
+    if (data.b_website_hp) {
+      await new Promise((r) => setTimeout(r, 600));
+      setStatus("success");
+      setStatusMessage("Message sent successfully!");
+      reset();
+      setLoading(false);
+      return;
+    }
+
     try {
-      await sendGetInTouch(data);
+      const payload = {
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        message: data.phone?.trim()
+          ? `${data.message}\n\n[Contact Phone / WhatsApp: ${data.phone.trim()}]`
+          : data.message,
+      };
+      await sendGetInTouch(payload);
       setStatus("success");
       setStatusMessage("Message sent successfully!");
       reset();
@@ -72,6 +90,36 @@ export default function Form() {
             {errors.email && (
               <div className="error">{errors.email.message}</div>
             )}
+          </div>
+
+          {/* Phone Field (Optional) */}
+          <div className="mb-4">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+              <label className="font-semibold" style={{ margin: 0 }}>Phone / WhatsApp</label>
+              <span style={{ fontSize: "12px", color: "#64748b", fontWeight: "500" }}>(Optional)</span>
+            </div>
+            <input
+              type="tel"
+              placeholder="+91 98765 43210"
+              className="w-full p-2 border rounded"
+              {...register("phone", {
+                pattern: {
+                  value: /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/,
+                  message: "Enter a valid phone number",
+                },
+              })}
+            />
+            {errors.phone && <div className="error">{errors.phone.message}</div>}
+          </div>
+
+          {/* Honeypot field for bot spam protection */}
+          <div style={{ display: "none", opacity: 0, position: "absolute", zIndex: -10 }} aria-hidden="true">
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              {...register("b_website_hp")}
+            />
           </div>
 
           {/* Subject Field */}

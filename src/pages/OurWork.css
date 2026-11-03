@@ -94,12 +94,20 @@
   height: calc(100vh - var(--nav-h));
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid rgba(245, 158, 11, 0.22);
   box-shadow: 4px 0 24px rgba(217, 119, 6, 0.06);
+}
+
+.ow-sidebar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Honeycomb Hexagonal Pattern Overlay */
@@ -347,9 +355,17 @@
   flex: 1;
   padding: 44px 56px 64px;
   overflow-y: auto;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   position: relative;
   z-index: 1;
   max-width: 1440px;
+}
+
+.ow-main::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* ── HEADER SECTION ──────────────────────────────────────── */
@@ -580,6 +596,139 @@
   border: 1px solid rgba(252, 171, 30, 0.35);
 }
 
+/* ── BROWSER MOCKUP FRAME WITH DEEP SURROUNDING SHADOW ── */
+.ow-mockup-window {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  /* The deep, floating shadow requested by user */
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.38), 0 6px 18px -4px rgba(0, 0, 0, 0.22);
+  margin-bottom: 18px;
+  cursor: pointer;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.ow-card:hover .ow-mockup-window {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.5), 0 8px 24px -4px rgba(252, 171, 30, 0.25);
+}
+
+.ow-mockup-header {
+  height: 28px;
+  background: #090d16;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ow-mockup-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ow-mockup-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.ow-mockup-dot--red { background: #ff5f56; }
+.ow-mockup-dot--yellow { background: #ffbd2e; }
+.ow-mockup-dot--green { background: #27c93f; }
+
+.ow-mockup-url {
+  flex: 1;
+  max-width: 220px;
+  margin: 0 auto;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #94a3b8;
+  padding: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.ow-mockup-body {
+  width: 100%;
+  height: 185px;
+  position: relative;
+  overflow: hidden;
+  background: #020617;
+}
+
+.ow-mockup-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ow-card:hover .ow-mockup-img {
+  transform: scale(1.05);
+}
+
+.ow-mockup-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(circle at 80% 20%, rgba(252, 171, 30, 0.22) 0%, transparent 60%),
+              radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.25) 0%, transparent 60%),
+              #0f172a;
+  padding: 16px;
+  text-align: center;
+}
+
+.ow-mockup-fallback-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+
+.ow-mockup-fallback-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ow-mockup-fallback-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(252, 171, 30, 0.2);
+  color: #FCAB1E;
+  border: 1px solid rgba(252, 171, 30, 0.4);
+}
+
+.ow-mockup-fallback-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.3;
+}
+
 /* ── CARD BUTTON ─────────────────────────────────────────── */
 .ow-card-btn {
   display: inline-flex;
@@ -593,7 +742,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  margin-top: 16px;
+  margin-top: 0;
   transition: gap 0.2s ease, color 0.2s ease;
   font-family: inherit;
 }
@@ -601,6 +750,144 @@
 .ow-card-btn:hover {
   gap: 10px;
   color: var(--amber-dark);
+}
+
+/* ── PROJECT CARD MEDIA / THUMBNAILS ─────────────────────── */
+.ow-card-media {
+  width: calc(100% + 52px);
+  margin: -28px -26px 18px -26px;
+  height: 190px;
+  overflow: hidden;
+  position: relative;
+  background: #f1f5f9;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.ow-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ow-card:hover .ow-card-img {
+  transform: scale(1.05);
+}
+
+/* ── CARD BOTTOM ACTIONS & LINKS ─────────────────────────── */
+.ow-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  flex-wrap: wrap;
+}
+
+.ow-card-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ow-link-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(15, 23, 42, 0.05);
+  color: #334155;
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  transition: all 0.2s ease;
+}
+
+.ow-link-pill:hover {
+  background: #FCAB1E;
+  color: #000;
+  border-color: #FCAB1E;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(252, 171, 30, 0.3);
+}
+
+.ow-link-pill--github:hover {
+  background: #181717;
+  color: #ffffff;
+  border-color: #181717;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.ow-link-pill--playstore:hover {
+  background: #01875f;
+  color: #ffffff;
+  border-color: #01875f;
+  box-shadow: 0 4px 10px rgba(1, 135, 95, 0.3);
+}
+
+/* ── MODAL ACTION BUTTONS ────────────────────────────────── */
+.ow-modal-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.ow-modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.ow-modal-btn--primary {
+  background: #FCAB1E;
+  color: #000000;
+  box-shadow: 0 4px 14px rgba(252, 171, 30, 0.35);
+}
+
+.ow-modal-btn--primary:hover {
+  background: #e59714;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(252, 171, 30, 0.45);
+}
+
+.ow-modal-btn--github {
+  background: #181717;
+  color: #ffffff;
+}
+
+.ow-modal-btn--github:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.ow-modal-btn--playstore {
+  background: #01875f;
+  color: #ffffff;
+}
+
+.ow-modal-btn--playstore:hover {
+  background: #016b4b;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(1, 135, 95, 0.35);
 }
 
 /* ── RESPONSIVE ADAPTATIONS ──────────────────────────────── */
@@ -682,12 +969,15 @@
     min-width: 0;
     gap: 8px;
     padding: 2px 2px 4px;
-    scrollbar-width: none;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
     scroll-behavior: smooth;
   }
 
   .ow-nav::-webkit-scrollbar {
-    display: none;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .ow-nav-item {
@@ -799,3 +1089,75 @@
 .ow-card:nth-child(4) { transition-delay: 0.28s; }
 .ow-card:nth-child(5) { transition-delay: 0.36s; }
 .ow-card:nth-child(6) { transition-delay: 0.44s; }
+
+/* ── PRODUCT CATEGORY FILTER PILLS ───────────────────────── */
+.ow-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.ow-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  color: #475569;
+  font-family: 'K2D', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.ow-filter-pill:hover {
+  background: #ffffff;
+  border-color: rgba(252, 171, 30, 0.6);
+  color: #1e293b;
+  transform: translateY(-1px);
+}
+
+.ow-filter-pill--active {
+  background: #FCAB1E;
+  border-color: #FCAB1E;
+  color: #1a1a1a;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(252, 171, 30, 0.35);
+}
+
+.ow-filter-pill--active:hover {
+  background: #e59714;
+  border-color: #e59714;
+  color: #1a1a1a;
+}
+
+.ow-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.06);
+  color: inherit;
+}
+
+.ow-filter-pill--active .ow-filter-count {
+  background: rgba(0, 0, 0, 0.12);
+  color: #000;
+}
+
+.ow-empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px dashed rgba(203, 213, 225, 0.8);
+  border-radius: 16px;
+  color: #64748b;
+}

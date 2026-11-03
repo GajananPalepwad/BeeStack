@@ -105,6 +105,61 @@ export default function Seo() {
   const canonicalUrl = `${SITE_URL}${normalizedPath === "/" ? "" : normalizedPath}`;
   const socialImage = `${SITE_URL}/beestack_text_logo.png`;
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "BeeStack",
+    url: SITE_URL,
+    logo: `${SITE_URL}/beestack_logo.png`,
+    description: DEFAULT_DESCRIPTION,
+    sameAs: [
+      "https://www.linkedin.com/company/beestack/"
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Support",
+      url: `${SITE_URL}/contact-us`
+    }
+  };
+
+  const jobTitles = {
+    "/jobs/android": "Android Developer",
+    "/jobs/ios": "iOS Developer",
+    "/jobs/webfrontend": "Frontend Web Developer",
+    "/jobs/webbackend": "Backend Web Developer",
+  };
+
+  const jobSchema = jobTitles[normalizedPath]
+    ? {
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        title: `${jobTitles[normalizedPath]} at BeeStack`,
+        description: meta.description,
+        datePosted: "2024-01-01",
+        employmentType: "FULL_TIME",
+        hiringOrganization: {
+          "@type": "Organization",
+          name: "BeeStack",
+          sameAs: SITE_URL,
+          logo: `${SITE_URL}/beestack_logo.png`,
+        },
+        jobLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Nanded",
+            addressRegion: "Maharashtra",
+            addressCountry: "IN",
+          },
+        },
+        jobLocationType: "TELECOMMUTE",
+        applicantLocationRequirements: {
+          "@type": "Country",
+          name: "India",
+        },
+      }
+    : null;
+
   return (
     <Helmet prioritizeSeoTags>
       <title>{meta.title}</title>
@@ -123,6 +178,9 @@ export default function Seo() {
       <meta property="og:locale" content="en_US" />
       <meta property="og:image" content={socialImage} />
       <meta property="og:image:alt" content="BeeStack logo" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/png" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={meta.title} />
@@ -130,6 +188,15 @@ export default function Seo() {
       <meta name="twitter:image" content={socialImage} />
 
       <meta name="theme-color" content="#0f172a" />
+
+      <script type="application/ld+json">
+        {JSON.stringify(organizationSchema)}
+      </script>
+      {jobSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(jobSchema)}
+        </script>
+      )}
     </Helmet>
   );
 }

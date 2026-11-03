@@ -1,25 +1,78 @@
+.loading-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #fdfdfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  transform: scale(1);
+  overflow: hidden;
+}
+
+.loading-page--fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+.loading-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-logo {
+  max-width: min(280px, 75vw);
+  height: auto;
+  object-fit: contain;
+  animation: logoPulse 2s ease-in-out infinite alternate;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader {
-  width: 80px;
+  width: 48px;
+  height: 48px;
   aspect-ratio: 1;
-  --_g: no-repeat radial-gradient(farthest-side,#FCAB1E 100%,transparent);
+  --_g: no-repeat radial-gradient(farthest-side, #FCAB1E 100%, transparent);
   background:
     var(--_g) 0    0,
     var(--_g) 100% 0,
     var(--_g) 100% 100%,
     var(--_g) 0    100%;
   background-size: 35% 35%;
-  animation: l38 .5s infinite; 
-}
-@keyframes l38 {
-  100% {background-position: 100% 0,100% 100%,0 100%,0 0}
+  animation: loaderSpin 0.7s infinite linear; 
 }
 
-.loading-page h1{
-  color: black;
-  background-color: #F1F4F9;
+@keyframes loaderSpin {
+  100% {
+    background-position: 100% 0, 100% 100%, 0 100%, 0 0;
+  }
 }
 
-.BeeStackname h1{
-  color: black;
-  font-family: 'K2D', sans-serif;
+@keyframes logoPulse {
+  0% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1.02);
+  }
 }

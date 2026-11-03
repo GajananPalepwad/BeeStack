@@ -1,26 +1,29 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import { Navigate } from "react-router-dom";
-import HomePage from './pages/HomePage';
-import LoadingPage from './pages/LoadingPage'
-import OurWork from './pages/OurWork'
-import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom'
-import Technique from './pages/Technique';
-import Technology from './pages/Technology';
-import Products from './pages/Products';
-import AboutUs from './pages/AboutUs';
-import Testimonials from './pages/Testimonials';
-import Careers from './pages/Careers';
-import GettingIn from './pages/GettingIn';
-import CurrentOpenings from './pages/CurrentOpenings';
-import Android from './pages/jobs/Andriod';
-import IOS from './pages/jobs/IOS';
-import WebFrontend from './pages/jobs/WebFrontend';
-import WebBackend from './pages/jobs/WebBackend';
-import ContactUs from './pages/ContactUs';
-import Location from './pages/Location';
-import Sitemap from './pages/Sitemap';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import './App.css';
+import { Navigate, createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom';
+import LoadingPage from './pages/LoadingPage';
 import Seo from './components/Seo';
+import TopProgressBar from './components/TopProgressBar';
+
+// Route-level code splitting for optimized chunking and faster FCP/LCP
+const HomePage = lazy(() => import('./pages/HomePage'));
+const Technique = lazy(() => import('./pages/Technique'));
+const Technology = lazy(() => import('./pages/Technology'));
+const Products = lazy(() => import('./pages/Products'));
+const OurWork = lazy(() => import('./pages/OurWork'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const Testimonials = lazy(() => import('./pages/Testimonials'));
+const Careers = lazy(() => import('./pages/Careers'));
+const GettingIn = lazy(() => import('./pages/GettingIn'));
+const CurrentOpenings = lazy(() => import('./pages/CurrentOpenings'));
+const Android = lazy(() => import('./pages/jobs/Android'));
+const IOS = lazy(() => import('./pages/jobs/IOS'));
+const WebFrontend = lazy(() => import('./pages/jobs/WebFrontend'));
+const WebBackend = lazy(() => import('./pages/jobs/WebBackend'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const Location = lazy(() => import('./pages/Location'));
+const Sitemap = lazy(() => import('./pages/Sitemap'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -48,113 +51,137 @@ const RootLayout = () => (
   <>
     <Seo />
     <ScrollToTop />
-    <Outlet />
+    <Suspense fallback={<TopProgressBar />}>
+      <Outlet />
+    </Suspense>
   </>
 );
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "our-work",
+        element: <Navigate to="/our-work/products" replace />,
+      },
+      {
+        path: "our-work/technique",
+        element: <Technique />
+      },
+      {
+        path: "our-work/technology",
+        element: <Technology />
+      },
+      {
+        path: "our-work/products",
+        element: <Products />
+      },
+      {
+        path: "our-work/concept",
+        element: <OurWork />
+      },
+      {
+        path: "about-us",
+        element: <AboutUs />
+      },
+      {
+        path: "about-us/testimonials",
+        element: <Testimonials />
+      },
+      {
+        path: "careers",
+        element: <Careers />
+      },
+      {
+        path: "contact-us/getting-in",
+        element: <GettingIn />
+      },
+      {
+        path: "careers/current-openings",
+        element: <CurrentOpenings />
+      },
+      {
+        path: "jobs/android",
+        element: <Android />
+      },
+      {
+        path: "jobs/ios",
+        element: <IOS />
+      },
+      {
+        path: "jobs/webfrontend",
+        element: <WebFrontend />
+      },
+      {
+        path: "jobs/webbackend",
+        element: <WebBackend />
+      },
+      {
+        path: "contact-us",
+        element: <ContactUs />
+      },
+      {
+        path: "contact-us/location",
+        element: <Location />
+      },
+      {
+        path: "sitemap",
+        element: <Sitemap />
+      },
+      {
+        path: "*",
+        element: <NotFound />
+      },
+    ],
+  },
+]);
+
 function App() {
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <RootLayout />,
-      children: [
-        {
-          index: true,
-          element: <HomePage />,
-        },
-        {
-          path: "our-work",
-          element: <Navigate to="/our-work/products" replace />,
-        },
-        {
-          path: "our-work/technique",
-          element: <Technique />
-        },
-        {
-          path: "our-work/technology",
-          element: <Technology />
-        },
-        {
-          path: "our-work/products",
-          element: <Products />
-        },
-        {
-          path: "our-work/concept",
-          element: <OurWork />
-        },
-        {
-          path: "about-us",
-          element: <AboutUs />
-        },
-        {
-          path: "about-us/testimonials",
-          element: <Testimonials />
-        },
-        {
-          path: "careers",
-          element: <Careers />
-        },
-        {
-          path: "contact-us/getting-in",
-          element: <GettingIn />
-        },
-        {
-          path: "careers/current-openings",
-          element: <CurrentOpenings />
-        },
-        {
-          path: "jobs/android",
-          element: <Android />
-        },
-        {
-          path: "jobs/ios",
-          element: <IOS />
-        },
-        {
-          path: "jobs/webfrontend",
-          element: <WebFrontend />
-        },
-        {
-          path: "jobs/webbackend",
-          element: <WebBackend />
-        },
-        {
-          path: "contact-us",
-          element: <ContactUs />
-        },
-        {
-          path: "contact-us/location",
-          element: <Location />
-        },
-        {
-          path: "sitemap",
-          element: <Sitemap />
-        },
-      ],
-    },
-  ]);
-
-
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Check if splash was already shown in this browser session
+    try {
+      return !sessionStorage.getItem('beestack_splash_seen');
+    } catch {
+      return false;
+    }
+  });
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (!isLoading) return;
+
+    // Show brief branded intro for ~800ms then smooth exit fade
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, 800);
+
+    const completeTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 3500);
+      try {
+        sessionStorage.setItem('beestack_splash_seen', 'true');
+      } catch {
+        // Ignore storage quotas or restrictions
+      }
+    }, 1100);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <LoadingPage />
-  }
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(completeTimer);
+    };
+  }, [isLoading]);
 
   return (
     <div className="app">
+      {isLoading && <LoadingPage isFadingOut={isFadingOut} />}
       <RouterProvider router={router} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

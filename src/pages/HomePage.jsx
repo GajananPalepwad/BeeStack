@@ -9,8 +9,8 @@ import Stack from "../components/Stack";
 import Form from "../components/Form";
 import ReviewSlider from "../components/ReviewSlider";
 import React, {useEffect, useRef } from "react";
-import { Helmet } from "react-helmet-async";
 import WhatWeDoSection from "../components/WhatWeDoSection";
+import FeaturedProjects from "../components/FeaturedProjects";
 
 const HomePage = () => {
   const formRef = useRef(null);
@@ -57,15 +57,6 @@ useEffect(() => {
 },[]);
   return (
     <>
-      <Helmet>
-        <title>BeeStack | Next-Gen Technology Solutions</title>
-        <meta
-          name="description"
-          content="BeeStack is a next-gen technology company crafting intelligent, scalable, and future-ready software solutions. From AI-driven automation to full-stack development, we bring ideas to life."
-        />
-        <link rel="canonical" href="https://www.beestack.in/" />
-      </Helmet>
-
       <div className="homepage">
         <Navbar />
 
@@ -139,6 +130,19 @@ useEffect(() => {
           margin: "0",
           opacity: 0.75,
           animation: "dividerShimmer 3s linear infinite",
+          backgroundSize: "200% 100%",
+        }} />
+
+        {/* ── Our Best Work (Horizontal Scroll Projects Showcase) ── */}
+        <FeaturedProjects />
+
+        {/* ── Divider ── */}
+        <div style={{
+          height: "2px",
+          background: "linear-gradient(to right, transparent 0%, #34d399 8%, #fcab1e 30%, #7c6af7 50%, #a8edea 70%, #e879a0 92%, transparent 100%)",
+          margin: "0",
+          opacity: 0.75,
+          animation: "dividerShimmer 3s linear infinite reverse",
           backgroundSize: "200% 100%",
         }} />
 

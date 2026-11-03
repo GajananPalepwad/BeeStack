@@ -2,9 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── GLOBAL SCROLLBAR SUPPRESSION ────────────────────────────────────────── */
+/* Completely hides scrollbars across all browsers while keeping smooth touch,
+   mousewheel, keyboard, and trackpad scrolling 100% functional. */
 * {
   box-sizing: border-box;
   font-family: 'K2D', sans-serif;
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and legacy Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera, Edge Chromium */
+  width: 0 !important;
+  height: 0 !important;
 }
 
 html, body {
@@ -13,4 +24,25 @@ html, body {
   max-width: 100vw;
   margin: 0;
   padding: 0;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Reusable utility class to guarantee no scrollbars on any element */
+.no-scrollbar {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }

@@ -83,9 +83,9 @@ const WhatWeDoCard = ({ member, index }) => {
       <div className="wwdo-card-inner">
         <div className="wwdo-card-content">
           <div className="wwdo-icons-row">
-            <img src={member.photo} alt={member.name} className="wwdo-icon-img" />
+            <img src={member.photo} alt={member.name} className="wwdo-icon-img" loading="lazy" decoding="async" />
             {member.icon2 && (
-              <img src={member.icon2} alt="" className="wwdo-icon-img" />
+              <img src={member.icon2} alt="" className="wwdo-icon-img" loading="lazy" decoding="async" />
             )}
           </div>
           <h3 className="wwdo-card-title">{member.name}</h3>

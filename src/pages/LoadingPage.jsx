@@ -1,20 +1,31 @@
-import React from 'react'
-import './LoadingPage.css'
+import React from 'react';
+import './LoadingPage.css';
 
-const LoadingPage = () => {
-    return (
-        <>
-            <div className="loading-page flex flex-col items-center py-40 h-screen w-screen">
-                <div className="logo w-60 h-60">
-                    <img src="/logo.png" alt="BeeStack" className='w-full h-full object-contain'/>
-                </div>
-                <div className="BeeStackname text-4xl py-5" >
-                    <h1>BeeStack</h1>
-                </div>
-                <div className="loader my-20"></div>
-            </div>
-        </>
-    )
-}
+const LoadingPage = ({ isFadingOut = false }) => {
+  return (
+    <div
+      className={`loading-page ${isFadingOut ? 'loading-page--fade-out' : ''}`}
+      role="status"
+      aria-label="Loading BeeStack"
+    >
+      <div className="loading-content">
+        <div className="loading-brand">
+          <img
+            src="/beestack_logo.png"
+            alt="BeeStack"
+            className="loading-logo"
+            onError={(e) => {
+              // Graceful fallback if beestack_logo is missing
+              e.currentTarget.src = '/logo.png';
+            }}
+          />
+        </div>
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default LoadingPage
+export default LoadingPage;

@@ -1,0 +1,171 @@
+[
+  {
+    "id": 1,
+    "title": "TheFreeVideoEditor – Open-Source Browser-Based Video Editor",
+    "duration": "2026 - Present",
+    "technologies": [
+      "Astro",
+      "JavaScript",
+      "Web Technologies",
+      "Cloudflare Workers",
+      "Cloudflare",
+      "GitHub"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/thefreevideoeditor.webp",
+    "link": [
+      "https://thefreevideoeditor.com/",
+      "https://github.com/GajananPalepwad/TheFreeVideoEditor"
+    ],
+    "description": "TheFreeVideoEditor is an open-source, browser-based video editing project designed to bring powerful video editing capabilities directly to the web. The project aims to provide a desktop-editor-like experience, with a timeline-based workflow, clip editing, trimming, and export capabilities. It is developed as a community-driven project, with source code publicly available on GitHub. The project welcomes contributions, bug reports, feature requests, and improvements from developers. Website: https://thefreevideoeditor.com/ GitHub: https://github.com/GajananPalepwad/TheFreeVideoEditor"
+  },
+  {
+    "id": 2,
+    "title": "DevPuja – Digital Devotional and Virtual Mandir App",
+    "duration": "2026 - Present",
+    "technologies": [
+      "Android",
+      "Kotlin",
+      "Jetpack Compose",
+      "PHP",
+      "MySQL",
+      "REST API",
+      "YouTube Integration"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/devpuja.webp",
+    "link": [
+      "https://play.google.com/store/apps/details?id=com.beestack.devpuja"
+    ],
+    "description": "DevPuja is an Android devotional application developed to provide users with a digital space for worship and spiritual activities. The app includes virtual puja interactions, devotional content, bhajans, and features centered around darshan and daily worship. It incorporates user profiles, guest access, activity tracking, and a punya points system that rewards devotional interactions. A PHP and MySQL backend supports application data and REST API integration. The project also includes an analytics dashboard for monitoring application activity. Panchang information is calculated on demand rather than saved as persistent daily results. The application is designed to make devotional experiences accessible through a mobile interface."
+  },
+  {
+    "id": 3,
+    "title": "Krazy Store – Gen Z Streetwear E-Commerce Platform",
+    "duration": "2026 - Present",
+    "technologies": [
+      "Next.js",
+      "React",
+      "JavaScript",
+      "Web Technologies",
+      "PHP",
+      "MySQL",
+      "Razorpay",
+      "Meta Pixel",
+      "E-Commerce APIs"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/krazystore.webp",
+    "link": [
+      "https://krazystore.in/"
+    ],
+    "description": "Krazy Store is a Gen Z-focused streetwear e-commerce brand operated under BeeStack Software Lab. The platform offers graphic T-shirts and other streetwear products with an emphasis on oversized fits, heavyweight fabrics, and contemporary designs. The e-commerce experience supports product browsing, category-based discovery, online payments, and order-related workflows. The project also involves marketing integrations, affiliate initiatives, product catalog management, and logistics integrations. The storefront uses a modern web stack and is designed to support an expanding product catalog. Website: https://krazystore.in/"
+  },
+  {
+    "id": 4,
+    "title": "HackFusion – Hackathon and Innovation Platform",
+    "duration": "2024 - Present",
+    "technologies": [
+      "Web Technologies",
+      "Backend APIs",
+      "Database Technologies",
+      "Cloud Hosting"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/hackfusion.webp",
+    "link": [
+      "https://hackfusion.in/"
+    ],
+    "description": "HackFusion is a hackathon and innovation initiative associated with hackfusion.in, focused on bringing students, developers, and innovators together to build projects and participate in collaborative technical events. The platform and associated event operations support hackathon participation, registrations, team coordination, project submissions, and event management workflows. The initiative has involved organizing hackathon editions, coordinating volunteers, and facilitating a collaborative environment for participants. Its goal is to encourage practical problem-solving, software development, and innovation within the developer community. Website: https://hackfusion.in/"
+  },
+  {
+    "id": 5,
+    "title": "BeeDesk – Multi-Tenant Client Portal Platform",
+    "duration": "2026 - Present",
+    "technologies": [
+      "Web Technologies",
+      "REST APIs",
+      "Multi-Tenant Architecture",
+      "Cloud Services"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/beedesk.webp",
+    "link": [
+      "https://beedesk.in"
+    ],
+    "description": "BeeDesk is a multi-tenant client portal platform being developed to help businesses create and manage client-facing workspaces. The platform is designed around tenant separation, configurable portal experiences, and a centralized client interaction workflow. It includes a planned trial-based onboarding model and a magic-link authentication flow for convenient access. Its versioned API architecture is intended to support integration with different client-facing applications and services. The project focuses on creating a flexible foundation for business portals while keeping individual tenant experiences organized. Additional implementation details may evolve as development progresses."
+  },
+  {
+    "id": 6,
+    "title": "BeeMine – Dating Application with AI Partner Features",
+    "duration": "In Development",
+    "technologies": [
+      "Kotlin",
+      "Android Studio",
+      "Web Technologies",
+      "Jetpack Compose",
+      "Material 3",
+      "Firebase Cloud Messaging",
+      "REST APIs",
+      "ReactJS"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/beemine.webp",
+    "link": [
+      "https://beemine.in",
+      "https://play.google.com/store/apps/details?id=com.beestack.beemine"
+    ],
+    "description": "BeeMine is an Android and Web application developed under the BeeStack product ecosystem. The application includes an AI partner concept and uses Jetpack Compose and Material 3 to build its user interface. Firebase Cloud Messaging supports push notifications, while REST APIs provide communication with backend services. The project focuses on modern Android development, modular architecture, and a responsive mobile experience. Further features and release details will evolve as development progresses."
+  },
+  {
+    "id": 7,
+    "title": "Daily Bites – Monthly Food Subscription Platform",
+    "duration": "June 2023 - August 2023",
+    "technologies": [
+      "Java",
+      "Android Studio",
+      "Firebase",
+      "Room Database",
+      "Google Authentication",
+      "REST API"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/dailybites.webp",
+    "link": [
+      "https://play.google.com/store/apps/details?id=com.gn4k.dailybites"
+    ],
+    "description": "Daily Bites is an Android-based food subscription platform designed to help students and working professionals find affordable and reliable meal services when relocating to new cities. The application allows users to discover mess providers, compare ratings, browse daily menus, and explore flexible meal plans such as Silver, Gold, and Diamond. Users can also choose one-time meals before committing to a monthly subscription. Additional workflows include subscription tracking, daily menu notifications, delivery status updates, and promotional offers. Mess owners can manage menus and subscriptions through the platform, connecting food providers with consumers."
+  },
+  {
+    "id": 8,
+    "title": "SGGSIE&T College Management Application",
+    "duration": "February 2023 - May 2023",
+    "technologies": [
+      "Java",
+      "Android Studio",
+      "MVVM Architecture",
+      "MySQL",
+      "PHP",
+      "REST API",
+      "Google Authentication",
+      "Firebase"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/sggs.webp",
+    "link": [
+      "https://play.google.com/store/apps/details?id=com.sggs.sggs"
+    ],
+    "description": "The SGGSIE&T College Management Application is an Android academic companion designed for students and faculty. It centralizes academic information and workflows, including attendance, assignments, internal assessments, and important notices. Faculty members can upload assignments, attendance records, and announcements, while students can access relevant academic information through the mobile interface. The application uses MVVM architecture and a PHP-MySQL backend connected through REST APIs. The project was reported to have achieved more than 2,000 Google Play Store downloads, reflecting adoption within the college community."
+  },
+  {
+    "id": 9,
+    "title": "Loop – Social Media Platform for Developers",
+    "duration": "August 2024 - September 2024",
+    "technologies": [
+      "Kotlin",
+      "Android Studio",
+      "Google Gemini AI",
+      "MySQL",
+      "PHP",
+      "WebSockets",
+      "REST API"
+    ],
+    "image": "https://sggsapp.co.in/beestack/media/loop.webp",
+    "link": [
+      "https://play.google.com/store/apps/details?id=com.gn4k.loop"
+    ],
+    "description": "Loop is a developer-focused social networking platform designed for programmers and IT professionals. It emphasizes technical discussions, coding-related content, project showcases, and professional growth. The platform includes real-time chat and collaboration using WebSockets, AI-powered content moderation with Google Gemini AI, and a skill verification concept that awards badges based on participation and problem-solving. Loop Meet is designed to facilitate developer meetups and collaborative coding sessions, while code snippet sharing enables users to exchange reusable code. The project combines social networking with developer-oriented community features."
+  }
+]

@@ -122,6 +122,7 @@
 /* inputs and textarea */
 .contact-form input[type="email"],
 .contact-form input[type="text"],
+.contact-form input[type="tel"],
 .contact-form textarea{
   width: 100%;
   padding: 0.75rem 0.9rem;
@@ -130,14 +131,16 @@
   background-color: var(--glass);
   font-size: 1rem;
   color: #111827;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .contact-form input[type="email"]:focus,
 .contact-form input[type="text"]:focus,
+.contact-form input[type="tel"]:focus,
 .contact-form textarea:focus{
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(252, 171, 30, 0.25);
 }
 
 /* buttons */
@@ -173,6 +176,7 @@
 
   .contact-form input[type="email"],
   .contact-form input[type="text"],
+  .contact-form input[type="tel"],
   .contact-form textarea{
     padding: 0.65rem 0.8rem;
     font-size: 0.95rem;

@@ -50,10 +50,20 @@
   
   .linkedin {
     background: black; 
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .linkedin:hover {
+    background: #0077b5;
+    transform: translateY(-2px);
   }
   
+  .linkedin svg,
   .linkedin i {
+    width: clamp(0.9rem, 1.5vw, 1.125rem);
+    height: clamp(0.9rem, 1.5vw, 1.125rem);
     font-size: clamp(0.9rem, 1.6vw, 1.125rem);
+    display: block;
   }
   
   /* ✅ Mobile Friendly */
