@@ -5,7 +5,77 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const menuRef = useRef(null);
+  const prevScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  // Sync isHidden state to document body class so child elements (e.g. sidebars) adapt smoothly
+  useEffect(() => {
+    if (isHidden) {
+      document.body.classList.add("nav-hidden");
+    } else {
+      document.body.classList.remove("nav-hidden");
+    }
+    return () => {
+      document.body.classList.remove("nav-hidden");
+    };
+  }, [isHidden]);
+
+  // Reset navbar visibility and scroll state on route change
+  useEffect(() => {
+    setIsHidden(false);
+    prevScrollY.current = window.pageYOffset || document.documentElement.scrollTop || 0;
+  }, [location.pathname]);
+
+  // Hide-on-scroll-down / Reveal-on-scroll-up interaction
+  useEffect(() => {
+    if (isOpen) {
+      setIsHidden(false);
+      return;
+    }
+
+    const SCROLL_THRESHOLD = 8;
+    const TOP_THRESHOLD = 40;
+
+    const handleScroll = () => {
+      if (ticking.current) return;
+
+      ticking.current = true;
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+        // When near the very top of the page, always show navbar
+        if (currentScrollY <= TOP_THRESHOLD) {
+          setIsHidden(false);
+          prevScrollY.current = Math.max(0, currentScrollY);
+          ticking.current = false;
+          return;
+        }
+
+        const delta = currentScrollY - prevScrollY.current;
+
+        // Only toggle state when delta exceeds threshold (prevents micro-scroll jitter)
+        if (Math.abs(delta) > SCROLL_THRESHOLD) {
+          if (delta > 0 && currentScrollY > TOP_THRESHOLD) {
+            // Scrolling down -> hide navbar
+            setIsHidden(true);
+          } else if (delta < 0) {
+            // Scrolling up -> reveal navbar
+            setIsHidden(false);
+          }
+          prevScrollY.current = Math.max(0, currentScrollY);
+        }
+
+        ticking.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isOpen]);
 
   const isActive = (path) => {
     if (path === "/") return location.pathname === "/";
@@ -71,7 +141,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className={`navbar ${isOpen ? "navbar--open" : ""}`}>
+    <header className={`navbar ${isOpen ? "navbar--open" : ""} ${isHidden ? "navbar--hidden" : ""}`}>
       {/* Brand Logo with Mascot & Wordmark */}
       <Link to="/" className="navbar-brand" onClick={handleLinkClick} aria-label="BeeStack Software Labs Home">
         <img src="/logo.png" alt="BeeStack Logo" className="navbar-brand-logo" />
@@ -208,7 +278,7 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-    </div>
+    </header>
   );
 };
 
