@@ -132,7 +132,7 @@ const WhatWeDoSection = ({ members = [] }) => {
   };
 
   return (
-    <section className="wwdo-section" ref={sectionRef} aria-label="What We Do">
+    <section className="wwdo-section" id="capabilities" ref={sectionRef} aria-label="What We Do">
       {/* Animated ambient gradient blobs */}
       <div className="wwdo-bg" aria-hidden="true">
         {[0, 1, 2, 3, 4].map((i) => (

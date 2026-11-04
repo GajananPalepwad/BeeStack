@@ -1,6 +1,6 @@
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -42,11 +42,13 @@ body,
   width: 100%;
   min-height: 100vh;
   padding-top: var(--nav-height, 72px);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
+  background-color: #0A1020; /* Deep obsidian luxury tech base */
 }
 
 .hero-gradient-canvas,
@@ -73,9 +75,10 @@ body,
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 75% 45%, rgba(252, 171, 30, 0.16) 0%, transparent 60%),
-    radial-gradient(circle at 20% 75%, rgba(0, 201, 167, 0.09) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(15, 23, 42, 0.14) 0%, rgba(15, 23, 42, 0.46) 100%);
+    radial-gradient(circle at 75% 42%, rgba(252, 171, 30, 0.20) 0%, transparent 55%),
+    radial-gradient(circle at 20% 68%, rgba(0, 201, 167, 0.12) 0%, transparent 48%),
+    radial-gradient(circle at 50% 12%, rgba(79, 70, 229, 0.10) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(10, 16, 32, 0.15) 0%, rgba(10, 16, 32, 0.45) 100%);
   pointer-events: none;
 }
 
@@ -229,6 +232,10 @@ body,
 
 .hero-btn,
 .btn {
+  position: relative;
+  z-index: 5;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -876,9 +883,20 @@ body,
 }
 
 /* Ensure anchor targets stop with clean clearance below fixed header */
+.wwdo-section,
 .whatwedo,
 .fp-section,
 .testimonials,
 .bs-contact-section {
   scroll-margin-top: calc(var(--nav-height, 72px) + 20px);
+}
+
+@media (max-width: 768px) {
+  .wwdo-section,
+  .whatwedo,
+  .fp-section,
+  .testimonials,
+  .bs-contact-section {
+    scroll-margin-top: 76px;
+  }
 }

@@ -13,7 +13,78 @@ import FeaturedProjects from "../components/FeaturedProjects";
 const HomePage = () => {
   const formRef = useRef(null);
   const servicesRef = useRef(null);
-const formBlobsRef = useRef([]);
+  const formBlobsRef = useRef([]);
+
+  const handleScrollToCapabilities = (e) => {
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
+    const target =
+      document.getElementById("capabilities") ||
+      document.querySelector(".wwdo-section") ||
+      servicesRef.current;
+
+    if (!target) return;
+
+    try {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch {
+      // Fallback if browser throws on scroll options
+    }
+
+    const navOffset = window.innerWidth <= 768 ? 68 : 76;
+    const rect = target.getBoundingClientRect();
+    const scrollTop =
+      window.scrollY ??
+      window.pageYOffset ??
+      document.documentElement.scrollTop ??
+      document.body.scrollTop ??
+      0;
+    const targetY = Math.max(0, rect.top + scrollTop - navOffset);
+
+    setTimeout(() => {
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+      if (document.documentElement) {
+        document.documentElement.scrollTop = targetY;
+      }
+    }, 20);
+  };
+
+  const handleScrollToConsultation = (e) => {
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
+    const target =
+      document.getElementById("contact-form") ||
+      document.getElementById("contact") ||
+      document.querySelector(".bs-contact-wrapper") ||
+      formRef.current;
+
+    if (!target) return;
+
+    try {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch {
+      // Fallback
+    }
+
+    const navOffset = window.innerWidth <= 768 ? 68 : 76;
+    const rect = target.getBoundingClientRect();
+    const scrollTop =
+      window.scrollY ??
+      window.pageYOffset ??
+      document.documentElement.scrollTop ??
+      document.body.scrollTop ??
+      0;
+    const targetY = Math.max(0, rect.top + scrollTop - navOffset);
+
+    setTimeout(() => {
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+      if (document.documentElement) {
+        document.documentElement.scrollTop = targetY;
+      }
+    }, 20);
+  };
 
 useEffect(() => {
   const palette = [
@@ -130,9 +201,8 @@ useEffect(() => {
                 <button
                   type="button"
                   className="hero-btn hero-btn--primary btn consultation"
-                  onClick={() =>
-                    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-                  }
+                  onClick={handleScrollToConsultation}
+                  aria-label="Get A Free Consultation"
                 >
                   <span>Get A Free Consultation</span>
                   <svg
@@ -153,9 +223,8 @@ useEffect(() => {
                 <button
                   type="button"
                   className="hero-btn hero-btn--secondary btn services"
-                  onClick={() =>
-                    servicesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-                  }
+                  onClick={handleScrollToCapabilities}
+                  aria-label="Explore Capabilities"
                 >
                   <span>Explore Capabilities</span>
                   <svg
@@ -200,7 +269,20 @@ useEffect(() => {
           </div>
         </section>
 
-        <div ref={servicesRef} />
+        {/* ── Signature Shimmer Divider ── */}
+        <div
+          style={{
+            height: "2px",
+            background:
+              "linear-gradient(to right, transparent 0%, #a8edea 8%, #7c6af7 30%, #fcab1e 50%, #e879a0 70%, #34d399 92%, transparent 100%)",
+            margin: "0",
+            opacity: 0.8,
+            animation: "dividerShimmer 3s linear infinite",
+            backgroundSize: "200% 100%",
+            position: "relative",
+            zIndex: 3,
+          }}
+        />
 
         {/* ── What We Do ── */}
         <WhatWeDoSection members={members} />

@@ -9,29 +9,40 @@ export default function AnimatedGradient() {
     const ctx = c.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    const brightness = 0.6; // 0.0 = black, 1.0 = normal
     const col = (x, y, r, g, b) => {
       ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
       ctx.fillRect(x, y, 1, 1);
     };
 
-    const R = (x, y, t) =>
-      Math.floor(164 + 54 * Math.cos((x * x - y * y) / 300 + t));
-    const G = (x, y, t) =>
-      Math.floor(
-        164 +
-          54 *
-            Math.sin((x * x * Math.cos(t / 4) + y * y * Math.sin(t / 3)) / 300)
-      );
-    const B = (x, y, t) =>
-      Math.floor(
-        164 +
-          54 *
-            Math.sin(
-              5 * Math.sin(t / 9) +
-                ((x - 100) * (x - 100) + (y - 100) * (y - 100)) / 1100
-            )
-      );
+    // Curated BeeStack luxury tech palette — prevents muddy/olive color drift
+    const cNavy = [10, 16, 32];     // Deep midnight obsidian base
+    const cAmber = [252, 171, 30];  // Signature BeeStack amber
+    const cCyan = [0, 201, 167];    // Electric cyan/teal accent
+    const cViolet = [79, 70, 229];  // Royal tech violet depth
+
+    const getPixelRgb = (x, y, t) => {
+      // Fluid sinusoidal fields normalized 0..1
+      const w1 = (Math.sin(x * 0.16 + t * 0.6) + 1) * 0.5;
+      const w2 = (Math.cos(y * 0.14 - t * 0.45 + x * 0.06) + 1) * 0.5;
+      const w3 = (Math.sin((x * 0.08 - y * 0.08) + t * 0.75) + 1) * 0.5;
+
+      // Soft non-linear highlight distributions
+      const aW = Math.pow(w1 * w2, 1.7) * 0.8;
+      const cW = Math.pow((1 - w1) * w3, 1.9) * 0.6;
+      const vW = Math.pow(w2 * (1 - w3), 1.8) * 0.5;
+
+      const baseWeight = Math.max(0, 1 - aW - cW - vW);
+
+      const r = Math.round(cNavy[0] * baseWeight + cAmber[0] * aW + cCyan[0] * cW + cViolet[0] * vW);
+      const g = Math.round(cNavy[1] * baseWeight + cAmber[1] * aW + cCyan[1] * cW + cViolet[1] * vW);
+      const b = Math.round(cNavy[2] * baseWeight + cAmber[2] * aW + cCyan[2] * cW + cViolet[2] * vW);
+
+      return [
+        Math.max(10, Math.min(255, r)),
+        Math.max(16, Math.min(255, g)),
+        Math.max(32, Math.min(255, b)),
+      ];
+    };
 
     let t = 0;
     let rafId = null;
@@ -67,7 +78,8 @@ export default function AnimatedGradient() {
         lastFrameTime = currentTime;
         for (let x = 0; x <= limit; x++) {
           for (let y = 0; y <= limit; y++) {
-            col(x, y, R(x, y, t) * brightness, G(x, y, t) * brightness, B(x, y, t) * brightness);
+            const [r, g, b] = getPixelRgb(x, y, t);
+            col(x, y, r, g, b);
           }
         }
         t += isMobile ? 0.025 : 0.04;

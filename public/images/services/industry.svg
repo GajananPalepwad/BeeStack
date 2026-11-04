@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="indGrad" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#DC2626" />
+    </linearGradient>
+    <linearGradient id="indAccent" x1="24" y1="4" x2="24" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FCA5A5" />
+      <stop offset="100%" stop-color="#EF4444" />
+    </linearGradient>
+    <filter id="indGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#EF4444" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Industrial Smart Shield / Hexagon Housing -->
+  <path d="M24 5L40 12V24C40 33.5 33.2 41.2 24 44C14.8 41.2 8 33.5 8 24V12L24 5Z" fill="url(#indGrad)" filter="url(#indGlow)" />
+  <path d="M24 9L36 14.5V23.5C36 30.8 30.8 37 24 39.5C17.2 37 12 30.8 12 23.5V14.5L24 9Z" fill="#1C1917" />
+
+  <!-- Smart IoT & Domain Connection Nodes -->
+  <circle cx="24" cy="18" r="3" fill="url(#indAccent)" />
+  <circle cx="18" cy="27" r="3" fill="url(#indAccent)" />
+  <circle cx="30" cy="27" r="3" fill="url(#indAccent)" />
+
+  <!-- Interconnecting Circuit Pathways -->
+  <line x1="24" y1="18" x2="18" y2="27" stroke="#FCA5A5" stroke-width="2" stroke-linecap="round" />
+  <line x1="24" y1="18" x2="30" y2="27" stroke="#FCA5A5" stroke-width="2" stroke-linecap="round" />
+  <line x1="18" y1="27" x2="30" y2="27" stroke="#FCA5A5" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Center Heartbeat / Telemetry Pulse -->
+  <circle cx="24" cy="24" r="2" fill="#FFFFFF" />
+
+  <!-- Specialized Sparkle -->
+  <path d="M38 7L38.8 8.8L40.5 9.5L38.8 10.2L38 12L37.2 10.2L35.5 9.5L37.2 8.8L38 7Z" fill="#FDE68A" />
+</svg>

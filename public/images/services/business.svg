@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="bizGrad" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="bizAccent" x1="24" y1="4" x2="24" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6EE7B7" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <filter id="bizGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#10B981" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Enterprise Architecture Tower / ERP Core -->
+  <rect x="7" y="14" width="20" height="26" rx="3" fill="url(#bizGrad)" filter="url(#bizGlow)" />
+  <rect x="23" y="8" width="18" height="32" rx="3" fill="url(#bizAccent)" />
+
+  <!-- Tower Windows / Workflow Blocks -->
+  <rect x="11" y="18" width="4" height="4" rx="1" fill="#FFFFFF" fill-opacity="0.9" />
+  <rect x="19" y="18" width="4" height="4" rx="1" fill="#FFFFFF" fill-opacity="0.9" />
+  <rect x="11" y="26" width="4" height="4" rx="1" fill="#FFFFFF" fill-opacity="0.9" />
+  <rect x="19" y="26" width="4" height="4" rx="1" fill="#FFFFFF" fill-opacity="0.9" />
+
+  <rect x="27" y="13" width="4" height="4" rx="1" fill="#064E3B" fill-opacity="0.85" />
+  <rect x="33" y="13" width="4" height="4" rx="1" fill="#064E3B" fill-opacity="0.85" />
+  <rect x="27" y="20" width="4" height="4" rx="1" fill="#064E3B" fill-opacity="0.85" />
+  <rect x="33" y="20" width="4" height="4" rx="1" fill="#064E3B" fill-opacity="0.85" />
+  <rect x="27" y="27" width="4" height="4" rx="1" fill="#064E3B" fill-opacity="0.85" />
+  <rect x="33" y="27" width="4" height="4" rx="1" fill="#064E3B" fill-opacity="0.85" />
+
+  <!-- Ascending Analytics Arrow Indicator -->
+  <path d="M6 35L17 28L26 32L41 18" stroke="#FDE68A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M35 18H41V24" stroke="#FDE68A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Sparkle of efficiency -->
+  <path d="M41 8L41.7 9.8L43.5 10.5L41.7 11.2L41 13L40.3 11.2L38.5 10.5L40.3 9.8L41 8Z" fill="#FBBF24" />
+</svg>

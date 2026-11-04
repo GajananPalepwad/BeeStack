@@ -1,110 +1,110 @@
 [
   {
-    "id": "lms",
-    "name": "Student & Learning Management Systems",
-    "badge": "EdTech Platform",
-    "description": "Comprehensive digital learning ecosystems managing student lifecycles, automated grading, multimedia coursework, and institutional progress.",
-    "photo": "/images/services/lms.svg",
+    "id": "business",
+    "name": "Business & Enterprise Software",
+    "badge": "BUSINESS AUTOMATION",
+    "description": "Custom business management platforms, CRM, ERP, billing, inventory, HR systems, workflow automation, and internal business tools.",
+    "photo": "/images/services/business.svg",
     "accentColor": "#10b981",
     "accentRgb": "16, 185, 129",
     "hoverColor": "rgba(16, 185, 129, 0.6)",
-    "tags": ["Student Portals", "Grading & Rubrics", "Course Catalog", "Parent App"],
+    "tags": ["CRM & ERP", "Workflow Automation", "Business Analytics"],
     "modules": [
-      "Role-based portals for students, faculty, administrators & guardians",
-      "Automated assignment evaluation, continuous grading, and attendance sync",
-      "Interactive multimedia lecture repositories, syllabi tracking & downloads",
-      "Instant push alerts, SMS/WhatsApp notifications, and performance dashboards"
+      "Custom business management platforms, CRM, and enterprise ERP suites",
+      "Automated billing, invoicing, payroll reconciliation, and tax workflows",
+      "Real-time inventory synchronization with multi-warehouse stock management",
+      "Internal business automation tools and role-based employee portals"
     ],
-    "architecture": ["Cloud-Native", "RESTful APIs", "Role-Based RBAC", "Multi-Tenant"]
+    "architecture": ["Enterprise ERP", "Automated Workflows", "Granular RBAC", "Audit Logging"]
   },
   {
-    "id": "exam",
-    "name": "Online Examination Platforms",
-    "badge": "Assessment Engine",
-    "description": "Secure, tamper-resistant examination suites featuring automated evaluation, question shuffling, and high-concurrency testing.",
-    "photo": "/images/services/exam.svg",
+    "id": "social",
+    "name": "Social Media & Creator Platforms",
+    "badge": "DIGITAL COMMUNITY",
+    "description": "Social networking applications, creator communities, content-sharing platforms, messaging systems, audience analytics, and creator management tools.",
+    "photo": "/images/services/social.svg",
     "accentColor": "#f59e0b",
     "accentRgb": "245, 158, 11",
     "hoverColor": "rgba(245, 158, 11, 0.6)",
-    "tags": ["AI Proctoring", "Automated Grading", "Question Banks", "Live Audits"],
+    "tags": ["Social Networking", "Creator Tools", "Content Management"],
     "modules": [
-      "Concurrent test delivery engineered for thousands of simultaneous examinees",
-      "Automated tab-lock, anti-cheat detection, and live session monitoring",
-      "Flexible question engines: MCQs, coding challenges, and subjective uploads",
-      "Real-time psychometric evaluation and instant scorecard generation"
+      "High-concurrency social networking feeds with real-time content delivery",
+      "Direct messaging, audio/video channels, and interactive creator communities",
+      "Creator monetization tools, tip processing, and digital asset distribution",
+      "Audience analytics, engagement metrics, and creator management suites"
     ],
-    "architecture": ["Zero-Downtime Scale", "WebSockets Sync", "Anti-Tamper Lock", "Audit Logging"]
+    "architecture": ["WebSockets Sync", "Real-Time Feeds", "CDN Media Edge", "High Concurrency"]
   },
   {
-    "id": "security",
-    "name": "Security & Identity Management Systems",
-    "badge": "Zero-Trust Security",
-    "description": "Unified access control, biometric verification, and digital security frameworks engineered to safeguard institutions and campus assets.",
-    "photo": "/images/services/security.svg",
+    "id": "ecommerce",
+    "name": "E-commerce & Digital Commerce",
+    "badge": "COMMERCE TECHNOLOGY",
+    "description": "Online stores, multi-vendor marketplaces, shopping applications, payment integrations, order management, delivery tracking, and inventory synchronization.",
+    "photo": "/images/services/ecommerce.svg",
     "accentColor": "#0284c7",
     "accentRgb": "2, 132, 199",
     "hoverColor": "rgba(2, 132, 199, 0.6)",
-    "tags": ["Biometric Auth", "Smart Access", "Surveillance Feeds", "Audit Logs"],
+    "tags": ["Online Stores", "Payment Systems", "Marketplace Solutions"],
     "modules": [
-      "Hardware-integrated biometric access control (RFID, QR, Fingerprint)",
-      "Digital visitor logging with pre-approved entry passes",
-      "Encrypted credential vaults meeting institutional data standards",
-      "Automated intrusion alerts and tamper-proof security audit trails"
+      "High-conversion online storefronts and scalable multi-vendor marketplaces",
+      "Secure payment gateway integrations (UPI, Cards, Wallets, International)",
+      "Automated order fulfillment, live delivery tracking, and dispatch sync",
+      "Real-time inventory synchronization, dynamic pricing, and promo engines"
     ],
-    "architecture": ["Hardware BLE/IoT", "End-to-End Encryption", "Fail-Safe Relays", "ISO Compliance"]
+    "architecture": ["Payment Gateways", "Headless Commerce", "Microservices", "Event-Driven Orders"]
   },
   {
-    "id": "campus",
-    "name": "Campus Automation Systems",
-    "badge": "Smart Campus IoT",
-    "description": "Connected workflows automating daily administrative operations, conflict-free timetable scheduling, fee collections, and announcements.",
-    "photo": "/images/services/campus.svg",
+    "id": "apps",
+    "name": "Web, Mobile & SaaS Applications",
+    "badge": "APPLICATION ENGINEERING",
+    "description": "Custom websites, Android and iOS apps, cross-platform applications, subscription-based SaaS products, client portals, and API-driven platforms.",
+    "photo": "/images/services/apps.svg",
     "accentColor": "#06b6d4",
     "accentRgb": "6, 182, 212",
     "hoverColor": "rgba(6, 182, 212, 0.6)",
-    "tags": ["Smart Attendance", "Timetable AI", "Fee Gateways", "Broadcast Comms"],
+    "tags": ["Web Applications", "Mobile Apps", "SaaS Platforms"],
     "modules": [
-      "Automated timetable generator with faculty conflict resolution",
-      "Integrated payment gateway for tuition, fines, and hostel dues",
-      "Multi-channel circular broadcasting via WhatsApp, Email, and Push",
-      "Digital workflow for leave requests, approvals, and facility bookings"
+      "Native iOS & Android apps plus performant cross-platform mobile experiences",
+      "Modern responsive web applications engineered for speed, SEO, and conversion",
+      "Subscription multi-tenant SaaS architecture with automated billing cycles",
+      "Robust client portals and scalable RESTful / GraphQL API backends"
     ],
-    "architecture": ["Payment Webhooks", "Real-Time Push", "Distributed Queues", "Smart Schedulers"]
+    "architecture": ["React / Next.js", "Flutter & Native Apps", "Multi-Tenant SaaS", "REST / GraphQL"]
   },
   {
-    "id": "library",
-    "name": "Library & Resource Management Systems",
-    "badge": "Digital Knowledge Hub",
-    "description": "Smart resource management with automated RFID book tracking, OPAC discovery, digital repository archiving, and overdue alerts.",
-    "photo": "/images/services/library.svg",
+    "id": "ai",
+    "name": "AI, Data & Intelligent Automation",
+    "badge": "INTELLIGENT SYSTEMS",
+    "description": "AI-powered applications, chatbots, recommendation engines, machine learning, data analytics, intelligent document processing, and automated workflows.",
+    "photo": "/images/services/ai.svg",
     "accentColor": "#8b5cf6",
     "accentRgb": "139, 92, 246",
     "hoverColor": "rgba(139, 92, 246, 0.6)",
-    "tags": ["RFID Cataloging", "OPAC Discovery", "Digital Archives", "Auto Reminders"],
+    "tags": ["AI Integrations", "Predictive Analytics", "Smart Automation"],
     "modules": [
-      "Lightning-fast OPAC book search with real-time shelf status",
-      "RFID / barcode self-service kiosk check-in and checkout",
-      "Centralized repository for institutional research, theses, and journals",
-      "Automated WhatsApp & SMS notifications for returns and penalty tracking"
+      "Intelligent chatbots, conversational AI assistants, and customer support agents",
+      "Automated document processing, OCR extraction, and invoice parsing",
+      "Personalized recommendation algorithms and machine learning classification",
+      "Predictive data analytics pipelines and automated event-driven workflows"
     ],
-    "architecture": ["RFID Integration", "Elastic Search", "Cloud Storage CDN", "Auto-Cron Reminders"]
+    "architecture": ["LLM / GenAI", "Machine Learning", "Distributed Queues", "Vector Search"]
   },
   {
-    "id": "erp",
-    "name": "Institutional ERP Solutions",
-    "badge": "Enterprise Institutional ERP",
-    "description": "End-to-end enterprise planning unifying institutional finance, HR, inventory, student admissions, and executive decision dashboards.",
-    "photo": "/images/services/erp.svg",
+    "id": "industry",
+    "name": "Industry-Specific & Smart Solutions",
+    "badge": "SPECIALIZED TECHNOLOGY",
+    "description": "Tailored software for education, healthcare, recruitment, matrimonial services, smart campuses, digital libraries, identity management, and IoT-based systems.",
+    "photo": "/images/services/industry.svg",
     "accentColor": "#ef4444",
     "accentRgb": "239, 68, 68",
     "hoverColor": "rgba(239, 68, 68, 0.6)",
-    "tags": ["Finance & Payroll", "Admissions CRM", "HR & Inventory", "Executive BI"],
+    "tags": ["EdTech & HealthTech", "Smart Systems", "Industry Platforms"],
     "modules": [
-      "Double-entry ledger accounting, fee reconciliation, and payroll processing",
-      "Admissions pipeline tracking from prospect inquiries to fee submission",
-      "Central inventory procurement, asset depreciation, and vendor tracking",
-      "Executive business intelligence dashboards with live operational KPIs"
+      "EdTech ecosystems: digital classrooms, LMS, and proctored examination suites",
+      "HealthTech platforms: patient records, scheduling, and clinical workflows",
+      "Specialized verticals: matrimonial portals, recruitment job boards, and vetting",
+      "Smart campus automation, biometric identity management, and IoT sensor telemetry"
     ],
-    "architecture": ["PostgreSQL/MySQL", "Granular RBAC", "Financial Audit", "BI Analytics"]
+    "architecture": ["Domain Architecture", "IoT & Telemetry", "HIPAA / Compliance", "Custom Schema"]
   }
 ]

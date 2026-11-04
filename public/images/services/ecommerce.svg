@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="ecomGrad" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <linearGradient id="ecomAccent" x1="24" y1="4" x2="24" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7DD3FC" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <filter id="ecomGlow" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0284C7" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Modern Shopping Bag Body -->
+  <path d="M10 16L12 40C12 41.7 13.3 43 15 43H33C34.7 43 36 41.7 36 40L38 16H10Z" fill="url(#ecomGrad)" filter="url(#ecomGlow)" />
+
+  <!-- Bag Handles -->
+  <path d="M17 19V12C17 8.1 20.1 5 24 5C27.9 5 31 8.1 31 12V19" stroke="url(#ecomAccent)" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Digital Commerce Credit / Payment Card Overlay -->
+  <rect x="18" y="22" width="22" height="15" rx="3" fill="#38BDF8" fill-opacity="0.95" />
+  <rect x="18" y="26" width="22" height="3" fill="#0C4A6E" />
+  <circle cx="23" cy="33" r="1.8" fill="#FDE047" />
+  <circle cx="27" cy="33" r="1.8" fill="#F87171" />
+
+  <!-- Shopping Tag Circle -->
+  <circle cx="16" cy="24" r="2.5" fill="#FFFFFF" />
+
+  <!-- Success Sparkle -->
+  <path d="M38 8L38.7 9.8L40.5 10.5L38.7 11.2L38 13L37.3 11.2L35.5 10.5L37.3 9.8L38 8Z" fill="#FDE047" />
+</svg>
