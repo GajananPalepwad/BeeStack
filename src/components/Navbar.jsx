@@ -198,10 +198,10 @@ const Navbar = () => {
                   <span>Available for new projects</span>
                 </div>
                 <a
-                  href="mailto:contact@beestack.in"
+                  href="mailto:business@beestack.in"
                   className="mobile-drawer-email"
                 >
-                  contact@beestack.in
+                  business@beestack.in
                 </a>
               </div>
             </div>

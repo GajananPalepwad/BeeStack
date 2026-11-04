@@ -12,28 +12,40 @@ export async function apiFetch(endpoint, options = {}) {
     headers["Content-Type"] = "application/json";
   }
 
-  const response = await fetch(`${BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
-  });
+  // 4-second timeout to prevent stalling if external endpoint is slow or unreachable
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 4000);
 
-  const text = await response.text();
-
-  if (!text) {
-    throw new Error("Empty response from server");
-  }
-
-  let data;
   try {
-    data = JSON.parse(text);
-  } catch {
-    console.error("Non-JSON response:", text);
-    throw new Error("Invalid server response");
-  }
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers,
+      signal: options.signal || controller.signal,
+    });
 
-  if (!response.ok || data.success === false) {
-    throw new Error(data.message || "API request failed");
-  }
+    clearTimeout(timeoutId);
 
-  return data;
+    const text = await response.text();
+
+    if (!text) {
+      throw new Error("Empty response from server");
+    }
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      console.error("Non-JSON response:", text);
+      throw new Error("Invalid server response");
+    }
+
+    if (!response.ok || data.success === false) {
+      throw new Error(data.message || "API request failed");
+    }
+
+    return data;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
 }

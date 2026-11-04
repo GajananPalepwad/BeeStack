@@ -164,7 +164,7 @@ function ReviewSlider() {
       displayUrl: null,
       text: "“The SGGSIE&T Nanded mobile application is a commendable digital initiative developed to enhance academic and examination-related communication within the institute.”",
       stars: 5,
-      img: "https://www.sggs.ac.in/uploads/faculty_image/1731055967.webp",
+      img: "/images/testimonials/dr-bombade.webp",
       initials: "BB",
       color: "#d97706",
     },
@@ -176,7 +176,7 @@ function ReviewSlider() {
       displayUrl: null,
       text: "“I had a great experience working with Beestack Website Builder. They created a very professional and beautiful website exactly as I wanted. The team was supportive, responsive, and delivered excellent quality work. Highly recommended for anyone looking for reliable website development services! 👏💻”",
       stars: 5,
-      img: "https://media.licdn.com/dms/image/v2/D4D03AQFNP5qlDAv5Ew/profile-displayphoto-shrink_800_800/B4DZYajVGJHAAc-/0/1744202193647?e=1775088000&v=beta&t=XnjLwKwX9tTqhnS4C3bv4iOOUnpPOjiix64ct3d-JwQ",
+      img: null,
       initials: "SW",
       color: "#ec4899",
     },
@@ -188,7 +188,7 @@ function ReviewSlider() {
       displayUrl: null,
       text: "“BeeStack delivers peace of mind. Reliable, responsive, and focused on real results.”",
       stars: 5,
-      img: "https://randomuser.me/api/portraits/men/32.jpg",
+      img: null,
       initials: "SC",
       color: "#06b6d4",
     },
@@ -414,17 +414,23 @@ function ReviewSlider() {
                       className="review-avatar review-avatar--large"
                       src={selectedReview.img}
                       alt={selectedReview.name}
-                    />
-                  ) : (
-                    <div
-                      className="review-avatar-initials review-avatar-initials--large"
-                      style={{
-                        background: `linear-gradient(135deg, ${selectedReview.color || "#FCAB1E"}, #0f172a)`,
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = "flex";
+                        }
                       }}
-                    >
-                      {selectedReview.initials || selectedReview.name.slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
+                    />
+                  ) : null}
+                  <div
+                    className="review-avatar-initials review-avatar-initials--large"
+                    style={{
+                      display: selectedReview.img ? "none" : "flex",
+                      background: `linear-gradient(135deg, ${selectedReview.color || "#FCAB1E"}, #0f172a)`,
+                    }}
+                  >
+                    {selectedReview.initials || selectedReview.name.slice(0, 2).toUpperCase()}
+                  </div>
 
                   <div className="review-author-info">
                     <h4 className="review-modal-author-name">{selectedReview.name}</h4>

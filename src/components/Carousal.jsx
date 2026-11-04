@@ -70,7 +70,7 @@ export default function AnimatedGradient() {
             col(x, y, R(x, y, t) * brightness, G(x, y, t) * brightness, B(x, y, t) * brightness);
           }
         }
-        t += isMobile() ? 0.025 : 0.04;
+        t += isMobile ? 0.025 : 0.04;
       }
 
       rafId = requestAnimationFrame(run);
