@@ -18,10 +18,12 @@ const SITEMAP_DATA = [
       </svg>
     ),
     links: [
-      { title: "Student & Learning Management Systems (LMS)", path: "/our-work/products", desc: "Digital classroom & student records portal", tag: "Platform" },
-      { title: "Online Examination Platforms", path: "/our-work/products", desc: "Automated proctoring & evaluation suites", tag: "Assessment" },
-      { title: "Campus Automation & IoT Systems", path: "/our-work/products", desc: "Biometric attendance, schedules & fee workflows", tag: "Automation" },
-      { title: "Institutional ERP Solutions", path: "/our-work/products", desc: "End-to-end finance, HR, inventory & governance", tag: "Enterprise" },
+      { title: "Business & Enterprise Software", path: "/#capabilities", desc: "Custom business management, CRM, ERP, billing & workflow automation", tag: "Automation" },
+      { title: "Social Media & Creator Platforms", path: "/#capabilities", desc: "Social networks, creator communities, messaging & audience analytics", tag: "Community" },
+      { title: "E-commerce & Digital Commerce", path: "/#capabilities", desc: "Online stores, multi-vendor marketplaces & secure payment systems", tag: "Commerce" },
+      { title: "Web, Mobile & SaaS Applications", path: "/#capabilities", desc: "Custom websites, Android & iOS apps, subscription SaaS & APIs", tag: "Engineering" },
+      { title: "AI, Data & Intelligent Automation", path: "/#capabilities", desc: "AI chatbots, recommendation engines & automated workflows", tag: "AI / ML" },
+      { title: "Industry-Specific & Smart Solutions", path: "/#capabilities", desc: "Tailored software for EdTech, HealthTech, Matrimonial & IoT", tag: "Specialized" },
       { title: "TheFreeVideoEditor", path: "https://thefreevideoeditor.com/", external: true, desc: "Open-source browser-based timeline video editor", tag: "Open Source" },
     ],
   },

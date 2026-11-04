@@ -3,15 +3,19 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
 const SITE_URL = "https://beestack.in";
-const DEFAULT_TITLE = "BeeStack | Software Development & Digital Solutions Company";
+const DEFAULT_TITLE = "BeeStack | Custom Software, Web & Mobile Apps, AI & Enterprise Solutions";
 const DEFAULT_DESCRIPTION =
-  "BeeStack builds scalable web apps, mobile apps, SaaS products, APIs, dashboards, and digital solutions for startups and growing businesses.";
+  "BeeStack engineers custom software solutions: Enterprise ERP & CRM, Social & Creator Platforms, E-commerce Marketplaces, Web & Mobile Apps, AI & Intelligent Automation, and Specialized Industry Platforms.";
+const DEFAULT_KEYWORDS =
+  "BeeStack, custom software development, enterprise ERP, CRM software, workflow automation, social networking apps, creator platforms, ecommerce development, multi-vendor marketplace, web app development, mobile apps, Android iOS, SaaS development, AI chatbots, machine learning, intelligent automation, EdTech, HealthTech, Nanded, Maharashtra, India, software agency";
 
 const pageMeta = {
   "/": {
-    title: "BeeStack | Software Development & Digital Solutions Company",
+    title: "BeeStack | Custom Software, Web & Mobile Apps, AI & Enterprise Solutions",
     description:
-      "BeeStack helps startups and businesses design, build, and scale digital products with custom software, web development, mobile apps, and product engineering.",
+      "BeeStack engineers high-performance software: Enterprise ERP/CRM, Creator Platforms, E-commerce Marketplaces, Web & Mobile Apps, AI & Intelligent Automation, and Specialized Industry Platforms.",
+    keywords:
+      "custom enterprise software, business automation, custom ERP development, CRM software, workflow automation, social networking apps, creator platforms, ecommerce development, marketplace solutions, SaaS development, mobile app development, AI integration, AI chatbots, machine learning, EdTech, HealthTech, BeeStack Technologies",
     type: "WebSite",
   },
   "/about-us": {
@@ -69,9 +73,11 @@ const pageMeta = {
     type: "WebPage",
   },
   "/our-work/products": {
-    title: "Products & Portfolio | Web Apps, Mobile & Cloud | BeeStack",
+    title: "Software Solutions & Products | Enterprise, Social, E-commerce & AI | BeeStack",
     description:
-      "Explore live digital platforms, mobile apps, healthcare portals, and ecommerce solutions engineered by BeeStack for clients worldwide.",
+      "Explore BeeStack's software portfolio: Business ERP, Creator Platforms, Digital Commerce, Web & Mobile SaaS, AI & Data Systems, and Specialized Industry Platforms.",
+    keywords:
+      "software portfolio, enterprise ERP showcase, creator community apps, ecommerce platforms, web apps, native mobile apps, AI solutions, smart campus systems, BeeStack products",
     type: "CollectionPage",
   },
   "/our-work/technique": {
@@ -289,42 +295,78 @@ export default function Seo() {
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "BeeStack Engineering Services",
+          name: "BeeStack Software Solutions & Engineering Services",
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Web Application Development",
+                name: "Business & Enterprise Software",
+                alternateName: "BUSINESS AUTOMATION",
                 description:
-                  "Next.js, React, full-stack architectures, dashboards, and scalable web apps.",
+                  "Custom business management platforms, CRM, ERP, billing, inventory, HR systems, workflow automation, and internal business tools.",
+                serviceType: "Enterprise Software & Workflow Automation",
+                url: `${SITE_URL}/#capabilities`,
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Mobile App Development",
+                name: "Social Media & Creator Platforms",
+                alternateName: "DIGITAL COMMUNITY",
                 description:
-                  "Native Android (Kotlin, Jetpack Compose) and iOS (Swift, SwiftUI) mobile platforms.",
+                  "Social networking applications, creator communities, content-sharing platforms, messaging systems, audience analytics, and creator management tools.",
+                serviceType: "Community Platforms & Social Apps",
+                url: `${SITE_URL}/#capabilities`,
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Cloud Architecture & APIs",
+                name: "E-commerce & Digital Commerce",
+                alternateName: "COMMERCE TECHNOLOGY",
                 description:
-                  "REST and GraphQL APIs, microservices, database design, and 99.9% uptime cloud infrastructure.",
+                  "Online stores, multi-vendor marketplaces, shopping applications, payment integrations, order management, delivery tracking, and inventory synchronization.",
+                serviceType: "E-commerce & Marketplace Engineering",
+                url: `${SITE_URL}/#capabilities`,
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "UI/UX & Product Design",
+                name: "Web, Mobile & SaaS Applications",
+                alternateName: "APPLICATION ENGINEERING",
                 description:
-                  "Intuitive design systems, fast 60fps micro-interactions, and conversion-focused design.",
+                  "Custom websites, Android and iOS apps, cross-platform applications, subscription-based SaaS products, client portals, and API-driven platforms.",
+                serviceType: "Web, Mobile & SaaS Development",
+                url: `${SITE_URL}/#capabilities`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "AI, Data & Intelligent Automation",
+                alternateName: "INTELLIGENT SYSTEMS",
+                description:
+                  "AI-powered applications, chatbots, recommendation engines, machine learning, data analytics, intelligent document processing, and automated workflows.",
+                serviceType: "Artificial Intelligence & Automation",
+                url: `${SITE_URL}/#capabilities`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Industry-Specific & Smart Solutions",
+                alternateName: "SPECIALIZED TECHNOLOGY",
+                description:
+                  "Tailored software for education, healthcare, recruitment, matrimonial services, smart campuses, digital libraries, identity management, and IoT-based systems.",
+                serviceType: "Specialized Industry Solutions",
+                url: `${SITE_URL}/#capabilities`,
               },
             },
           ],
@@ -421,6 +463,7 @@ export default function Seo() {
       <title>{meta.title}</title>
       <meta name="title" content={meta.title} />
       <meta name="description" content={meta.description} />
+      <meta name="keywords" content={meta.keywords || DEFAULT_KEYWORDS} />
       <meta
         name="robots"
         content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"

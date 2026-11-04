@@ -66,7 +66,11 @@ export default function AnimatedGradient() {
 
     let lastFrameTime = 0;
     const minFrameInterval = isMobile ? 36 : 22; // ~28fps on mobile to preserve battery and GPU, ~45fps on desktop
-    const limit = isMobile ? 22 : 31;
+    const size = 32;
+
+    // Ensure canvas backing store matches exact grid dimensions
+    c.width = size;
+    c.height = size;
 
     const run = (currentTime) => {
       if (!isVisible) {
@@ -76,8 +80,8 @@ export default function AnimatedGradient() {
 
       if (currentTime - lastFrameTime >= minFrameInterval) {
         lastFrameTime = currentTime;
-        for (let x = 0; x <= limit; x++) {
-          for (let y = 0; y <= limit; y++) {
+        for (let x = 0; x < size; x++) {
+          for (let y = 0; y < size; y++) {
             const [r, g, b] = getPixelRgb(x, y, t);
             col(x, y, r, g, b);
           }

@@ -153,7 +153,9 @@ const WhatWeDoSection = ({ members = [] }) => {
       </div>
 
       {/* Cards Grid */}
-      <div className="wwdo-grid">
+      <div className="wwdo-grid" itemScope itemType="https://schema.org/ItemList">
+        <meta itemProp="name" content="BeeStack Software Solutions & Engineering Services" />
+        <meta itemProp="numberOfItems" content={members.length} />
         {members.map((member, index) => (
           <WhatWeDoCard
             key={member.id || index}
@@ -369,7 +371,13 @@ const WhatWeDoCard = ({ member, index, onSelect }) => {
         }
       }}
       title={`Click to explore ${member.name} architecture`}
+      itemProp="itemListElement"
+      itemScope
+      itemType="https://schema.org/Service"
     >
+      <meta itemProp="position" content={index + 1} />
+      <meta itemProp="provider" content="BeeStack" />
+
       {/* Top Accent Strip */}
       <div
         className="wwdo-card-top-accent"
@@ -395,6 +403,7 @@ const WhatWeDoCard = ({ member, index, onSelect }) => {
               className="wwdo-icon-img"
               loading="lazy"
               decoding="async"
+              itemProp="image"
             />
           </div>
 
@@ -405,6 +414,7 @@ const WhatWeDoCard = ({ member, index, onSelect }) => {
               borderColor: `rgba(${accentRgb}, 0.25)`,
               color: accentColor,
             }}
+            itemProp="serviceType"
           >
             <span
               className="wwdo-badge-dot"
@@ -415,16 +425,16 @@ const WhatWeDoCard = ({ member, index, onSelect }) => {
         </div>
 
         {/* Title */}
-        <h3 className="wwdo-card-title">{member.name}</h3>
+        <h3 className="wwdo-card-title" itemProp="name">{member.name}</h3>
 
         {/* Description */}
-        <p className="wwdo-card-desc">{member.description}</p>
+        <p className="wwdo-card-desc" itemProp="description">{member.description}</p>
 
         {/* Feature Tags Row */}
         {member.tags && member.tags.length > 0 && (
           <div className="wwdo-tags-row">
             {member.tags.slice(0, 3).map((tag, tIdx) => (
-              <span key={tIdx} className="wwdo-tag-pill">
+              <span key={tIdx} className="wwdo-tag-pill" itemProp="category">
                 {tag}
               </span>
             ))}

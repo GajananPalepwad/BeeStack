@@ -676,7 +676,14 @@ body,
   .hero-section,
   .carousal {
     padding-top: 64px;
+    padding-bottom: 1.25rem;
     min-height: auto;
+  }
+
+  .hero-container {
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+    gap: 1.25rem;
   }
 
   .hero-status-badge {
@@ -718,7 +725,7 @@ body,
   }
   .carousal .right,
   .hero-stack-column {
-    padding: 1.5rem var(--content-pad);
+    padding: 0.5rem var(--content-pad) 0.5rem;
     order: 2;
     width: 100%;
     max-width: 100%;
