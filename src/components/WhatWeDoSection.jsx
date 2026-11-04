@@ -4,6 +4,7 @@ import "./WhatWeDoSection.css";
 const WhatWeDoSection = ({ members = [] }) => {
   const [selectedService, setSelectedService] = useState(null);
   const blobsRef = useRef([]);
+  const sectionRef = useRef(null);
 
   // Close modal on Escape and prevent body background scroll
   useEffect(() => {
@@ -58,31 +59,64 @@ const WhatWeDoSection = ({ members = [] }) => {
     let palIdx = 0;
     let nxtIdx = 1;
     let prog = 0;
-    let raf;
+    let raf = null;
+    let isVisible = false;
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
-    const animate = () => {
-      t += 0.004;
-      prog += 0.008;
-      if (prog >= 1) {
-        prog = 0;
-        palIdx = nxtIdx;
-        nxtIdx = (nxtIdx + 1) % palette.length;
+    let observer;
+    if (typeof IntersectionObserver !== "undefined" && sectionRef.current) {
+      observer = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !raf) {
+          raf = requestAnimationFrame(animate);
+        }
+      }, { threshold: 0.05 });
+      observer.observe(sectionRef.current);
+    } else {
+      isVisible = true;
+    }
+
+    let lastTime = 0;
+    const frameInterval = isMobile ? 40 : 16; // 25fps on mobile, 60fps on desktop
+
+    const animate = (now) => {
+      if (!isVisible) {
+        raf = null;
+        return;
       }
-      const cur = palette[palIdx];
-      const nxt = palette[nxtIdx];
-      blobsRef.current.forEach((el, i) => {
-        if (!el) return;
-        const { rx, ry, spd, ph } = cfg[i];
-        const x = 50 + rx * Math.sin(t * spd + ph);
-        const y = 50 + ry * Math.cos(t * spd * 0.72 + ph);
-        el.style.transform = `translate(${x - 50}%,${y - 50}%)`;
-        el.style.backgroundColor = lerpCol(cur[i % 5], nxt[i % 5], prog);
-      });
+
+      if (now - lastTime >= frameInterval) {
+        lastTime = now;
+        t += 0.004;
+        prog += 0.008;
+        if (prog >= 1) {
+          prog = 0;
+          palIdx = nxtIdx;
+          nxtIdx = (nxtIdx + 1) % palette.length;
+        }
+        const cur = palette[palIdx];
+        const nxt = palette[nxtIdx];
+        blobsRef.current.forEach((el, i) => {
+          if (!el) return;
+          const { rx, ry, spd, ph } = cfg[i];
+          const x = 50 + rx * Math.sin(t * spd + ph);
+          const y = 50 + ry * Math.cos(t * spd * 0.72 + ph);
+          el.style.transform = `translate(${x - 50}%,${y - 50}%)`;
+          el.style.backgroundColor = lerpCol(cur[i % 5], nxt[i % 5], prog);
+        });
+      }
+
       raf = requestAnimationFrame(animate);
     };
 
-    animate();
-    return () => cancelAnimationFrame(raf);
+    if (isVisible) {
+      raf = requestAnimationFrame(animate);
+    }
+
+    return () => {
+      if (observer) observer.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   const handleInquire = () => {
@@ -98,7 +132,7 @@ const WhatWeDoSection = ({ members = [] }) => {
   };
 
   return (
-    <section className="wwdo-section" aria-label="What We Do">
+    <section className="wwdo-section" ref={sectionRef} aria-label="What We Do">
       {/* Animated ambient gradient blobs */}
       <div className="wwdo-bg" aria-hidden="true">
         {[0, 1, 2, 3, 4].map((i) => (

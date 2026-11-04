@@ -122,6 +122,7 @@ body,
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
   width: fit-content;
   max-width: 100%;
+  box-sizing: border-box;
   transition: all 0.25s ease;
 }
 
@@ -611,6 +612,9 @@ body,
 
   .hero-status-badge {
     margin: 0 auto;
+    gap: 8px;
+    padding: 6px 14px;
+    max-width: calc(100vw - 2 * var(--content-pad, 1rem));
   }
 
   .hero-actions {
@@ -666,6 +670,24 @@ body,
   .carousal {
     padding-top: 64px;
     min-height: auto;
+  }
+
+  .hero-status-badge {
+    gap: 7px;
+    padding: 5px 12px;
+    max-width: 100%;
+  }
+
+  .hero-status-text {
+    font-size: clamp(0.70rem, 2.8vw, 0.78rem);
+  }
+
+  .hero-status-sep {
+    font-size: 0.7rem;
+  }
+
+  .hero-status-highlight {
+    font-size: clamp(0.68rem, 2.7vw, 0.76rem);
   }
 
   :root {
@@ -739,6 +761,24 @@ body,
     max-width: 100%;
     box-sizing: border-box;
   }
+  .hero-status-badge {
+    gap: 6px;
+    padding: 5px 10px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-status-text {
+    font-size: 0.70rem;
+    letter-spacing: 0.1px;
+  }
+  .hero-status-sep {
+    font-size: 0.65rem;
+  }
+  .hero-status-highlight {
+    font-size: 0.68rem;
+    letter-spacing: 0.1px;
+  }
   h1 {
     font-size: clamp(1.2rem, 5.5vw, 1.6rem);
   }
@@ -769,6 +809,22 @@ body,
   }
   .name {
     font-size: clamp(0.3rem, 1.4vw, 0.55rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-status-badge {
+    gap: 4px;
+    padding: 4px 8px;
+  }
+  .hero-status-text {
+    font-size: 0.64rem;
+  }
+  .hero-status-sep {
+    font-size: 0.60rem;
+  }
+  .hero-status-highlight {
+    font-size: 0.63rem;
   }
 }
 

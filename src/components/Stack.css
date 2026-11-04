@@ -303,7 +303,19 @@
 }
 
 .stack-ctrl-icon {
-  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.stack-ctrl-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* ── Locked-Height Clean Description Slot (Zero Layout Shift) ── */
@@ -394,6 +406,29 @@
 }
 
 @media (max-width: 768px) {
+  .interactive-stack-container,
+  .stack-3d-stage {
+    touch-action: pan-y;
+  }
+
+  .stack-wrapper {
+    will-change: transform;
+  }
+
+  .stack-layer-unit {
+    will-change: transform, opacity;
+  }
+
+  /* Significant mobile GPU optimization: reduces expensive multi-pass 28px blur down to 8px */
+  .stack-glass-plate {
+    backdrop-filter: blur(8px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
+  }
+
+  .stack-plate-shadow-wrap {
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28)) !important;
+  }
+
   .interactive-stack-container {
     max-width: 360px;
     height: 390px;

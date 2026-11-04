@@ -1,6 +1,57 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Stack.css";
 
+// Real vector SVG icons replacing legacy unicode emojis
+const AppsWebIcon = () => (
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect width="18" height="18" x="3" y="3" rx="2" />
+    <path d="M3 9h18" />
+    <path d="M9 21V9" />
+  </svg>
+);
+
+const LogicApisIcon = () => (
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+);
+
+const CloudScaleIcon = () => (
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+  </svg>
+);
+
 const stackLayers = [
   {
     id: 1,
@@ -10,7 +61,7 @@ const stackLayers = [
     desc: "Fast, intuitive web applications and mobile apps your customers love using.",
     color: "#FCAB1E",
     rgb: "252, 171, 30",
-    icon: "✦",
+    icon: AppsWebIcon,
   },
   {
     id: 2,
@@ -20,7 +71,7 @@ const stackLayers = [
     desc: "High-throughput business logic, secure payments, and reliable automated workflows.",
     color: "#00C9A7",
     rgb: "0, 201, 167",
-    icon: "⚡",
+    icon: LogicApisIcon,
   },
   {
     id: 3,
@@ -30,7 +81,7 @@ const stackLayers = [
     desc: "Enterprise cloud architecture with 99.9% uptime, data security, and fast scaling.",
     color: "#8B5CF6",
     rgb: "139, 92, 246",
-    icon: "🛡️",
+    icon: CloudScaleIcon,
   },
 ];
 
@@ -53,28 +104,66 @@ const Stack = () => {
   const idleAngle = useRef(0);
 
   useEffect(() => {
-    let rafId;
+    let rafId = null;
+    let isVisible = true;
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
+    // Pause animation when stack is scrolled out of viewport
+    let observer;
+    if (typeof IntersectionObserver !== "undefined" && containerRef.current) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !rafId) {
+            rafId = requestAnimationFrame(animate);
+          }
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(containerRef.current);
+    }
 
     const animate = () => {
-      if (!isMouseOverStage) {
-        // Calming organic idle breathing float
-        idleAngle.current += 0.015;
-        targetRotX.current = Math.sin(idleAngle.current * 0.8) * 3;
-        targetRotY.current = Math.cos(idleAngle.current * 0.6) * 4.5;
+      if (!isVisible) {
+        rafId = null;
+        return;
       }
 
-      currentRotX.current += (targetRotX.current - currentRotX.current) * 0.08;
-      currentRotY.current += (targetRotY.current - currentRotY.current) * 0.08;
+      if (!isMouseOverStage) {
+        if (!isMobile) {
+          // Calming organic idle breathing float on desktop only
+          idleAngle.current += 0.012;
+          targetRotX.current = Math.sin(idleAngle.current * 0.8) * 2.5;
+          targetRotY.current = Math.cos(idleAngle.current * 0.6) * 3.5;
+        } else {
+          // Static resting tilt on mobile — saves 100% of idle GPU render passes
+          targetRotX.current = 0;
+          targetRotY.current = 0;
+        }
+      }
 
-      if (stackWrapperRef.current) {
-        stackWrapperRef.current.style.transform = `rotateX(${currentRotX.current}deg) rotateY(${currentRotY.current}deg)`;
+      const diffX = targetRotX.current - currentRotX.current;
+      const diffY = targetRotY.current - currentRotY.current;
+
+      // Only update DOM if there is meaningful delta
+      if (Math.abs(diffX) > 0.02 || Math.abs(diffY) > 0.02) {
+        currentRotX.current += diffX * 0.08;
+        currentRotY.current += diffY * 0.08;
+
+        if (stackWrapperRef.current) {
+          stackWrapperRef.current.style.transform = `rotateX(${currentRotX.current}deg) rotateY(${currentRotY.current}deg)`;
+        }
       }
 
       rafId = requestAnimationFrame(animate);
     };
 
-    animate();
-    return () => cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      if (observer) observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [isMouseOverStage]);
 
   // Stage Mouse Move: Smooth 3D tilt + robust layer detection without boundary jitter
@@ -228,7 +317,9 @@ const Stack = () => {
                   "--accent": layer.color,
                 }}
               >
-                <span className="stack-ctrl-icon">{layer.icon}</span>
+                <span className="stack-ctrl-icon">
+                  {typeof layer.icon === "function" ? <layer.icon /> : layer.icon}
+                </span>
                 <span>{layer.label}</span>
               </button>
             );

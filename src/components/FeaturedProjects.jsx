@@ -67,6 +67,7 @@ export default function FeaturedProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const blobsRef = useRef([]);
+  const sectionRef = useRef(null);
 
   // Animated gradient blobs (identical system to WhatWeDoSection and ReviewSlider)
   useEffect(() => {
@@ -93,28 +94,62 @@ export default function FeaturedProjects() {
       return `rgb(${Math.round(r1 + (r2 - r1) * p)},${Math.round(g1 + (g2 - g1) * p)},${Math.round(b1 + (b2 - b1) * p)})`;
     }
 
-    let t = 0, palIdx = 0, nxtIdx = 1, prog = 0, raf;
-    const animate = () => {
-      t += 0.004;
-      prog += 0.008;
-      if (prog >= 1) {
-        prog = 0;
-        palIdx = nxtIdx;
-        nxtIdx = (nxtIdx + 1) % palette.length;
+    let t = 0, palIdx = 0, nxtIdx = 1, prog = 0, raf = null, isVisible = false;
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
+    let observer;
+    if (typeof IntersectionObserver !== "undefined" && sectionRef.current) {
+      observer = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !raf) {
+          raf = requestAnimationFrame(animate);
+        }
+      }, { threshold: 0.05 });
+      observer.observe(sectionRef.current);
+    } else {
+      isVisible = true;
+    }
+
+    let lastTime = 0;
+    const frameInterval = isMobile ? 40 : 16;
+
+    const animate = (now) => {
+      if (!isVisible) {
+        raf = null;
+        return;
       }
-      const cur = palette[palIdx], nxt = palette[nxtIdx];
-      blobsRef.current.forEach((el, i) => {
-        if (!el) return;
-        const { rx, ry, spd, ph } = cfg[i];
-        const x = 50 + rx * Math.sin(t * spd + ph);
-        const y = 50 + ry * Math.cos(t * spd * 0.72 + ph);
-        el.style.transform = `translate(${x - 50}%,${y - 50}%)`;
-        el.style.backgroundColor = lerpCol(cur[i % 5], nxt[i % 5], prog);
-      });
+
+      if (now - lastTime >= frameInterval) {
+        lastTime = now;
+        t += 0.004;
+        prog += 0.008;
+        if (prog >= 1) {
+          prog = 0;
+          palIdx = nxtIdx;
+          nxtIdx = (nxtIdx + 1) % palette.length;
+        }
+        const cur = palette[palIdx], nxt = palette[nxtIdx];
+        blobsRef.current.forEach((el, i) => {
+          if (!el) return;
+          const { rx, ry, spd, ph } = cfg[i];
+          const x = 50 + rx * Math.sin(t * spd + ph);
+          const y = 50 + ry * Math.cos(t * spd * 0.72 + ph);
+          el.style.transform = `translate(${x - 50}%,${y - 50}%)`;
+          el.style.backgroundColor = lerpCol(cur[i % 5], nxt[i % 5], prog);
+        });
+      }
+
       raf = requestAnimationFrame(animate);
     };
-    animate();
-    return () => cancelAnimationFrame(raf);
+
+    if (isVisible) {
+      raf = requestAnimationFrame(animate);
+    }
+
+    return () => {
+      if (observer) observer.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   useEffect(() => {
@@ -139,7 +174,7 @@ export default function FeaturedProjects() {
   const infiniteProjects = [...projects, ...projects];
 
   return (
-    <section className="fp-section" aria-label="Our Work">
+    <section className="fp-section" ref={sectionRef} aria-label="Our Work">
       {/* Animated gradient blobs (identical to What We Do & Testimonials) */}
       <div className="fp-bg" aria-hidden="true">
         {[0, 1, 2, 3, 4].map((i) => (

@@ -1,5 +1,4 @@
-import AOS from "aos";
-import Typewriter from "typewriter-effect/dist/core";
+import React, { useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import "./HomePage.css";
 import members from "../work.json";
@@ -8,7 +7,6 @@ import AnimatedGradient from "../components/Carousal";
 import Stack from "../components/Stack";
 import Form from "../components/Form";
 import ReviewSlider from "../components/ReviewSlider";
-import React, {useEffect, useRef } from "react";
 import WhatWeDoSection from "../components/WhatWeDoSection";
 import FeaturedProjects from "../components/FeaturedProjects";
 
@@ -37,24 +35,62 @@ useEffect(() => {
     const[r1,g1,b1]=hexRgb(c1),[r2,g2,b2]=hexRgb(c2);
     return`rgb(${Math.round(r1+(r2-r1)*p)},${Math.round(g1+(g2-g1)*p)},${Math.round(b1+(b2-b1)*p)})`;
   }
-  let t=0,palIdx=0,nxtIdx=1,prog=0,raf;
-  const animate=()=>{
-    t+=0.004; prog+=0.008;
-    if(prog>=1){prog=0;palIdx=nxtIdx;nxtIdx=(nxtIdx+1)%palette.length;}
-    const cur=palette[palIdx],nxt=palette[nxtIdx];
-    formBlobsRef.current.forEach((el,i)=>{
-      if(!el)return;
-      const{rx,ry,spd,ph}=cfg[i];
-      const x=50+rx*Math.sin(t*spd+ph);
-      const y=50+ry*Math.cos(t*spd*0.72+ph);
-      el.style.transform=`translate(${x-50}%,${y-50}%)`;
-      el.style.backgroundColor=lerpCol(cur[i%5],nxt[i%5],prog);
-    });
-    raf=requestAnimationFrame(animate);
+  let t=0,palIdx=0,nxtIdx=1,prog=0,raf=null,isVisible=false;
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
+  let observer;
+  if (typeof IntersectionObserver !== "undefined" && formRef.current) {
+    observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible && !raf) {
+        raf = requestAnimationFrame(animate);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(formRef.current);
+  } else {
+    isVisible = true;
+  }
+
+  let lastTime = 0;
+  const frameInterval = isMobile ? 40 : 16; // 25fps on mobile, 60fps on desktop
+
+  const animate = (now) => {
+    if (!isVisible) {
+      raf = null;
+      return;
+    }
+
+    if (now - lastTime >= frameInterval) {
+      lastTime = now;
+      t += 0.004; prog += 0.008;
+      if (prog >= 1) {
+        prog = 0;
+        palIdx = nxtIdx;
+        nxtIdx = (nxtIdx + 1) % palette.length;
+      }
+      const cur = palette[palIdx], nxt = palette[nxtIdx];
+      formBlobsRef.current.forEach((el, i) => {
+        if (!el) return;
+        const { rx, ry, spd, ph } = cfg[i];
+        const x = 50 + rx * Math.sin(t * spd + ph);
+        const y = 50 + ry * Math.cos(t * spd * 0.72 + ph);
+        el.style.transform = `translate(${x - 50}%,${y - 50}%)`;
+        el.style.backgroundColor = lerpCol(cur[i % 5], nxt[i % 5], prog);
+      });
+    }
+
+    raf = requestAnimationFrame(animate);
   };
-  animate();
-  return()=>cancelAnimationFrame(raf);
-},[]);
+
+  if (isVisible) {
+    raf = requestAnimationFrame(animate);
+  }
+
+  return () => {
+    if (observer) observer.disconnect();
+    if (raf) cancelAnimationFrame(raf);
+  };
+}, []);
   return (
     <>
       <div className="homepage">

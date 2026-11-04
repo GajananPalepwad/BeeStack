@@ -5,7 +5,9 @@ export default function AnimatedGradient() {
 
   useEffect(() => {
     const c = canvasRef.current;
-    const ctx = c.getContext("2d");
+    if (!c) return;
+    const ctx = c.getContext("2d", { alpha: false });
+    if (!ctx) return;
 
     const brightness = 0.6; // 0.0 = black, 1.0 = normal
     const col = (x, y, r, g, b) => {
@@ -32,22 +34,54 @@ export default function AnimatedGradient() {
       );
 
     let t = 0;
+    let rafId = null;
+    let isVisible = true;
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
-    // Check if mobile screen size (768px and below)
-    const isMobile = () => window.innerWidth <= 768;
+    // Observe canvas visibility — pause animation when scrolled past hero
+    let observer;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !rafId) {
+            rafId = requestAnimationFrame(run);
+          }
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(c);
+    }
 
-    const run = () => {
-      for (let x = 0; x <= 35; x++) {
-        for (let y = 0; y <= 35; y++) {
-          col(x, y, R(x, y, t) * brightness, G(x, y, t) * brightness, B(x, y, t) * brightness);
-        }
+    let lastFrameTime = 0;
+    const minFrameInterval = isMobile ? 36 : 22; // ~28fps on mobile to preserve battery and GPU, ~45fps on desktop
+    const limit = isMobile ? 22 : 31;
+
+    const run = (currentTime) => {
+      if (!isVisible) {
+        rafId = null;
+        return;
       }
-      // Use 0.03 for mobile, 0.06 for desktop
-      t += isMobile() ? 0.03 : 0.04;
-      requestAnimationFrame(run);
+
+      if (currentTime - lastFrameTime >= minFrameInterval) {
+        lastFrameTime = currentTime;
+        for (let x = 0; x <= limit; x++) {
+          for (let y = 0; y <= limit; y++) {
+            col(x, y, R(x, y, t) * brightness, G(x, y, t) * brightness, B(x, y, t) * brightness);
+          }
+        }
+        t += isMobile() ? 0.025 : 0.04;
+      }
+
+      rafId = requestAnimationFrame(run);
     };
 
-    run();
+    rafId = requestAnimationFrame(run);
+
+    return () => {
+      if (observer) observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -57,10 +91,11 @@ export default function AnimatedGradient() {
       height={32}
       style={{
         width: "100vw",
-        height: "",
+        height: "100%",
         margin: 0,
         display: "block",
-        overflow: "hidden",        
+        overflow: "hidden",
+        willChange: "transform",
       }}
     />
   );
