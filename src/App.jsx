@@ -25,6 +25,7 @@ const Location = lazy(() => import('./pages/Location'));
 const Sitemap = lazy(() => import('./pages/Sitemap'));
 const Legal = lazy(() => import('./pages/Legal'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const WhatsAppRedirect = lazy(() => import('./pages/WhatsAppRedirect'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -140,6 +141,14 @@ const router = createBrowserRouter([
         element: <Legal />
       },
       {
+        path: "wa",
+        element: <WhatsAppRedirect />
+      },
+      {
+        path: "whatsapp",
+        element: <WhatsAppRedirect />
+      },
+      {
         path: "*",
         element: <NotFound />
       },
@@ -149,6 +158,10 @@ const router = createBrowserRouter([
 
 function App() {
   const [isLoading, setIsLoading] = useState(() => {
+    // Skip splash completely if opening direct redirect links like /wa
+    if (typeof window !== 'undefined' && /^\/wa(tsapp)?\/?$/i.test(window.location.pathname)) {
+      return false;
+    }
     // Check if splash was already shown in this browser session
     try {
       return !sessionStorage.getItem('beestack_splash_seen');

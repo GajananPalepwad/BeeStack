@@ -1,4 +1,19 @@
 {
-    
-    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+  "routes": [
+    {
+      "src": "^/wa/?$",
+      "status": 302,
+      "headers": { "Location": "https://wa.me/919272501599" }
+    },
+    {
+      "src": "^/whatsapp/?$",
+      "status": 302,
+      "headers": { "Location": "https://wa.me/919272501599" }
+    },
+    {
+      "src": "/[^.]+",
+      "dest": "/",
+      "status": 200
+    }
+  ]
 }
