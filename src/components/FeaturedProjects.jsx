@@ -65,9 +65,24 @@ const getLinkMeta = (url) => {
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState(initialProjectsData);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
   const blobsRef = useRef([]);
   const sectionRef = useRef(null);
+
+  const trackRef = useRef(null);
+  const cardRefs = useRef([]);
+  const resetWidthRef = useRef(0);
+  const offsetRef = useRef(0);
+  const isPausedRef = useRef(false);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartOffsetRef = useRef(0);
+  const hasMovedRef = useRef(false);
+  const resumeTimeoutRef = useRef(null);
+
+  // Sync isPausedRef with selectedProject (pause when modal open)
+  useEffect(() => {
+    isPausedRef.current = Boolean(selectedProject);
+  }, [selectedProject]);
 
   // Animated gradient blobs (identical system to WhatWeDoSection and ReviewSlider)
   useEffect(() => {
@@ -170,8 +185,114 @@ export default function FeaturedProjects() {
     };
   }, []);
 
-  // Seamless infinite loop: duplicate items so track glides continuously from 0% to -50%
-  const infiniteProjects = [...projects, ...projects];
+  // Measure exact pixel offset where the duplicate set begins (direct from layout engine)
+  const updateResetWidth = () => {
+    const secondSetFirstCard = cardRefs.current[projects.length];
+    if (secondSetFirstCard) {
+      resetWidthRef.current = secondSetFirstCard.offsetLeft;
+    }
+  };
+
+  useEffect(() => {
+    updateResetWidth();
+
+    let ro;
+    if (typeof ResizeObserver !== "undefined" && trackRef.current) {
+      ro = new ResizeObserver(() => {
+        updateResetWidth();
+      });
+      ro.observe(trackRef.current);
+    }
+
+    window.addEventListener("resize", updateResetWidth);
+    return () => {
+      window.removeEventListener("resize", updateResetWidth);
+      if (ro) ro.disconnect();
+    };
+  }, [projects]);
+
+  // Continuous, silky-smooth infinite glide loop via requestAnimationFrame (immune to Safari keyframe bugs)
+  useEffect(() => {
+    let rafId = null;
+    let lastTime = performance.now();
+    const SPEED_PX_PER_SEC = 35; // Steady, calm, highly readable glide speed across all devices
+
+    const animate = (now) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      const resetWidth = resetWidthRef.current;
+      if (!isPausedRef.current && !isDraggingRef.current && resetWidth > 0) {
+        offsetRef.current += SPEED_PX_PER_SEC * dt;
+        if (offsetRef.current >= resetWidth) {
+          offsetRef.current = offsetRef.current % resetWidth;
+        }
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translate3d(-${offsetRef.current.toFixed(2)}px, 0, 0)`;
+        }
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
+
+  const pauseAutoScroll = () => {
+    isPausedRef.current = true;
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+  };
+
+  const resumeAutoScroll = (delay = 1200) => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    resumeTimeoutRef.current = setTimeout(() => {
+      if (!selectedProject) {
+        isPausedRef.current = false;
+      }
+    }, delay);
+  };
+
+  const handleTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    pauseAutoScroll();
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.touches[0].clientX;
+    dragStartOffsetRef.current = offsetRef.current;
+    hasMovedRef.current = false;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDraggingRef.current || !e.touches || e.touches.length === 0) return;
+    const diff = e.touches[0].clientX - dragStartXRef.current;
+    if (Math.abs(diff) > 5) {
+      hasMovedRef.current = true;
+    }
+    const resetWidth = resetWidthRef.current;
+    if (resetWidth > 0) {
+      let nextOffset = dragStartOffsetRef.current - diff;
+      while (nextOffset < 0) nextOffset += resetWidth;
+      nextOffset = nextOffset % resetWidth;
+      offsetRef.current = nextOffset;
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(-${nextOffset.toFixed(2)}px, 0, 0)`;
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    isDraggingRef.current = false;
+    resumeAutoScroll(1400);
+  };
+
+  const handleCardClick = (project) => {
+    if (hasMovedRef.current) return;
+    setSelectedProject(project);
+  };
 
   return (
     <section className="fp-section" ref={sectionRef} aria-label="Our Work">
@@ -192,28 +313,36 @@ export default function FeaturedProjects() {
         <p className="fp-sub">Flagship platforms and products, crafted to move your ideas forward.</p>
       </div>
 
-      {/* Edge-feathered Infinite Marquee Wrapper (avoids sudden cuts on both ends) */}
+      {/* Edge-feathered Infinite Marquee Wrapper (smooth, seamless glide across all devices) */}
       <div
         className="fp-carousel-wrapper no-scrollbar"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
+        onMouseEnter={pauseAutoScroll}
+        onMouseLeave={() => resumeAutoScroll(400)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
       >
-        <div className={`fp-marquee-track no-scrollbar ${isPaused ? "fp-marquee-track--paused" : ""}`}>
-          {infiniteProjects.map((project, idx) => {
+        <div className="fp-marquee-track" ref={trackRef}>
+          {[...projects, ...projects].map((project, idx) => {
+            const isDuplicate = idx >= projects.length;
             const projectLinks = normalizeLinks(project.link);
             const hasImage = Boolean(project.image && project.image.trim() !== "");
             const displayUrl = getDisplayUrl(project);
 
             return (
-              <article className="fp-card" key={`${project.id}-${idx}`}>
+              <article
+                className="fp-card"
+                key={`fp-${idx}-${project.id}`}
+                ref={(el) => (cardRefs.current[idx] = el)}
+                aria-hidden={isDuplicate ? "true" : undefined}
+              >
                 {/* Browser Window Mockup with Deep Surrounding Shadow */}
                 <div
                   className="fp-mockup-window"
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => handleCardClick(project)}
                   role="button"
-                  tabIndex={0}
+                  tabIndex={isDuplicate ? -1 : 0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       setSelectedProject(project);
@@ -286,7 +415,7 @@ export default function FeaturedProjects() {
 
                   <h3
                     className="fp-card-title"
-                    onClick={() => setSelectedProject(project)}
+                    onClick={() => handleCardClick(project)}
                   >
                     {project.title}
                   </h3>
@@ -317,6 +446,7 @@ export default function FeaturedProjects() {
                   <button
                     className="fp-case-study-btn"
                     onClick={() => setSelectedProject(project)}
+                    tabIndex={isDuplicate ? -1 : 0}
                   >
                     <span>Case Study</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -337,6 +467,7 @@ export default function FeaturedProjects() {
                             className={`fp-link-btn fp-link-btn--${meta.type}`}
                             title={`Open ${meta.label}`}
                             onClick={(e) => e.stopPropagation()}
+                            tabIndex={isDuplicate ? -1 : 0}
                           >
                             {meta.icon}
                             <span>{meta.label}</span>

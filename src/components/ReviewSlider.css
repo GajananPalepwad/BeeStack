@@ -70,22 +70,37 @@
   overflow: hidden;
   /* Ample vertical padding so drop shadows and hover lift are NEVER cut off */
   padding: 24px 0 76px;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 1) 5%,
-    rgba(0, 0, 1) 95%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 1) 5%,
-    rgba(0, 0, 1) 95%,
-    transparent 100%
-  );
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.review-carousel-wrapper::before,
+.review-carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(24px, 5vw, 64px);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.review-carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #d8eaf2 15%, rgba(216, 234, 242, 0) 100%);
+}
+
+.review-carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #d8eaf2 15%, rgba(216, 234, 242, 0) 100%);
+}
+
+.review-carousel-wrapper:active {
+  cursor: grabbing;
 }
 
 .review-carousel-wrapper::-webkit-scrollbar {
@@ -94,17 +109,21 @@
   height: 0 !important;
 }
 
-/* ── Infinite Auto Slow Scroll Track ── */
+/* ── Infinite Auto Slow Scroll Track (Driven by rAF for 100% stable cross-platform infinite glide) ── */
 .review-marquee-track {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 24px;
   width: max-content;
-  will-change: transform;
-  animation: reviewInfiniteGlide 56s linear infinite;
+  overflow: visible;
   /* Internal breathing space for shadows */
-  padding: 12px 14px 36px;
+  padding: 12px 0 36px;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
 }
 
 .review-marquee-track::-webkit-scrollbar {
@@ -113,28 +132,14 @@
   height: 0 !important;
 }
 
-.review-marquee-track:hover,
-.review-marquee-track--paused {
-  animation-play-state: paused;
-}
-
-@keyframes reviewInfiniteGlide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-50% - 12px));
-  }
-}
-
 /* ── Glassmorphism Testimonial Card ── */
 .review-card {
-  flex: 0 0 clamp(330px, 31vw, 410px);
+  flex: 0 0 clamp(320px, 28vw, 390px);
   min-height: 330px;
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(20px) saturate(1.7);
   -webkit-backdrop-filter: blur(20px) saturate(1.7);
-  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
   border-radius: 20px;
   padding: 24px 22px 20px;
   display: flex;
@@ -150,6 +155,7 @@
   overflow: hidden;
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .review-card::before {
@@ -546,7 +552,7 @@
   }
 
   .review-card {
-    flex: 0 0 84vw;
+    flex: 0 0 clamp(290px, 82vw, 360px);
     padding: 20px 18px 16px;
     min-height: 290px;
   }
@@ -555,10 +561,14 @@
     padding: 16px 0 60px;
   }
 
+  .review-carousel-wrapper::before,
+  .review-carousel-wrapper::after {
+    width: clamp(16px, 4vw, 36px);
+  }
+
   .review-marquee-track {
-    animation-duration: 45s;
     gap: 18px;
-    padding: 10px 12px 28px;
+    padding: 10px 0 28px;
   }
 
   .review-modal-content {

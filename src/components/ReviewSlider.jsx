@@ -3,9 +3,24 @@ import "./ReviewSlider.css";
 
 function ReviewSlider() {
   const [selectedReview, setSelectedReview] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
   const blobsRef = useRef([]);
   const sectionRef = useRef(null);
+
+  const trackRef = useRef(null);
+  const cardRefs = useRef([]);
+  const resetWidthRef = useRef(0);
+  const offsetRef = useRef(0);
+  const isPausedRef = useRef(false);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartOffsetRef = useRef(0);
+  const hasMovedRef = useRef(false);
+  const resumeTimeoutRef = useRef(null);
+
+  // Sync isPausedRef with selectedReview (pause when modal open)
+  useEffect(() => {
+    isPausedRef.current = Boolean(selectedReview);
+  }, [selectedReview]);
 
   // Close modal on Escape and prevent body background scroll
   useEffect(() => {
@@ -23,6 +38,115 @@ function ReviewSlider() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedReview]);
+
+  // Measure exact pixel offset where the duplicate set begins (direct from layout engine)
+  const updateResetWidth = () => {
+    const secondSetFirstCard = cardRefs.current[reviews.length];
+    if (secondSetFirstCard) {
+      resetWidthRef.current = secondSetFirstCard.offsetLeft;
+    }
+  };
+
+  useEffect(() => {
+    updateResetWidth();
+
+    let ro;
+    if (typeof ResizeObserver !== "undefined" && trackRef.current) {
+      ro = new ResizeObserver(() => {
+        updateResetWidth();
+      });
+      ro.observe(trackRef.current);
+    }
+
+    window.addEventListener("resize", updateResetWidth);
+    return () => {
+      window.removeEventListener("resize", updateResetWidth);
+      if (ro) ro.disconnect();
+    };
+  }, []);
+
+  // Continuous, silky-smooth infinite glide loop via requestAnimationFrame (immune to Safari keyframe bugs)
+  useEffect(() => {
+    let rafId = null;
+    let lastTime = performance.now();
+    const SPEED_PX_PER_SEC = 35; // Steady, calm, highly readable glide speed
+
+    const animate = (now) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      const resetWidth = resetWidthRef.current;
+      if (!isPausedRef.current && !isDraggingRef.current && resetWidth > 0) {
+        offsetRef.current += SPEED_PX_PER_SEC * dt;
+        if (offsetRef.current >= resetWidth) {
+          offsetRef.current = offsetRef.current % resetWidth;
+        }
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translate3d(-${offsetRef.current.toFixed(2)}px, 0, 0)`;
+        }
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
+
+  const pauseAutoScroll = () => {
+    isPausedRef.current = true;
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+  };
+
+  const resumeAutoScroll = (delay = 1200) => {
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    resumeTimeoutRef.current = setTimeout(() => {
+      if (!selectedReview) {
+        isPausedRef.current = false;
+      }
+    }, delay);
+  };
+
+  const handleTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    pauseAutoScroll();
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.touches[0].clientX;
+    dragStartOffsetRef.current = offsetRef.current;
+    hasMovedRef.current = false;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDraggingRef.current || !e.touches || e.touches.length === 0) return;
+    const diff = e.touches[0].clientX - dragStartXRef.current;
+    if (Math.abs(diff) > 5) {
+      hasMovedRef.current = true;
+    }
+    const resetWidth = resetWidthRef.current;
+    if (resetWidth > 0) {
+      let nextOffset = dragStartOffsetRef.current - diff;
+      while (nextOffset < 0) nextOffset += resetWidth;
+      nextOffset = nextOffset % resetWidth;
+      offsetRef.current = nextOffset;
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(-${nextOffset.toFixed(2)}px, 0, 0)`;
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    isDraggingRef.current = false;
+    resumeAutoScroll(1400);
+  };
+
+  const handleCardClick = (review) => {
+    if (hasMovedRef.current) return;
+    setSelectedReview(review);
+  };
 
   // Animated ambient blobs (unified with WhatWeDoSection and FeaturedProjects)
   useEffect(() => {
@@ -194,9 +318,6 @@ function ReviewSlider() {
     },
   ];
 
-  // Seamless infinite loop: duplicate items so track glides continuously from 0% to -50%
-  const infiniteReviews = [...reviews, ...reviews];
-
   return (
     <section className="review-section" ref={sectionRef} aria-label="Testimonials">
       {/* Animated blob background */}
@@ -216,122 +337,130 @@ function ReviewSlider() {
         <p className="review-sub">What our clients say about working with us.</p>
       </div>
 
-      {/* Edge-feathered Infinite Marquee Carousel (identical smooth glide to Projects) */}
+      {/* Edge-feathered Infinite Marquee Carousel (smooth, seamless glide across all devices) */}
       <div
         className="review-carousel-wrapper no-scrollbar"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
+        onMouseEnter={pauseAutoScroll}
+        onMouseLeave={() => resumeAutoScroll(400)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
       >
-        <div className={`review-marquee-track no-scrollbar ${isPaused ? "review-marquee-track--paused" : ""}`}>
-          {infiniteReviews.map((review, i) => (
-            <article
-              className="review-card"
-              key={`${review.id || i}-${i}`}
-              onClick={() => setSelectedReview(review)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  setSelectedReview(review);
-                }
-              }}
-              title="Click to view full testimonial"
-            >
-              {/* Card Top: Quote Icon + Rating Stars */}
-              <div className="review-card-header">
-                <svg className="review-quote-icon" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
-                    fill="currentColor"
-                  />
-                </svg>
-
-                <div className="review-stars" aria-label={`${review.stars} out of 5 stars`}>
-                  {Array.from({ length: 5 }).map((_, idx) => (
-                    <svg
-                      key={idx}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill={idx < review.stars ? "#FCAB1E" : "none"}
-                      stroke="#FFD700"
-                      strokeWidth="1.5"
-                      viewBox="0 0 20 20"
-                      className="review-star"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M11.48 3.499a.562.562 0 011.04 0l2.05 4.157a.563.563 0 00.424.308l4.59.667a.563.563 0 01.312.96l-3.32 3.236a.563.563 0 00-.162.498l.784 4.574a.563.563 0 01-.817.593L12 17.347l-4.103 2.158a.563.563 0 01-.818-.593l.785-4.574a.563.563 0 00-.162-.498l-3.32-3.236a.563.563 0 01.312-.96l4.59-.667a.563.563 0 00.424-.308l2.05-4.157z"
-                      />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-
-              {/* Review Text Preview */}
-              <div className="review-card-body">
-                <blockquote className="review-text">{review.text}</blockquote>
-                <span className="review-read-more">Read full story &rarr;</span>
-              </div>
-
-              {/* Author Row */}
-              <div className="review-author">
-                <div className="review-author-left">
-                  {review.img ? (
-                    <img
-                      className="review-avatar"
-                      src={review.img}
-                      alt={review.name}
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                        if (e.currentTarget.nextElementSibling) {
-                          e.currentTarget.nextElementSibling.style.display = "flex";
-                        }
-                      }}
+        <div className="review-marquee-track" ref={trackRef}>
+          {[...reviews, ...reviews].map((review, idx) => {
+            const isDuplicate = idx >= reviews.length;
+            return (
+              <article
+                className="review-card"
+                key={`rev-${idx}-${review.id || idx}`}
+                ref={(el) => (cardRefs.current[idx] = el)}
+                onClick={() => handleCardClick(review)}
+                role="button"
+                tabIndex={isDuplicate ? -1 : 0}
+                aria-hidden={isDuplicate ? "true" : undefined}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setSelectedReview(review);
+                  }
+                }}
+                title="Click to view full testimonial"
+              >
+                {/* Card Top: Quote Icon + Rating Stars */}
+                <div className="review-card-header">
+                  <svg className="review-quote-icon" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
+                      fill="currentColor"
                     />
-                  ) : null}
+                  </svg>
 
-                  {/* Fallback Initials Avatar Badge */}
-                  <div
-                    className="review-avatar-initials"
-                    style={{
-                      display: review.img ? "none" : "flex",
-                      background: `linear-gradient(135deg, ${review.color || "#FCAB1E"}, #0f172a)`,
-                    }}
-                  >
-                    {review.initials || review.name.slice(0, 2).toUpperCase()}
-                  </div>
-
-                  <div className="review-author-info">
-                    <span className="review-name">{review.name}</span>
-                    <span className="review-role">{review.role}</span>
+                  <div className="review-stars" aria-label={`${review.stars} out of 5 stars`}>
+                    {Array.from({ length: 5 }).map((_, sIdx) => (
+                      <svg
+                        key={sIdx}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill={sIdx < review.stars ? "#FCAB1E" : "none"}
+                        stroke="#FFD700"
+                        strokeWidth="1.5"
+                        viewBox="0 0 20 20"
+                        className="review-star"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M11.48 3.499a.562.562 0 011.04 0l2.05 4.157a.563.563 0 00.424.308l4.59.667a.563.563 0 01.312.96l-3.32 3.236a.563.563 0 00-.162.498l.784 4.574a.563.563 0 01-.817.593L12 17.347l-4.103 2.158a.563.563 0 01-.818-.593l.785-4.574a.563.563 0 00-.162-.498l-3.32-3.236a.563.563 0 01.312-.96l4.59-.667a.563.563 0 00.424-.308l2.05-4.157z"
+                        />
+                      </svg>
+                    ))}
                   </div>
                 </div>
 
-                {/* Direct Live Website Link Badge */}
-                {review.website && (
-                  <a
-                    href={review.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="review-website-pill"
-                    title={`Visit ${review.displayUrl || review.website}`}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <span>{review.displayUrl ? review.displayUrl.replace(/^www\./, "") : "Live Site"}</span>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
+                {/* Review Text Preview */}
+                <div className="review-card-body">
+                  <blockquote className="review-text">{review.text}</blockquote>
+                  <span className="review-read-more">Read full story &rarr;</span>
+                </div>
+
+                {/* Author Row */}
+                <div className="review-author">
+                  <div className="review-author-left">
+                    {review.img ? (
+                      <img
+                        className="review-avatar"
+                        src={review.img}
+                        alt={review.name}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          if (e.currentTarget.nextElementSibling) {
+                            e.currentTarget.nextElementSibling.style.display = "flex";
+                          }
+                        }}
+                      />
+                    ) : null}
+
+                    {/* Fallback Initials Avatar Badge */}
+                    <div
+                      className="review-avatar-initials"
+                      style={{
+                        display: review.img ? "none" : "flex",
+                        background: `linear-gradient(135deg, ${review.color || "#FCAB1E"}, #0f172a)`,
+                      }}
+                    >
+                      {review.initials || review.name.slice(0, 2).toUpperCase()}
+                    </div>
+
+                    <div className="review-author-info">
+                      <span className="review-name">{review.name}</span>
+                      <span className="review-role">{review.role}</span>
+                    </div>
+                  </div>
+
+                  {/* Direct Live Website Link Badge */}
+                  {review.website && (
+                    <a
+                      href={review.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="review-website-pill"
+                      title={`Visit ${review.displayUrl || review.website}`}
+                      tabIndex={isDuplicate ? -1 : 0}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>{review.displayUrl ? review.displayUrl.replace(/^www\./, "") : "Live Site"}</span>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
 
